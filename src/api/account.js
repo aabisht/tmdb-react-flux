@@ -1,4 +1,4 @@
-import apiConstants from "../apiConstants";
+import apiConstants from "./apiConstants";
 import { handleResponse, handleError, ApiParameters } from "./apiUtils";
 
 const baseURL = apiConstants.API_URL + "/account";

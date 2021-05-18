@@ -5,7 +5,7 @@
 // Get the user to authorize the request token
 // Create a new  with the athorized request token
 
-import apiConstants from "../apiConstants";
+import apiConstants from "./apiConstants";
 import { handleResponse, handleError, ApiParameters } from "./apiUtils";
 
 const baseURL = apiConstants.API_URL + "/authentication";
