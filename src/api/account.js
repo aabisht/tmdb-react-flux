@@ -4,27 +4,22 @@ import { handleResponse, handleError, ApiParameters } from "./apiUtils";
 const baseURL = apiConstants.API_URL + "/account";
 
 // Get your account details.
-export function getAccount(api_key, session_id) {
+export function getAccount(session_id) {
   const url =
     baseURL +
     "?" +
-    ApiParameters.setApiKey(api_key) +
+    ApiParameters.setApiKey(apiConstants.API_KEY) +
     "&" +
     ApiParameters.setSessionID(session_id);
   return fetch(url).then(handleResponse).catch(handleError);
 }
 
 // Get all of the lists created by an account. Will invlude private lists if you are the owner.
-export function getCreatedLists(
-  api_key,
-  session_id,
-  language = "en-US",
-  page = "1"
-) {
+export function getCreatedLists(session_id, language = "en-US", page = "1") {
   const url =
     baseURL +
     "/lists?" +
-    ApiParameters.setApiKey(api_key) +
+    ApiParameters.setApiKey(apiConstants.API_KEY) +
     "&" +
     ApiParameters.setLanguage(language) +
     "&" +
@@ -36,7 +31,6 @@ export function getCreatedLists(
 
 // Get the list of your favorite movies or TV shows.
 export function getFavorite(
-  api_key,
   session_id,
   media_type,
   language = "en-US",
@@ -48,7 +42,7 @@ export function getFavorite(
     "/favorite/" +
     media_type +
     "?" +
-    ApiParameters.setApiKey(api_key) +
+    ApiParameters.setApiKey(apiConstants.API_KEY) +
     "&" +
     ApiParameters.setLanguage(language) +
     "&" +
@@ -61,11 +55,11 @@ export function getFavorite(
 }
 
 // This method allows you to mark a movie or TV show as a favorite item.
-export function markAsFavorite(api_key, session_id, mediaData) {
+export function markAsFavorite(session_id, mediaData) {
   const url =
     baseURL +
     "/favorite?" +
-    ApiParameters.setApiKey(api_key) +
+    ApiParameters.setApiKey(apiConstants.API_KEY) +
     "&" +
     ApiParameters.setSessionID(session_id);
 
@@ -82,7 +76,6 @@ export function markAsFavorite(api_key, session_id, mediaData) {
 
 // Get a list of all the movies, TV shows and TV episodes you have rated.
 export function getRated(
-  api_key,
   session_id,
   media_type,
   episodes,
@@ -97,7 +90,7 @@ export function getRated(
     media_type +
     _episodes +
     "?" +
-    ApiParameters.setApiKey(api_key) +
+    ApiParameters.setApiKey(apiConstants.API_KEY) +
     "&" +
     ApiParameters.setLanguage(language) +
     "&" +
@@ -111,7 +104,6 @@ export function getRated(
 
 // Get a list of all the movies or TV shows you have added to your watchlist.
 export function getWatchlist(
-  api_key,
   session_id,
   media_type,
   language = "en-US",
@@ -123,7 +115,7 @@ export function getWatchlist(
     "/watchlist/" +
     media_type +
     "?" +
-    ApiParameters.setApiKey(api_key) +
+    ApiParameters.setApiKey(apiConstants.API_KEY) +
     "&" +
     ApiParameters.setLanguage(language) +
     "&" +
@@ -136,11 +128,11 @@ export function getWatchlist(
 }
 
 // This method allows you to mark a movie or TV show as a favorite item.
-export function addToWatchlist(api_key, session_id, mediaData) {
+export function addToWatchlist(session_id, mediaData) {
   const url =
     baseURL +
     "/watchlist?" +
-    ApiParameters.setApiKey(api_key) +
+    ApiParameters.setApiKey(apiConstants.API_KEY) +
     "&" +
     ApiParameters.setSessionID(session_id);
 
