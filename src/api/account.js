@@ -7,9 +7,7 @@ const baseURL = apiConstants.API_URL + "/account";
 export function getAccount(session_id) {
   const url =
     baseURL +
-    "?" +
     ApiParameters.setApiKey(apiConstants.API_KEY) +
-    "&" +
     ApiParameters.setSessionID(session_id);
   return fetch(url).then(handleResponse).catch(handleError);
 }
@@ -18,13 +16,10 @@ export function getAccount(session_id) {
 export function getCreatedLists(session_id, language = "en-US", page = "1") {
   const url =
     baseURL +
-    "/lists?" +
+    "/lists" +
     ApiParameters.setApiKey(apiConstants.API_KEY) +
-    "&" +
     ApiParameters.setLanguage(language) +
-    "&" +
     ApiParameters.setSessionID(session_id) +
-    "&" +
     ApiParameters.setPageNumber(page);
   return fetch(url).then(handleResponse).catch(handleError);
 }
@@ -35,21 +30,16 @@ export function getFavorite(
   media_type,
   language = "en-US",
   page = "1",
-  sort_by = apiConstants.SORT_BY_ASC
+  sort_by = apiConstants.SORT_BY_CREATED_AT_ASC
 ) {
   const url =
     baseURL +
     "/favorite/" +
     media_type +
-    "?" +
     ApiParameters.setApiKey(apiConstants.API_KEY) +
-    "&" +
     ApiParameters.setLanguage(language) +
-    "&" +
     ApiParameters.setSessionID(session_id) +
-    "&" +
     ApiParameters.setSortBy(sort_by) +
-    "&" +
     ApiParameters.setPageNumber(page);
   return fetch(url).then(handleResponse).catch(handleError);
 }
@@ -58,9 +48,8 @@ export function getFavorite(
 export function markAsFavorite(session_id, mediaData) {
   const url =
     baseURL +
-    "/favorite?" +
+    "/favorite" +
     ApiParameters.setApiKey(apiConstants.API_KEY) +
-    "&" +
     ApiParameters.setSessionID(session_id);
 
   return fetch(url, {
@@ -81,7 +70,7 @@ export function getRated(
   episodes,
   language = "en-US",
   page = "1",
-  sort_by = apiConstants.SORT_BY_ASC
+  sort_by = apiConstants.SORT_BY_CREATED_AT_ASC
 ) {
   let _episodes = episodes ? "/" + episodes : "";
   const url =
@@ -89,15 +78,10 @@ export function getRated(
     "/rated/" +
     media_type +
     _episodes +
-    "?" +
     ApiParameters.setApiKey(apiConstants.API_KEY) +
-    "&" +
     ApiParameters.setLanguage(language) +
-    "&" +
     ApiParameters.setSessionID(session_id) +
-    "&" +
     ApiParameters.setSortBy(sort_by) +
-    "&" +
     ApiParameters.setPageNumber(page);
   return fetch(url).then(handleResponse).catch(handleError);
 }
@@ -108,21 +92,16 @@ export function getWatchlist(
   media_type,
   language = "en-US",
   page = "1",
-  sort_by = apiConstants.SORT_BY_ASC
+  sort_by = apiConstants.SORT_BY_CREATED_AT_ASC
 ) {
   const url =
     baseURL +
     "/watchlist/" +
     media_type +
-    "?" +
     ApiParameters.setApiKey(apiConstants.API_KEY) +
-    "&" +
     ApiParameters.setLanguage(language) +
-    "&" +
     ApiParameters.setSessionID(session_id) +
-    "&" +
     ApiParameters.setSortBy(sort_by) +
-    "&" +
     ApiParameters.setPageNumber(page);
   return fetch(url).then(handleResponse).catch(handleError);
 }
@@ -131,9 +110,8 @@ export function getWatchlist(
 export function addToWatchlist(session_id, mediaData) {
   const url =
     baseURL +
-    "/watchlist?" +
+    "/watchlist" +
     ApiParameters.setApiKey(apiConstants.API_KEY) +
-    "&" +
     ApiParameters.setSessionID(session_id);
 
   return fetch(url, {

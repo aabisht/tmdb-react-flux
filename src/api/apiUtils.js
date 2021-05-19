@@ -18,22 +18,30 @@ export function handleError(error) {
 
 export class ApiParameters {
   setApiKey(api_key) {
-    return "api_key=" + api_key;
+    return "?api_key=" + api_key;
   }
 
   setSessionID(session_id) {
-    return "session_id=" + session_id;
+    return "&session_id=" + session_id;
   }
 
   setLanguage(language) {
-    return "language=" + language;
+    return "&language=" + language;
   }
 
   setPageNumber(page) {
-    return "page=" + page;
+    return "&page=" + page;
   }
 
   setSortBy(sort) {
-    return "sort_by=" + sort;
+    return "&sort_by=" + sort;
+  }
+
+  setWithWatchMonetizationTypes(with_watch_monetization_types) {
+    return "&with_watch_monetization_types=" + with_watch_monetization_types;
+  }
+
+  setIncludeAdult(include_adult) {
+    return "&include_adult=" + include_adult;
   }
 }

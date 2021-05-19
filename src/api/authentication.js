@@ -13,7 +13,7 @@ const baseURL = apiConstants.API_URL + "/authentication";
 // Create a temporary request token that can be used to validate a TMDB user login.
 export function getRequestToken() {
   const url =
-    baseURL + "/token/new?" + ApiParameters.setApiKey(apiConstants.API_KEY);
+    baseURL + "/token/new" + ApiParameters.setApiKey(apiConstants.API_KEY);
   return fetch(url).then(handleResponse).catch(handleError);
 }
 
@@ -21,7 +21,7 @@ export function getRequestToken() {
 export function createSessionWithLogin(username, password, request_token) {
   const url =
     baseURL +
-    "/token/validate_with_login?" +
+    "/token/validate_with_login" +
     ApiParameters.setApiKey(apiConstants.API_KEY);
 
   const mediaData = {
@@ -44,7 +44,7 @@ export function createSessionWithLogin(username, password, request_token) {
 // If you would like to delete (or "logout") from a session, call this method with a valid session ID.
 export function deleteSession(session_id) {
   const url =
-    baseURL + "/session?" + ApiParameters.setApiKey(apiConstants.API_KEY);
+    baseURL + "/session" + ApiParameters.setApiKey(apiConstants.API_KEY);
 
   const mediaData = {
     session_id: session_id,
