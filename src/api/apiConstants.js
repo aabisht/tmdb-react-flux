@@ -1,10 +1,15 @@
 const apiConstants = {
   API_URL: "https://api.themoviedb.org/3",
 
+  MEDIA_ALL: "all",
   MEDIA_MOVIES: "movies",
   MEDIA_MOVIE: "movie",
   MEDIA_TV: "tv",
+  MEDIA_PERSON: "person",
   MEDIA_EPISODES: "episodes",
+
+  TIME_WINDOW_DAY: "day",
+  TIME_WINDOW_WEEK: "week",
 
   API_KEY: "fa5754e1deb4b7b86e1d8146ec1e428e",
 
