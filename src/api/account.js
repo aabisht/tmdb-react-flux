@@ -2,13 +2,14 @@ import apiConstants from "./apiConstants";
 import { handleResponse, handleError, ApiParameters } from "./apiUtils";
 
 const baseURL = apiConstants.API_URL + "/account";
+const apiParam = new ApiParameters();
 
 // Get your account details.
 export function getAccount(session_id) {
   const url =
     baseURL +
-    ApiParameters.setApiKey(apiConstants.API_KEY) +
-    ApiParameters.setSessionID(session_id);
+    apiParam.setApiKey(apiConstants.API_KEY) +
+    apiParam.setSessionID(session_id);
   return fetch(url).then(handleResponse).catch(handleError);
 }
 
@@ -17,10 +18,10 @@ export function getCreatedLists(session_id, language = "en-US", page = "1") {
   const url =
     baseURL +
     "/lists" +
-    ApiParameters.setApiKey(apiConstants.API_KEY) +
-    ApiParameters.setLanguage(language) +
-    ApiParameters.setSessionID(session_id) +
-    ApiParameters.setPageNumber(page);
+    apiParam.setApiKey(apiConstants.API_KEY) +
+    apiParam.setLanguage(language) +
+    apiParam.setSessionID(session_id) +
+    apiParam.setPageNumber(page);
   return fetch(url).then(handleResponse).catch(handleError);
 }
 
@@ -36,11 +37,11 @@ export function getFavorite(
     baseURL +
     "/favorite/" +
     media_type +
-    ApiParameters.setApiKey(apiConstants.API_KEY) +
-    ApiParameters.setLanguage(language) +
-    ApiParameters.setSessionID(session_id) +
-    ApiParameters.setSortBy(sort_by) +
-    ApiParameters.setPageNumber(page);
+    apiParam.setApiKey(apiConstants.API_KEY) +
+    apiParam.setLanguage(language) +
+    apiParam.setSessionID(session_id) +
+    apiParam.setSortBy(sort_by) +
+    apiParam.setPageNumber(page);
   return fetch(url).then(handleResponse).catch(handleError);
 }
 
@@ -49,12 +50,12 @@ export function markAsFavorite(session_id, mediaData) {
   const url =
     baseURL +
     "/favorite" +
-    ApiParameters.setApiKey(apiConstants.API_KEY) +
-    ApiParameters.setSessionID(session_id);
+    apiParam.setApiKey(apiConstants.API_KEY) +
+    apiParam.setSessionID(session_id);
 
   return fetch(url, {
     method: "POST",
-    headers: { "content-type": "application/json" },
+    headers: { "content-type": "application/json;charset=utf-8" },
     body: JSON.stringify({
       ...mediaData,
     }),
@@ -78,11 +79,11 @@ export function getRated(
     "/rated/" +
     media_type +
     _episodes +
-    ApiParameters.setApiKey(apiConstants.API_KEY) +
-    ApiParameters.setLanguage(language) +
-    ApiParameters.setSessionID(session_id) +
-    ApiParameters.setSortBy(sort_by) +
-    ApiParameters.setPageNumber(page);
+    apiParam.setApiKey(apiConstants.API_KEY) +
+    apiParam.setLanguage(language) +
+    apiParam.setSessionID(session_id) +
+    apiParam.setSortBy(sort_by) +
+    apiParam.setPageNumber(page);
   return fetch(url).then(handleResponse).catch(handleError);
 }
 
@@ -98,11 +99,11 @@ export function getWatchlist(
     baseURL +
     "/watchlist/" +
     media_type +
-    ApiParameters.setApiKey(apiConstants.API_KEY) +
-    ApiParameters.setLanguage(language) +
-    ApiParameters.setSessionID(session_id) +
-    ApiParameters.setSortBy(sort_by) +
-    ApiParameters.setPageNumber(page);
+    apiParam.setApiKey(apiConstants.API_KEY) +
+    apiParam.setLanguage(language) +
+    apiParam.setSessionID(session_id) +
+    apiParam.setSortBy(sort_by) +
+    apiParam.setPageNumber(page);
   return fetch(url).then(handleResponse).catch(handleError);
 }
 
@@ -111,12 +112,12 @@ export function addToWatchlist(session_id, mediaData) {
   const url =
     baseURL +
     "/watchlist" +
-    ApiParameters.setApiKey(apiConstants.API_KEY) +
-    ApiParameters.setSessionID(session_id);
+    apiParam.setApiKey(apiConstants.API_KEY) +
+    apiParam.setSessionID(session_id);
 
   return fetch(url, {
     method: "POST",
-    headers: { "content-type": "application/json" },
+    headers: { "content-type": "application/json;charset=utf-8" },
     body: JSON.stringify({
       ...mediaData,
     }),

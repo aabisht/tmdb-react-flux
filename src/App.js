@@ -1,8 +1,11 @@
 import logo from "./logo.svg";
 import "./App.css";
-import { getDetails } from "./api/movie";
+import { getAlternativeTitles } from "./api/movies";
 
 function App() {
+  getAlternativeTitles(550).then((response) => {
+    console.log(response);
+  });
   return (
     <div className="App">
       <header className="App-header">

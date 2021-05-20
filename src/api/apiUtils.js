@@ -44,4 +44,28 @@ export class ApiParameters {
   setIncludeAdult(include_adult) {
     return "&include_adult=" + include_adult;
   }
+
+  setWatchRegion(watch_region) {
+    return "&watch_region=" + watch_region;
+  }
+
+  setRegion(region) {
+    return "&region=" + region;
+  }
+
+  setWatchProviders(watch_providers) {
+    return "&with_watch_providers=" + watch_providers;
+  }
+
+  setWithGenres(with_genres) {
+    return "&with_genres=" + with_genres;
+  }
+
+  setExternalSource(external_source) {
+    return "&external_source=" + external_source;
+  }
+
+  setCountry(country) {
+    return "&country=" + country;
+  }
 }

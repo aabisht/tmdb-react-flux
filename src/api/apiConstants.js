@@ -2,6 +2,7 @@ const apiConstants = {
   API_URL: "https://api.themoviedb.org/3",
 
   MEDIA_MOVIES: "movies",
+  MEDIA_MOVIE: "movie",
   MEDIA_TV: "tv",
   MEDIA_EPISODES: "episodes",
 
@@ -29,6 +30,15 @@ const apiConstants = {
   WITH_WATCH_MONETIZATION_TYPES_ADS: "ads",
   WITH_WATCH_MONETIZATION_TYPES_RENT: "rent",
   WITH_WATCH_MONETIZATION_TYPES_BUY: "buy",
+
+  EXTERNAL_SOURCE_IMDB: "imdb_id",
+  EXTERNAL_SOURCE_FIREBASE_MID: "freebase_mid",
+  EXTERNAL_SOURCE_FIREBASE: "freebase_id",
+  EXTERNAL_SOURCE_TVDB: "tvdb_id",
+  EXTERNAL_SOURCE_TVRAGE: "tvrage_id",
+  EXTERNAL_SOURCE_FACEBOOK: "facebook_id",
+  EXTERNAL_SOURCE_TWITTER: "twitter_id",
+  EXTERNAL_SOURCE_INSTAGRAM: "instagram_id",
 };
 
 export default apiConstants;

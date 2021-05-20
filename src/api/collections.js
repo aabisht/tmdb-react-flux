@@ -2,6 +2,7 @@ import apiConstants from "./apiConstants";
 import { handleResponse, handleError, ApiParameters } from "./apiUtils";
 
 const baseURL = apiConstants.API_URL + "/collection";
+const apiParam = new ApiParameters();
 
 // Get collection details by id.
 export function getDetails(collection_id) {
@@ -9,8 +10,8 @@ export function getDetails(collection_id) {
     baseURL +
     "/" +
     collection_id +
-    ApiParameters.setApiKey(apiConstants.API_KEY) +
-    ApiParameters.setLanguage(language);
+    apiParam.setApiKey(apiConstants.API_KEY) +
+    apiParam.setLanguage(language);
   return fetch(url).then(handleResponse).catch(handleError);
 }
 
@@ -21,8 +22,8 @@ export function getImages(collection_id) {
     "/" +
     collection_id +
     "/images" +
-    ApiParameters.setApiKey(apiConstants.API_KEY) +
-    ApiParameters.setLanguage(language);
+    apiParam.setApiKey(apiConstants.API_KEY) +
+    apiParam.setLanguage(language);
   return fetch(url).then(handleResponse).catch(handleError);
 }
 
@@ -33,7 +34,7 @@ export function getTranslations(collection_id) {
     "/" +
     collection_id +
     "/translations" +
-    ApiParameters.setApiKey(apiConstants.API_KEY) +
-    ApiParameters.setLanguage(language);
+    apiParam.setApiKey(apiConstants.API_KEY) +
+    apiParam.setLanguage(language);
   return fetch(url).then(handleResponse).catch(handleError);
 }
