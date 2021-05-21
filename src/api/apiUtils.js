@@ -68,4 +68,20 @@ export class ApiParameters {
   setCountry(country) {
     return "&country=" + country;
   }
+
+  setQuery(query) {
+    return "&query=" + query;
+  }
+
+  setYear(year) {
+    return "&year=" + year;
+  }
+
+  setPrimaryReleaseYear(primary_release_year) {
+    return "&primary_release_year=" + primary_release_year;
+  }
+
+  setFirstAirDateYear(first_air_date_year) {
+    return "&first_air_date_year=" + first_air_date_year;
+  }
 }
