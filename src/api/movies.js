@@ -193,9 +193,9 @@ export function getWatchProviders(movie_id) {
   return fetch(url).then(handleResponse).catch(handleError);
 }
 
-// This method allows you to mark a movie or TV show as a favorite item.
+// Rate a Movie show.
 //  The rating value is expected to be between 0.5 and 10.0.
-export function rateMovie(session_id, rating) {
+export function rateMovie(movie_id, session_id, rating) {
   const url =
     baseURL +
     "/" +
@@ -220,7 +220,7 @@ export function rateMovie(session_id, rating) {
 }
 
 // Remove your rating for a movie.
-export function deleteMovieRating(session_id) {
+export function deleteMovieRating(movie_id, session_id) {
   const url =
     baseURL +
     "/" +
