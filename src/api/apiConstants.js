@@ -7,6 +7,7 @@ const apiConstants = {
   MEDIA_TV: "tv",
   MEDIA_PERSON: "person",
   MEDIA_EPISODES: "episodes",
+  MEDIA_REGIONS: "regions",
 
   TIME_WINDOW_DAY: "day",
   TIME_WINDOW_WEEK: "week",

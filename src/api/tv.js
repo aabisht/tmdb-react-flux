@@ -15,7 +15,10 @@ export function getDetails(tv_id, language = "en-US") {
   return fetch(url).then(handleResponse).catch(handleError);
 }
 
-// Get the primary TV show details by id.
+// Grab the following account states for a session:
+// 1. TV show rating
+// 2. If it belongs to your watchlist
+// 3. If it belongs to your favourite list
 export function getAccountStates(tv_id, session_id, language = "en-US") {
   const url =
     baseURL +
@@ -23,8 +26,8 @@ export function getAccountStates(tv_id, session_id, language = "en-US") {
     tv_id +
     "/account_states" +
     apiParam.setApiKey(apiConstants.API_KEY) +
-    apiParam.se;
-  apiParam.setLanguage(language);
+    apiParam.setSessionID(session_id) +
+    apiParam.setLanguage(language);
   return fetch(url).then(handleResponse).catch(handleError);
 }
 
@@ -233,7 +236,7 @@ export function rateTVShow(tv_id, session_id, rating) {
     .catch(handleError);
 }
 
-// Remove your rating for a movie.
+// Remove your rating for a TV Show.
 export function deleteRating(tv_id, session_id) {
   const url =
     baseURL +
