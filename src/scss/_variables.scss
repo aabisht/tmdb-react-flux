@@ -1,0 +1,210 @@
+// Colors
+$primary-color: #01b4ff !default;
+$primary-darken-5-color: darken($primary-color, 5%) !default;
+$primary-darken-10-color: darken($primary-color, 10%) !default;
+$primary-lighten-5-color: lighten($primary-color, 5%) !default;
+$primary-lighten-10-color: lighten($primary-color, 10%) !default;
+$primary-lightest-color: #1abcff !default;
+
+$secondary-color: #1ed5a9 !default;
+$secondary-darken-5-color: darken($secondary-color, 5%) !default;
+$secondary-darken-10-color: darken($secondary-color, 10%) !default;
+$secondary-lighten-5-color: lighten($secondary-color, 5%) !default;
+$secondary-lighten-10-color: lighten($secondary-color, 10%) !default;
+$secondary-lightest-color: #c0fecf !default;
+
+$danger-color: #dc3545 !default;
+$danger-darken-5-color: darken($danger-color, 5%) !default;
+$danger-darken-10-color: darken($danger-color, 10%) !default;
+$danger-lighten-5-color: lighten($danger-color, 5%) !default;
+$danger-lighten-10-color: lighten($danger-color, 10%) !default;
+$danger-lightest-color: #ff9ca6 !default;
+
+$warning-color: #ffc107 !default;
+$warning-darken-5-color: darken($warning-color, 5%) !default;
+$warning-darken-10-color: darken($warning-color, 10%) !default;
+$warning-lighten-5-color: lighten($warning-color, 5%) !default;
+$warning-lighten-10-color: lighten($warning-color, 10%) !default;
+$warning-lightest-color: #ffeaab !default;
+
+$white-color: #ffffff !default;
+$white-darken-5-color: darken($white-color, 5%) !default;
+$white-darken-10-color: darken($white-color, 10%) !default;
+$white-darken-15-color: darken($white-color, 15%) !default;
+$white-darken-20-color: darken($white-color, 20%) !default;
+
+$black-color: #000000 !default;
+
+$body-bg-color: $black-color !default;
+$body-color: $white-color !default;
+$border-color: $white-darken-10-color !default;
+$text-muted-color: $white-darken-20-color !default;
+
+$selection-body-bg-color: $primary-color !default;
+$selection-body-color: $white-color !default;
+
+$variable-prefix: tmdb- !default;
+
+$colors: (
+  "primary": rgbValue($primary-color),
+  "primary-darken-5": rgbValue($primary-darken-5-color),
+  "primary-darken-10": rgbValue($primary-darken-10-color),
+  "primary-lighten-5": rgbValue($primary-lighten-5-color),
+  "primary-lighten-10": rgbValue($primary-lighten-10-color),
+  "primary-lightest": rgbValue($primary-lightest-color),
+  "secondary": rgbValue($secondary-color),
+  "secondary-darken-5": rgbValue($secondary-darken-5-color),
+  "secondary-darken-10": rgbValue($secondary-darken-10-color),
+  "secondary-lighten-5": rgbValue($secondary-lighten-5-color),
+  "secondary-lighten-10": rgbValue($secondary-lighten-10-color),
+  "secondary-lightest": rgbValue($secondary-lightest-color),
+  "danger": rgbValue($danger-color),
+  "danger-darken-5": rgbValue($danger-darken-5-color),
+  "danger-darken-10": rgbValue($danger-darken-10-color),
+  "danger-lighten-5": rgbValue($danger-lighten-5-color),
+  "danger-lighten-10": rgbValue($danger-lighten-10-color),
+  "danger-lightest": rgbValue($danger-lightest-color),
+  "warning": rgbValue($warning-color),
+  "warning-darken-5": rgbValue($warning-darken-5-color),
+  "warning-darken-10": rgbValue($warning-darken-10-color),
+  "warning-lighten-5": rgbValue($warning-lighten-5-color),
+  "warning-lighten-10": rgbValue($warning-lighten-10-color),
+  "warning-lightest": rgbValue($warning-lightest-color),
+  "white": rgbValue($white-color),
+  "white-darken-5": rgbValue($white-darken-5-color),
+  "white-darken-10": rgbValue($white-darken-10-color),
+  "white-darken-15": rgbValue($white-darken-15-color),
+  "white-darken-20": rgbValue($white-darken-20-color),
+  "black": rgbValue($black-color),
+) !default;
+
+// $font-size-root effects the value of `rem`, which is used for as well font sizes, paddings and margins
+// $font-size-base effects the font size of the body text
+$font-size-root: null !default;
+$font-size-base: 16px !default; // Assumes the browser default, typically `16px`
+$font-size-sm: 14px !default;
+$font-size-lg: 20px !default;
+
+$font-weight-light: 300 !default;
+$font-weight-normal: 400 !default;
+$font-weight-bold: 500 !default;
+$font-weight-bolder: 700 !default;
+
+$font-weight-base: $font-weight-normal !default;
+
+$line-height-base: 1.5 !default;
+$line-height-sm: 1.25 !default;
+$line-height-lg: 2 !default;
+
+$body-text-align: left !default;
+
+// Options
+$enable-smooth-scroll: true !default;
+$enable-rounded: true !default;
+$enable-button-pointers: true !default;
+$spacer: 16px !default;
+$border-width: 1px !default;
+
+// Typography
+//
+// Font, line-height, and color for body text, headings, and more.
+$font-family-base: "Roboto", sans-serif !default;
+$font-family-code: $font-family-base !default;
+
+$hr-margin-y: $spacer !default;
+$hr-color: inherit !default;
+$hr-height: $border-width !default;
+$hr-opacity: 0.25 !default;
+
+$legend-margin-bottom: 8px !default;
+$legend-font-size: 24px !default;
+$legend-font-weight: null !default;
+
+// scss-docs-start headings-variables
+$headings-margin-bottom: $spacer / 2 !default;
+$headings-font-family: null !default;
+$headings-font-style: null !default;
+$headings-font-weight: 500 !default;
+$headings-line-height: 1.2 !default;
+$headings-color: null !default;
+
+$h1-font-size: 46px !default;
+$h2-font-size: 38px !default;
+$h3-font-size: 30px !default;
+$h4-font-size: 24px !default;
+$h5-font-size: 20px !default;
+$h6-font-size: 16px !default;
+
+// Paragraphs
+//
+// Style p element.
+
+$paragraph-margin-bottom: 1rem !default;
+
+// Links
+$link-color: $secondary-color !default;
+$link-decoration: null !default;
+$link-hover-color: $secondary-darken-5-color !default;
+$link-hover-decoration: null !default;
+
+// scss-docs-start type-variables
+$dt-font-weight: $font-weight-bolder !default;
+$small-font-size: $font-size-sm !default;
+$mark-padding: 3px !default;
+$mark-bg: $warning-lightest-color !default;
+$sub-sup-font-size: 12px !default;
+
+// Code
+$code-font-size: $small-font-size !default;
+$code-color: $danger-lightest-color !default;
+
+$pre-color: null !default;
+
+$kbd-padding-y: 3px !default;
+$kbd-padding-x: 0.4rem !default;
+$kbd-font-size: $code-font-size !default;
+$kbd-color: $white-darken-15-color !default;
+$kbd-bg: $black-color !default;
+$nested-kbd-font-weight: $font-weight-bold !default;
+
+// scss-docs-start border-radius-variables
+$border-radius: 4px !default;
+$border-radius-sm: 3px !default;
+$border-radius-lg: 5px !default;
+$border-radius-pill: 800px !default;
+
+// scss-docs-start table-variables
+$table-cell-padding-y: 8px !default;
+$table-cell-padding-x: 8px !default;
+$table-cell-padding-y-sm: 4px !default;
+$table-cell-padding-x-sm: 4px !default;
+$table-cell-vertical-align: top !default;
+
+$table-color: $body-color !default;
+$table-bg: transparent !default;
+
+$table-th-font-weight: null !default;
+
+$table-striped-color: $table-color !default;
+$table-striped-bg-factor: 0.05 !default;
+$table-striped-bg: rgba($black-color, $table-striped-bg-factor) !default;
+
+$table-active-color: $table-color !default;
+$table-active-bg-factor: 0.1 !default;
+$table-active-bg: rgba($black-color, $table-active-bg-factor) !default;
+
+$table-hover-color: $table-color !default;
+$table-hover-bg-factor: 0.075 !default;
+$table-hover-bg: rgba($black-color, $table-hover-bg-factor) !default;
+
+$table-border-factor: 0.1 !default;
+$table-border-width: $border-width !default;
+$table-border-color: $border-color !default;
+
+$table-striped-order: odd !default;
+
+$table-group-separator-color: currentColor !default;
+
+$table-caption-color: $text-muted-color !default;
+
+$table-bg-scale: -80% !default;

@@ -1,0 +1,3 @@
+@function rgbValue($color) {
+  @return ceil(red($color)), ceil(green($color)), ceil(blue($color));
+}

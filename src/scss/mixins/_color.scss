@@ -1,0 +1,38 @@
+@mixin color($color, $colorName, $opacity: false) {
+  @if $color == "inherit" {
+    color: $color;
+  } @else {
+    @each $colorName, $value in $colors {
+      @if RGB(#{$value}) == RGB(rgbValue($color)) {
+        @if $opacity {
+          color: RGBA(rgbValue($color), $opacity);
+          color: RGBA(var(--#{$variable-prefix}#{$colorName}-color), $opacity);
+        } @else {
+          color: RGB(rgbValue($color));
+          color: RGB(var(--#{$variable-prefix}#{$colorName}-color));
+        }
+      }
+    }
+  }
+}
+
+@mixin backgroundColor($color, $colorName, $opacity: false) {
+  @if $color == "inherit" {
+    background-color: $color;
+  } @else {
+    @each $colorName, $value in $colors {
+      @if RGB(#{$value}) == RGB(rgbValue($color)) {
+        @if $opacity {
+          background-color: RGBA(rgbValue($color), $opacity);
+          background-color: RGBA(
+            var(--#{$variable-prefix}#{$colorName}-color),
+            $opacity
+          );
+        } @else {
+          background-color: RGB(rgbValue($color));
+          background-color: RGB(var(--#{$variable-prefix}#{$colorName}-color));
+        }
+      }
+    }
+  }
+}
