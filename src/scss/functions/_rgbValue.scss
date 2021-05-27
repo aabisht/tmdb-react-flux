@@ -1,3 +1,11 @@
 @function rgbValue($color) {
   @return ceil(red($color)), ceil(green($color)), ceil(blue($color));
 }
+
+@function getColorName($color) {
+  @each $colorName, $value in $colors {
+    @if RGB(#{$value}) == RGB(rgbValue($color)) {
+      @return var(--#{$variable-prefix}#{$colorName}-color);
+    }
+  }
+}

@@ -34,6 +34,10 @@ $white-darken-15-color: darken($white-color, 15%) !default;
 $white-darken-20-color: darken($white-color, 20%) !default;
 
 $black-color: #000000 !default;
+$black-lighten-5-color: lighten($black-color, 5%) !default;
+$black-lighten-10-color: lighten($black-color, 10%) !default;
+$black-lighten-15-color: lighten($black-color, 15%) !default;
+$black-lighten-20-color: lighten($black-color, 20%) !default;
 
 $body-bg-color: $black-color !default;
 $body-color: $white-color !default;
@@ -76,6 +80,10 @@ $colors: (
   "white-darken-15": rgbValue($white-darken-15-color),
   "white-darken-20": rgbValue($white-darken-20-color),
   "black": rgbValue($black-color),
+  "black-lighten-5": rgbValue($black-lighten-5-color),
+  "black-lighten-10": rgbValue($black-lighten-10-color),
+  "black-lighten-15": rgbValue($black-lighten-15-color),
+  "black-lighten-20": rgbValue($black-lighten-20-color),
 ) !default;
 
 // $font-size-root effects the value of `rem`, which is used for as well font sizes, paddings and margins
