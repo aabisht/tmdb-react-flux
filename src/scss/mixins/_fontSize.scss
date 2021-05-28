@@ -1,6 +1,8 @@
 // Mixin convert given PX value of font to rem.
 @mixin fontSize($size) {
-  @if $size {
+  @if $size == "inherit" {
+    font-size: $size;
+  } @else if $size {
     font-size: $size;
     font-size: calculateRem($size);
   }

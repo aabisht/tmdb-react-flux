@@ -1,5 +1,5 @@
-@mixin color($color, $colorName, $opacity: false) {
-  @if $color == "inherit" {
+@mixin color($color, $opacity: false) {
+  @if $color == "inherit" OR $color == "currentColor" OR $color == null {
     color: $color;
   } @else {
     $color-name: getColorName($color);
@@ -13,8 +13,8 @@
   }
 }
 
-@mixin backgroundColor($color, $colorName, $opacity: false) {
-  @if $color == "inherit" {
+@mixin backgroundColor($color, $opacity: false) {
+  @if $color == "inherit" OR $color == "currentColor" OR $color == null {
     background-color: $color;
   } @else {
     $color-name: getColorName($color);

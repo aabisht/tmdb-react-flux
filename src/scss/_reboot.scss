@@ -32,8 +32,8 @@
 }
 
 ::selection {
-  @include color($selection-body-color, primary-color);
-  @include backgroundColor($selection-body-bg-color, white-color);
+  @include color($selection-body-color);
+  @include backgroundColor($selection-body-bg-color);
 }
 
 // Body
@@ -50,8 +50,8 @@ body {
   line-height: $line-height-base;
   text-align: $body-text-align;
   @include fontSize($font-size-base);
-  @include color($body-color, white-color);
-  @include backgroundColor($body-bg-color, black-color);
+  @include color($body-color);
+  @include backgroundColor($body-bg-color);
   -webkit-text-size-adjust: 100%; // 3
   -webkit-tap-highlight-color: rgba($black-color, 0); // 4
 }
@@ -63,9 +63,8 @@ body {
 
 hr {
   margin: calculateRem($hr-margin-y) 0;
-  color: $hr-color; // 1
-  @include color($hr-color, body-color);
-  background-color: currentColor;
+  @include color($hr-color);
+  @include backgroundColor(currentColor);
   border: 0;
   opacity: $hr-opacity;
 }
@@ -85,39 +84,50 @@ hr:not([size]) {
   margin-bottom: calculateRem($headings-margin-bottom);
   font-family: $headings-font-family;
   font-style: $headings-font-style;
-  font-weight: $headings-font-weight;
   line-height: $headings-line-height;
   color: $headings-color;
 }
 
-h1 {
+h1,
+.h1 {
   @extend %heading;
   @include fontSize($h1-font-size);
+  font-weight: $h1-font-weight;
 }
 
-h2 {
+h2,
+.h2 {
   @extend %heading;
   @include fontSize($h2-font-size);
+  font-weight: $h2-font-weight;
 }
 
-h3 {
+h3,
+.h3 {
   @extend %heading;
   @include fontSize($h3-font-size);
+  font-weight: $h3-font-weight;
 }
 
-h4 {
+h4,
+.h4 {
   @extend %heading;
   @include fontSize($h4-font-size);
+  font-weight: $h4-font-weight;
 }
 
-h5 {
+h5,
+.h5 {
   @extend %heading;
   @include fontSize($h5-font-size);
+  font-weight: $h5-font-weight;
 }
 
-h6 {
+h6,
+.h6 {
   @extend %heading;
   @include fontSize($h6-font-size);
+  font-weight: $h6-font-weight;
 }
 
 // Reset margins on paragraphs
@@ -127,7 +137,7 @@ h6 {
 
 p {
   margin-top: 0;
-  margin-bottom: $paragraph-margin-bottom;
+  margin-bottom: calculateRem($paragraph-margin-bottom);
 }
 
 // Abbreviations
@@ -148,7 +158,7 @@ abbr[data-bs-original-title] {
 // Address
 
 address {
-  margin-bottom: 1rem;
+  margin-bottom: calculateRem($base-size);
   font-style: normal;
   line-height: inherit;
 }
@@ -157,14 +167,14 @@ address {
 
 ol,
 ul {
-  padding-left: 2rem;
+  padding-left: calculateRem($base-size * 2);
 }
 
 ol,
 ul,
 dl {
   margin-top: 0;
-  margin-bottom: 1rem;
+  margin-bottom: calculateRem($base-size);
 }
 
 ol ol,
@@ -188,7 +198,7 @@ dd {
 // Blockquote
 
 blockquote {
-  margin: 0 0 1rem;
+  margin: 0 0 calculateRem($base-size);
 }
 
 // Strong
@@ -212,7 +222,7 @@ small {
 
 mark {
   padding: calculateRem($mark-padding);
-  background-color: $mark-bg;
+  @include backgroundColor($mark-bg);
 }
 
 // Sub and Sup
@@ -229,20 +239,21 @@ sup {
 }
 
 sub {
-  bottom: -0.25em;
+  bottom: -#{calculateRem(4px)};
 }
 sup {
-  top: -0.5em;
+  top: -#{calculateRem(8px)};
 }
 
 // Links
 
 a {
-  color: $link-color;
+  @include color($link-color);
   text-decoration: $link-decoration;
+  @include transition($link-transition);
 
   &:hover {
-    color: $link-hover-color;
+    @include color($link-hover-color);
     text-decoration: $link-hover-decoration;
   }
 }
@@ -267,9 +278,7 @@ code,
 kbd,
 samp {
   font-family: $font-family-code;
-  @include fontSize(
-    $font-size-base
-  ); // Correct the odd `em` font sizing in all browsers.
+  @include fontSize($font-size-base);
   direction: ltr #{"/* rtl:ignore */"};
   unicode-bidi: bidi-override;
 }
@@ -284,7 +293,7 @@ pre {
   margin-bottom: 1rem; // 2
   overflow: auto; // 3
   @include fontSize($code-font-size);
-  color: $pre-color;
+  @include color($pre-color);
 
   // Account for some code outputs that place code tags in pre tags
   code {
@@ -296,7 +305,7 @@ pre {
 
 code {
   @include fontSize($code-font-size);
-  color: $code-color;
+  @include color($code-color);
   word-wrap: break-word;
 
   // Streamline the style when inside anchors to avoid broken underline and more
@@ -306,11 +315,11 @@ code {
 }
 
 kbd {
-  padding: $kbd-padding-y $kbd-padding-x;
+  padding: calculateRem($kbd-padding-y) calculateRem($kbd-padding-x);
   @include fontSize($kbd-font-size);
-  color: $kbd-color;
-  background-color: $kbd-bg;
   @include border-radius($border-radius-sm);
+  @include backgroundColor($kbd-bg);
+  @include color($kbd-color);
 
   kbd {
     padding: 0;
@@ -324,7 +333,7 @@ kbd {
 // Apply a consistent margin strategy (matches our type styles).
 
 figure {
-  margin: 0 0 1rem;
+  margin: 0 0 calculateRem($base-size);
 }
 
 // Images and content
@@ -344,10 +353,10 @@ table {
 }
 
 caption {
-  padding-top: $table-cell-padding-y;
-  padding-bottom: $table-cell-padding-y;
-  color: $table-caption-color;
+  padding-top: calculateRem($table-cell-padding-y);
+  padding-bottom: calculateRem($table-cell-padding-y);
   text-align: left;
+  @include color($table-caption-color);
 }
 
 // 1. Removes font-weight bold by inheriting
@@ -493,7 +502,7 @@ legend {
   float: left; // 1
   width: 100%;
   padding: 0;
-  margin-bottom: $legend-margin-bottom;
+  margin-bottom: calculateRem($legend-margin-bottom);
   @include fontSize($legend-font-size);
   font-weight: $legend-font-weight;
   line-height: inherit;

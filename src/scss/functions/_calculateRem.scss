@@ -3,7 +3,7 @@
   @if $size==0 {
     @return 0;
   } @else {
-    $remSize: $size / 16px;
+    $remSize: $size / $base-size;
 
     //Default font size on html element is 100%, equivalent to 16px;
     @return #{$remSize}rem;

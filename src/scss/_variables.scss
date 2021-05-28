@@ -39,7 +39,7 @@ $black-lighten-10-color: lighten($black-color, 10%) !default;
 $black-lighten-15-color: lighten($black-color, 15%) !default;
 $black-lighten-20-color: lighten($black-color, 20%) !default;
 
-$body-bg-color: $black-color !default;
+$body-bg-color: $black-lighten-10-color !default;
 $body-color: $white-color !default;
 $border-color: $white-darken-10-color !default;
 $text-muted-color: $white-darken-20-color !default;
@@ -86,10 +86,12 @@ $colors: (
   "black-lighten-20": rgbValue($black-lighten-20-color),
 ) !default;
 
+$base-size: 16px !default;
+
 // $font-size-root effects the value of `rem`, which is used for as well font sizes, paddings and margins
 // $font-size-base effects the font size of the body text
 $font-size-root: null !default;
-$font-size-base: 16px !default; // Assumes the browser default, typically `16px`
+$font-size-base: $base-size !default;
 $font-size-sm: 14px !default;
 $font-size-lg: 20px !default;
 
@@ -110,7 +112,9 @@ $body-text-align: left !default;
 $enable-smooth-scroll: true !default;
 $enable-rounded: true !default;
 $enable-button-pointers: true !default;
-$spacer: 16px !default;
+$enable-transitions: true !default;
+$enable-reduced-motion: true !default;
+$spacer: $base-size !default;
 $border-width: 1px !default;
 
 // Typography
@@ -132,7 +136,6 @@ $legend-font-weight: null !default;
 $headings-margin-bottom: $spacer / 2 !default;
 $headings-font-family: null !default;
 $headings-font-style: null !default;
-$headings-font-weight: 500 !default;
 $headings-line-height: 1.2 !default;
 $headings-color: null !default;
 
@@ -141,19 +144,27 @@ $h2-font-size: 38px !default;
 $h3-font-size: 30px !default;
 $h4-font-size: 24px !default;
 $h5-font-size: 20px !default;
-$h6-font-size: 16px !default;
+$h6-font-size: $font-size-base !default;
+
+$h1-font-weight: $font-weight-light !default;
+$h2-font-weight: $font-weight-light !default;
+$h3-font-weight: $font-weight-normal !default;
+$h4-font-weight: $font-weight-normal !default;
+$h5-font-weight: $font-weight-bold !default;
+$h6-font-weight: $font-weight-bold !default;
 
 // Paragraphs
 //
 // Style p element.
 
-$paragraph-margin-bottom: 1rem !default;
+$paragraph-margin-bottom: $base-size !default;
 
 // Links
 $link-color: $secondary-color !default;
-$link-decoration: null !default;
+$link-decoration: none !default;
 $link-hover-color: $secondary-darken-5-color !default;
-$link-hover-decoration: null !default;
+$link-hover-decoration: none !default;
+$link-transition: color 0.15s ease-in-out !default;
 
 // scss-docs-start type-variables
 $dt-font-weight: $font-weight-bolder !default;
@@ -169,7 +180,7 @@ $code-color: $danger-lightest-color !default;
 $pre-color: null !default;
 
 $kbd-padding-y: 3px !default;
-$kbd-padding-x: 0.4rem !default;
+$kbd-padding-x: 6px !default;
 $kbd-font-size: $code-font-size !default;
 $kbd-color: $white-darken-15-color !default;
 $kbd-bg: $black-color !default;
