@@ -1,5 +1,16 @@
 @mixin color($color, $opacity: false) {
-  @if $color == "inherit" OR $color == "currentColor" OR $color == null {
+  @if $color ==
+    "inherit"
+    OR
+    $color ==
+    "currentColor"
+    OR
+    $color ==
+    null
+    OR
+    $color ==
+    "transparent"
+  {
     color: $color;
   } @else {
     $color-name: getColorName($color);
@@ -14,7 +25,18 @@
 }
 
 @mixin backgroundColor($color, $opacity: false) {
-  @if $color == "inherit" OR $color == "currentColor" OR $color == null {
+  @if $color ==
+    "inherit"
+    OR
+    $color ==
+    "currentColor"
+    OR
+    $color ==
+    null
+    OR
+    $color ==
+    "transparent"
+  {
     background-color: $color;
   } @else {
     $color-name: getColorName($color);

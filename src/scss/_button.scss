@@ -1,0 +1,125 @@
+.btn {
+  display: inline-block;
+  text-align: center;
+  text-decoration: none;
+  vertical-align: middle;
+  cursor: pointer;
+  user-select: none;
+  background-color: transparent;
+  font-family: $btn-font-family;
+  font-weight: $btn-font-weight;
+  line-height: $btn-line-height;
+  white-space: $btn-white-space;
+  @include color($body-color);
+  @include button-size(
+    $btn-padding-y,
+    $btn-padding-x,
+    $btn-font-size,
+    $btn-border-radius
+  );
+  @include transition($btn-transition);
+  @include border($btn-border-width solid transparent);
+
+  &:hover {
+    @include color($body-color);
+    text-decoration: none;
+  }
+
+  &:focus {
+    outline: 0;
+    @include box-shadow(0 0 4px 0 rgba($primary-color, 0.25));
+  }
+
+  &.primary {
+    @include button-variant(
+      $white-color,
+      $primary-color,
+      $primary-color,
+      $white-color,
+      $primary-darken-5-color,
+      $primary-darken-5-color,
+      $white-color,
+      $primary-darken-10-color,
+      $primary-darken-10-color
+    );
+
+    &.outline {
+      @include button-variant-outline(
+        $primary-color,
+        $white-color,
+        $primary-darken-10-color,
+        $primary-darken-10-color
+      );
+    }
+  }
+
+  &.secondary {
+    @include button-variant(
+      $white-color,
+      $secondary-color,
+      $secondary-color,
+      $white-color,
+      $secondary-darken-5-color,
+      $secondary-darken-5-color,
+      $white-color,
+      $secondary-darken-10-color,
+      $secondary-darken-10-color
+    );
+
+    &.outline {
+      @include button-variant-outline(
+        $secondary-color,
+        $white-color,
+        $secondary-darken-10-color,
+        $secondary-darken-10-color
+      );
+    }
+  }
+
+  &.white {
+    @include button-variant(
+      $body-bg-color,
+      $white-color,
+      $white-color,
+      $body-bg-color,
+      $white-darken-5-color,
+      $white-darken-5-color,
+      $body-bg-color,
+      $white-darken-10-color,
+      $white-darken-10-color
+    );
+
+    &.outline {
+      @include button-variant-outline(
+        $white-color,
+        $body-bg-color,
+        $white-darken-10-color,
+        $white-darken-10-color
+      );
+    }
+  }
+
+  &.lg {
+    @include button-size(
+      $btn-padding-y-lg,
+      $btn-padding-x-lg,
+      $btn-font-size-lg,
+      $btn-border-radius-lg
+    );
+  }
+
+  &.sm {
+    @include button-size(
+      $btn-padding-y-sm,
+      $btn-padding-x-sm,
+      $btn-font-size-sm,
+      $btn-border-radius-sm
+    );
+  }
+
+  &.disabled,
+  &:disabled {
+    pointer-events: none;
+    opacity: 0.65;
+  }
+}

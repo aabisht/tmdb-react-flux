@@ -1,0 +1,64 @@
+// scss-docs-start btn-size-mixin
+@mixin button-size($padding-y, $padding-x, $font-size, $border-radius) {
+  padding: calculateRem($padding-y) calculateRem($padding-x);
+  @include fontSize($font-size);
+  // Manually declare to provide an override to the browser default
+  @include border-radius(calculateRem($border-radius), 0);
+}
+
+@mixin button-variant(
+  $color,
+  $backgroundColor,
+  $borderColor,
+  $hoverColor,
+  $hoverBackgroundColor,
+  $hoverBorderColor,
+  $activeColor,
+  $activeBackgroundColor,
+  $activeBorderColor
+) {
+  @include color($color);
+  @include backgroundColor($backgroundColor);
+  @include borderColor($borderColor);
+
+  &:active,
+  &.active {
+    @include color($activeColor);
+    @include backgroundColor($activeBackgroundColor);
+    @include borderColor($activeBackgroundColor);
+  }
+
+  &:hover,
+  &:focus {
+    @include color($hoverColor);
+    @include backgroundColor($hoverBackgroundColor);
+    @include borderColor($hoverBackgroundColor);
+  }
+
+  &:focus {
+    @include box-shadow(0 0 4px 0 rgba($backgroundColor, 0.25));
+  }
+}
+
+@mixin button-variant-outline(
+  $color,
+  $activeColor,
+  $activeBackgroundColor,
+  $activeBorderColor
+) {
+  @include color($color);
+  background-color: transparent;
+  @include borderColor($color);
+
+  &:active,
+  &.active,
+  &:hover {
+    @include color($activeColor);
+    @include backgroundColor($activeBackgroundColor);
+    @include borderColor($activeBackgroundColor);
+  }
+
+  &:focus {
+    @include box-shadow(0 0 4px 0 rgba($color, 0.25));
+  }
+}

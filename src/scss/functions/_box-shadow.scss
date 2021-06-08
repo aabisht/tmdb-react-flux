@@ -1,0 +1,79 @@
+@function boxShadowWithVar(
+  $top,
+  $left,
+  $blur,
+  $width,
+  $color,
+  $color-opacity: false,
+  $inset: false
+) {
+  $colorVarName: getColorName($color);
+
+  $boxShadowValue: "";
+
+  @if $color-opacity {
+    $colorVarName: RGBA(getColorName($color), $color-opacity);
+  }
+
+  @if $inset {
+    $boxShadowValue: inset
+      calculateRem($top)
+      calculateRem($left)
+      calculateRem($width)
+      calculateRem($blur)
+      $colorVarName;
+  } @else {
+    $boxShadowValue: calculateRem($top)
+      calculateRem($left)
+      calculateRem($width)
+      calculateRem($blur)
+      $colorVarName;
+  }
+
+  @return $boxShadowValue;
+}
+
+@function boxShadowWithoutVar(
+  $top,
+  $left,
+  $blur,
+  $width,
+  $color,
+  $color-opacity: false,
+  $inset: false
+) {
+  $colorName: RGB(rgbValue($color));
+  $boxShadowValue: "";
+
+  @if $color-opacity {
+    $colorName: RGBA(rgbValue($color), $color-opacity);
+  }
+
+  @if $inset {
+    $boxShadowValue: inset
+      calculateRem($top)
+      calculateRem($left)
+      calculateRem($width)
+      calculateRem($blur)
+      $colorName;
+  } @else {
+    $boxShadowValue: calculateRem($top)
+      calculateRem($left)
+      calculateRem($width)
+      calculateRem($blur)
+      $colorName;
+  }
+
+  @return $boxShadowValue;
+}
+
+@function opacityCheck($color) {
+  $color-opacity: "";
+  @if (alpha($color) < 1) {
+    $color-opacity: alpha($color);
+  } @else {
+    $color-opacity: false;
+  }
+
+  @return $color-opacity;
+}

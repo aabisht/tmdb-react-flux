@@ -1,0 +1,11 @@
+@function border-without-var($borderWidth, $borderStyle, $borderColor) {
+  $borColor: "";
+  $borColor: RGB(rgbValue($borderColor));
+  @return calculateRem($borderWidth) $borderStyle $borColor;
+}
+
+@function border-with-var($borderWidth, $borderStyle, $borderColor) {
+  $borColor: "";
+  $borColor: RGB(getColorName($borderColor));
+  @return calculateRem($borderWidth) $borderStyle $borColor;
+}

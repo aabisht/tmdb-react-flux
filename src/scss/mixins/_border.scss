@@ -1,0 +1,55 @@
+@mixin borderColor($color, $opacity: false) {
+  @if $color ==
+    "inherit"
+    OR
+    $color ==
+    "currentColor"
+    OR
+    $color ==
+    null
+    OR
+    $color ==
+    "transparent"
+  {
+    border-color: $color;
+  } @else {
+    $color-name: getColorName($color);
+    @if $opacity {
+      border-color: RGBA(rgbValue($color), $opacity);
+      border-color: RGBA($color-name, $opacity);
+    } @else {
+      border-color: RGB(rgbValue($color));
+      border-color: RGB($color-name);
+    }
+  }
+}
+
+@mixin border($borderValue) {
+  @if #{nth($borderValue, 3)} ==
+    "inherit"
+    OR
+    #{nth($borderValue, 3)} ==
+    "currentColor"
+    OR
+    #{nth($borderValue, 3)} ==
+    null
+    OR
+    #{nth($borderValue, 3)} ==
+    "transparent"
+  {
+    border: calculateRem(nth($borderValue, 1))
+      nth($borderValue, 2)
+      nth($borderValue, 3);
+  } @else {
+    border: border-without-var(
+      nth($borderValue, 1),
+      nth($borderValue, 2),
+      nth($borderValue, 3)
+    );
+    border: border-with-var(
+      nth($borderValue, 1),
+      nth($borderValue, 2),
+      nth($borderValue, 3)
+    );
+  }
+}

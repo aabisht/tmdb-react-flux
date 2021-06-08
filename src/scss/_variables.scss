@@ -47,6 +47,9 @@ $text-muted-color: $white-darken-20-color !default;
 $selection-body-bg-color: $primary-color !default;
 $selection-body-color: $white-color !default;
 
+$component-active-color: $white-color !default;
+$component-active-bg: $primary-color !default;
+
 $variable-prefix: tmdb- !default;
 
 $colors: (
@@ -86,7 +89,33 @@ $colors: (
   "black-lighten-20": rgbValue($black-lighten-20-color),
 ) !default;
 
+// Options
+$enable-smooth-scroll: true !default;
+$enable-rounded: true !default;
+$enable-button-pointers: true !default;
+$enable-transitions: true !default;
+$enable-reduced-motion: true !default;
+$enable-grid-classes: true !default;
+$enable-important-utilities: true !default;
+$enable-negative-margins: false !default;
+
 $base-size: 16px !default;
+
+$spacer: 16px !default;
+$spacers: (
+  0: 0,
+  1: calculateRem($spacer / 4),
+  2: calculateRem($spacer / 2),
+  3: calculateRem($spacer),
+  4: calculateRem($spacer * 1.5),
+  5: calculateRem($spacer * 3),
+) !default;
+
+$negative-spacers: if(
+  $enable-negative-margins,
+  negativify-map($spacers),
+  null
+) !default;
 
 // $font-size-root effects the value of `rem`, which is used for as well font sizes, paddings and margins
 // $font-size-base effects the font size of the body text
@@ -107,13 +136,6 @@ $line-height-sm: 1.25 !default;
 $line-height-lg: 2 !default;
 
 $body-text-align: left !default;
-
-// Options
-$enable-smooth-scroll: true !default;
-$enable-rounded: true !default;
-$enable-button-pointers: true !default;
-$enable-transitions: true !default;
-$enable-reduced-motion: true !default;
 $spacer: $base-size !default;
 $border-width: 1px !default;
 
@@ -227,3 +249,54 @@ $table-group-separator-color: currentColor !default;
 $table-caption-color: $text-muted-color !default;
 
 $table-bg-scale: -80% !default;
+
+$input-btn-focus-width: 4px !default;
+$input-btn-focus-blur: 0 !default;
+$input-btn-focus-color-opacity: 0.25 !default;
+$input-btn-focus-color: $component-active-bg !default;
+
+// Buttons
+$btn-padding-y: 6px !default;
+$btn-padding-x: 12px !default;
+$btn-font-family: null !default;
+$btn-font-size: $font-size-base !default;
+$btn-line-height: $line-height-base !default;
+$btn-white-space: null !default; // Set to `nowrap` to prevent text wrapping
+$btn-font-weight: $font-weight-bold !default;
+$btn-border-width: $border-width !default;
+$btn-border-radius: $border-radius !default;
+$btn-transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+  border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out !default;
+
+$btn-padding-y-sm: $base-size/4 !default;
+$btn-padding-x-sm: $base-size/2 !default;
+$btn-font-size-sm: $font-size-sm !default;
+$btn-border-radius-sm: 3px !default;
+
+$btn-padding-y-lg: $base-size/2 !default;
+$btn-padding-x-lg: $base-size !default;
+$btn-font-size-lg: $font-size-lg !default;
+$btn-border-radius-lg: 5px !default;
+
+// Grid
+$grid-columns: 12;
+$grid-gutter-width: 24px;
+$grid-row-columns: 6 !default;
+$gutters: $spacers !default;
+
+$grid-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
+  xxl: 1400px,
+);
+
+$container-max-widths: (
+  sm: 540px,
+  md: 720px,
+  lg: 960px,
+  xl: 1140px,
+  xxl: 1320px,
+);

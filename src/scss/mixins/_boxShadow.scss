@@ -1,0 +1,69 @@
+@mixin box-shadow($boxshadowValue...) {
+  $boxShadowWithVarName: ();
+  $boxShadowWithoutVarName: ();
+
+  @each $value in $boxshadowValue {
+    $top: "";
+    $left: "";
+    $blur: "";
+    $width: "";
+    $color: "";
+    $color-opacity: false;
+    $inset: false;
+    @if (nth($value, 1) == "inset") {
+      $top: nth($value, 2);
+      $left: nth($value, 3);
+      $blur: nth($value, 4);
+      $width: nth($value, 5);
+      $color: rgb(
+        red(nth($value, 6)),
+        green(nth($value, 6)),
+        blue(nth($value, 6))
+      );
+      $inset: nth($value, 1) == "inset";
+      $color-opacity: opacityCheck(nth($value, 6));
+    } @else {
+      $top: nth($value, 1);
+      $left: nth($value, 2);
+      $blur: nth($value, 3);
+      $width: nth($value, 4);
+      $color: rgb(
+        red(nth($value, 5)),
+        green(nth($value, 5)),
+        blue(nth($value, 5))
+      );
+      $inset: nth($value, 1) == "inset";
+      $color-opacity: opacityCheck(nth($value, 5));
+    }
+
+    $boxShadowWithoutVarName: append(
+      $boxShadowWithoutVarName,
+      boxShadowWithoutVar(
+        $top,
+        $left,
+        $blur,
+        $width,
+        $color,
+        $color-opacity,
+        $inset
+      ),
+      "comma"
+    );
+
+    $boxShadowWithVarName: append(
+      $boxShadowWithVarName,
+      boxShadowWithVar(
+        $top,
+        $left,
+        $blur,
+        $width,
+        $color,
+        $color-opacity,
+        $inset
+      ),
+      "comma"
+    );
+  }
+  box-shadow: $boxShadowWithoutVarName;
+  box-shadow: $boxShadowWithVarName;
+}

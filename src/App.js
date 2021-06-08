@@ -74,6 +74,9 @@ function App() {
         </li>
         <li>This may still come in handy in some situations.</li>
       </ul>
+      <button type="button" className="btn">
+        Button
+      </button>
     </div>
   );
 }
