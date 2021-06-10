@@ -1,0 +1,25 @@
+.list-unstyled {
+  @include list-unstyled();
+}
+
+.list-inline {
+  @include list-unstyled();
+
+  .list-inline-item {
+    display: inline-block;
+
+    &:not(:last-child) {
+      margin-right: $list-inline-padding;
+    }
+  }
+}
+
+.container {
+  width: 100%;
+  max-width: $container-max-widths;
+  min-height: 1px;
+  @include padding-left($grid-gutter-width/2);
+  @include padding-right($grid-gutter-width/2);
+  margin-right: auto;
+  margin-left: auto;
+}

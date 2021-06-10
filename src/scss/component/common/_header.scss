@@ -1,0 +1,28 @@
+.header-logo-link {
+  img {
+    width: calculateRem($header-logo-img-width);
+    @include margin-right($header-logo-right-space);
+  }
+}
+
+.header-logo-menu {
+  .nav-item {
+    &:not(:last-child) {
+      @include margin-right($header-logo-menu-link-spacing);
+    }
+  }
+  .nav-link {
+    @include color($header-logo-menu-link-color);
+    font-weight: $font-weight-light;
+    text-transform: uppercase;
+
+    &:hover,
+    &.active {
+      @include color($header-logo-menu-link-active-color);
+    }
+
+    &.active {
+      font-weight: $font-weight-bold;
+    }
+  }
+}

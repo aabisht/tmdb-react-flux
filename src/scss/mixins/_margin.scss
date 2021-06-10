@@ -1,0 +1,33 @@
+@mixin margin($marginValue) {
+  @if (length($marginValue) == 1) {
+    margin: calculateRem($marginValue);
+  } @else if(length($marginValue) == 2) {
+    margin: calculateRem(nth($marginValue, 1))
+      calculateRem(nth($marginValue, 2));
+  } @else if(length($marginValue) == 3) {
+    margin: calculateRem(nth($marginValue, 1))
+      calculateRem(nth($marginValue, 2))
+      calculateRem(nth($marginValue, 3));
+  } @else {
+    margin: calculateRem(nth($marginValue, 1))
+      calculateRem(nth($marginValue, 2))
+      calculateRem(nth($marginValue, 3))
+      calculateRem(nth($marginValue, 4));
+  }
+}
+
+@mixin margin-left($marginValue) {
+  margin-left: calculateRem($marginValue);
+}
+
+@mixin margin-right($marginValue) {
+  margin-right: calculateRem($marginValue);
+}
+
+@mixin margin-top($marginValue) {
+  margin-top: calculateRem($marginValue);
+}
+
+@mixin margin-bottom($marginValue) {
+  margin-bottom: calculateRem($marginValue);
+}

@@ -1,0 +1,33 @@
+@mixin padding($paddingValue) {
+  @if (length($paddingValue) == 1) {
+    padding: calculateRem($paddingValue);
+  } @else if(length($paddingValue) == 2) {
+    padding: calculateRem(nth($paddingValue, 1))
+      calculateRem(nth($paddingValue, 2));
+  } @else if(length($paddingValue) == 3) {
+    padding: calculateRem(nth($paddingValue, 1))
+      calculateRem(nth($paddingValue, 2))
+      calculateRem(nth($paddingValue, 3));
+  } @else {
+    padding: calculateRem(nth($paddingValue, 1))
+      calculateRem(nth($paddingValue, 2))
+      calculateRem(nth($paddingValue, 3))
+      calculateRem(nth($paddingValue, 4));
+  }
+}
+
+@mixin padding-left($paddingValue) {
+  padding-left: calculateRem($paddingValue);
+}
+
+@mixin padding-right($paddingValue) {
+  padding-right: calculateRem($paddingValue);
+}
+
+@mixin padding-top($paddingValue) {
+  padding-top: calculateRem($paddingValue);
+}
+
+@mixin padding-bottom($paddingValue) {
+  padding-bottom: calculateRem($paddingValue);
+}

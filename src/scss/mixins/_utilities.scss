@@ -58,36 +58,4 @@
       }
     }
   }
-
-  //   @if type-of($values) == "list" {
-  //     @each $key, $value in $values {
-  //       $property-class: "";
-  //       @if (map-has-key($utility, class)) {
-  //         $property-class: map-get($utility, class);
-  //       } @else {
-  //         $property-class: $utility-key;
-  //       }
-
-  //       $state: if(map-has-key($utility, state), map-get($utility, state), ());
-  //       $property-class-modifier: if(
-  //         $key,
-  //         if($property-class == "" and $infix == "", "", "-") + $key,
-  //         ""
-  //       );
-
-  //       @debug map-get($utility, property);
-
-  //       .#{$property-class + $infix + $property-class-modifier} {
-  //         #{map-get($utility, property)}: $key !important;
-  //       }
-
-  //       @each $pseudo in $state {
-  //         .#{$property-class
-  //           + $infix
-  //           + $property-class-modifier}-#{$pseudo}:#{$pseudo} {
-  //           #{map-get($utility, property)}: $key !important;
-  //         }
-  //       }
-  //     }
-  //   }
 }

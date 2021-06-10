@@ -101,7 +101,7 @@ $enable-negative-margins: false !default;
 
 $base-size: 16px !default;
 
-$spacer: 16px !default;
+$spacer: $base-size !default;
 $spacers: (
   0: 0,
   1: calculateRem($spacer / 4),
@@ -150,8 +150,8 @@ $hr-color: inherit !default;
 $hr-height: $border-width !default;
 $hr-opacity: 0.25 !default;
 
-$legend-margin-bottom: 8px !default;
-$legend-font-size: 24px !default;
+$legend-margin-bottom: $base-size/2 !default;
+$legend-font-size: ($base-size/2) * 3 !default;
 $legend-font-weight: null !default;
 
 // scss-docs-start headings-variables
@@ -180,6 +180,8 @@ $h6-font-weight: $font-weight-bold !default;
 // Style p element.
 
 $paragraph-margin-bottom: $base-size !default;
+
+$list-inline-padding: $base-size/2 !default;
 
 // Links
 $link-color: $secondary-color !default;
@@ -215,10 +217,10 @@ $border-radius-lg: 5px !default;
 $border-radius-pill: 800px !default;
 
 // scss-docs-start table-variables
-$table-cell-padding-y: 8px !default;
-$table-cell-padding-x: 8px !default;
-$table-cell-padding-y-sm: 4px !default;
-$table-cell-padding-x-sm: 4px !default;
+$table-cell-padding-y: $base-size/2 !default;
+$table-cell-padding-x: $base-size/2 !default;
+$table-cell-padding-y-sm: $base-size/4 !default;
+$table-cell-padding-x-sm: $base-size/4 !default;
 $table-cell-vertical-align: top !default;
 
 $table-color: $body-color !default;
@@ -293,10 +295,11 @@ $grid-breakpoints: (
   xxl: 1400px,
 );
 
-$container-max-widths: (
-  sm: 540px,
-  md: 720px,
-  lg: 960px,
-  xl: 1140px,
-  xxl: 1320px,
-);
+$container-max-widths: 100%;
+
+// Header
+$header-logo-img-width: 150px;
+$header-logo-right-space: $base-size * 2;
+$header-logo-menu-link-color: $white-color;
+$header-logo-menu-link-spacing: $base-size;
+$header-logo-menu-link-active-color: $secondary-color;
