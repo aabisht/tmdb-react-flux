@@ -1,18 +1,5 @@
 @mixin color($color, $opacity: false) {
-  @if $color ==
-    "inherit"
-    OR
-    $color ==
-    "currentColor"
-    OR
-    $color ==
-    null
-    OR
-    $color ==
-    "transparent"
-  {
-    color: $color;
-  } @else {
+  @if (type-of($color) == color) {
     $color-name: getColorName($color);
     @if $opacity {
       color: RGBA(rgbValue($color), $opacity);
@@ -21,24 +8,13 @@
       color: RGB(rgbValue($color));
       color: RGB($color-name);
     }
+  } @else {
+    color: $color;
   }
 }
 
 @mixin backgroundColor($color, $opacity: false) {
-  @if $color ==
-    "inherit"
-    OR
-    $color ==
-    "currentColor"
-    OR
-    $color ==
-    null
-    OR
-    $color ==
-    "transparent"
-  {
-    background-color: $color;
-  } @else {
+  @if (type-of($color) == color) {
     $color-name: getColorName($color);
     @if $opacity {
       background-color: RGBA(rgbValue($color), $opacity);
@@ -47,5 +23,7 @@
       background-color: RGB(rgbValue($color));
       background-color: RGB($color-name);
     }
+  } @else {
+    background-color: $color;
   }
 }

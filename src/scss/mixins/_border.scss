@@ -1,18 +1,5 @@
 @mixin borderColor($color, $opacity: false) {
-  @if $color ==
-    "inherit"
-    OR
-    $color ==
-    "currentColor"
-    OR
-    $color ==
-    null
-    OR
-    $color ==
-    "transparent"
-  {
-    border-color: $color;
-  } @else {
+  @if (type-of($color) == color) {
     $color-name: getColorName($color);
     @if $opacity {
       border-color: RGBA(rgbValue($color), $opacity);
@@ -21,26 +8,13 @@
       border-color: RGB(rgbValue($color));
       border-color: RGB($color-name);
     }
+  } @else {
+    border-color: $color;
   }
 }
 
 @mixin border($borderValue) {
-  @if #{nth($borderValue, 3)} ==
-    "inherit"
-    OR
-    #{nth($borderValue, 3)} ==
-    "currentColor"
-    OR
-    #{nth($borderValue, 3)} ==
-    null
-    OR
-    #{nth($borderValue, 3)} ==
-    "transparent"
-  {
-    border: calculateRem(nth($borderValue, 1))
-      nth($borderValue, 2)
-      nth($borderValue, 3);
-  } @else {
+  @if (type-of(nth($borderValue, 3)) == color) {
     border: border-without-var(
       nth($borderValue, 1),
       nth($borderValue, 2),
@@ -51,5 +25,9 @@
       nth($borderValue, 2),
       nth($borderValue, 3)
     );
+  } @else {
+    border: calculateRem(nth($borderValue, 1))
+      nth($borderValue, 2)
+      nth($borderValue, 3);
   }
 }

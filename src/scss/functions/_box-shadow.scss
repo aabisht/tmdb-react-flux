@@ -77,3 +77,41 @@
 
   @return $color-opacity;
 }
+
+@function getBoxShadowCode($boxshadowValue) {
+  $getBoxShadowCode: ();
+
+  @if (nth($boxshadowValue, 1) == "inset") {
+    $getBoxShadowCode: (
+      "top": nth($boxshadowValue, 2),
+      "left": nth($boxshadowValue, 3),
+      "blur": nth($boxshadowValue, 5),
+      "width": nth($boxshadowValue, 4),
+      "color":
+        rgb(
+          red(nth($boxshadowValue, 6)),
+          green(nth($boxshadowValue, 6)),
+          blue(nth($boxshadowValue, 6))
+        ),
+      "color-opacity": opacityCheck(nth($boxshadowValue, 6)),
+      "inset": true,
+    );
+  } @else {
+    $getBoxShadowCode: (
+      "top": nth($boxshadowValue, 1),
+      "left": nth($boxshadowValue, 2),
+      "blur": nth($boxshadowValue, 4),
+      "width": nth($boxshadowValue, 3),
+      "color":
+        rgb(
+          red(nth($boxshadowValue, 5)),
+          green(nth($boxshadowValue, 5)),
+          blue(nth($boxshadowValue, 5))
+        ),
+      "color-opacity": opacityCheck(nth($boxshadowValue, 5)),
+      "inset": false,
+    );
+  }
+
+  @return $getBoxShadowCode;
+}

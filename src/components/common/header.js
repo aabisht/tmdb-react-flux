@@ -91,6 +91,7 @@ function Header() {
                     dropdownList={[
                       <LanguagePreferences key="headerTranslateList" />,
                     ]}
+                    dropdownPosition="right"
                   />
                 </li>
                 {/* <li className="nav-item list-inline-item">

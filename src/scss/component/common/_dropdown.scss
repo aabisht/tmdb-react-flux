@@ -1,0 +1,30 @@
+.dropdown-wrapper {
+  position: relative;
+
+  .dropdown-list-wrapper {
+    position: absolute;
+    z-index: 1000;
+    // display: none;
+    min-width: calculateRem($dropdown-min-width);
+    margin: 0;
+    padding: 0;
+    @include backgroundColor($dropdown-background-color);
+    @include color($dropdown-text-color);
+    @include border-radius($dropdown-border-radius);
+    @include box-shadow($dropdown-box-shadow);
+
+    &:before {
+      content: "";
+      border-color: transparent;
+      // border-width: cal;
+    }
+
+    &.right {
+      right: 0;
+    }
+
+    &.left {
+      left: 0;
+    }
+  }
+}
