@@ -1,5 +1,7 @@
 import React from "react";
 import { Link, NavLink } from "react-router-dom";
+import DropDown from "./dropdown";
+import LanguagePreferences from "./language-preferences";
 import logo from "../../assets/logo.svg";
 
 function Header() {
@@ -77,20 +79,34 @@ function Header() {
                   </button>
                 </li>
                 <li className="nav-item list-inline-item">
-                  <button type="button" className="btn">
-                    <span className="material-icons-outlined">translate</span>
-                  </button>
+                  <DropDown
+                    dropdownText={[
+                      <span
+                        className="material-icons-outlined"
+                        key="headerTranslate"
+                      >
+                        translate
+                      </span>,
+                    ]}
+                    dropdownList={[
+                      <LanguagePreferences key="headerTranslateList" />,
+                    ]}
+                  />
+                </li>
+                {/* <li className="nav-item list-inline-item">
+                  <DropDown
+                    dropdownText={[
+                      <span className="material-icons">notifications</span>,
+                    ]}
+                  />
                 </li>
                 <li className="nav-item list-inline-item">
-                  <button type="button" className="btn">
-                    <span className="material-icons">notifications</span>
-                  </button>
-                </li>
-                <li className="nav-item list-inline-item">
-                  <button type="button" className="btn">
-                    <span className="material-icons">account_circle</span>
-                  </button>
-                </li>
+                  <DropDown
+                    dropdownText={[
+                      <span className="material-icons">account_circle</span>,
+                    ]}
+                  />
+                </li> */}
               </ul>
             </div>
           </div>

@@ -5,12 +5,16 @@
   }
 }
 
-.header-logo-menu {
+.header-logo-menu,
+.header-right-menu-wrapper {
   .nav-item {
     &:not(:last-child) {
       @include margin-right($header-logo-menu-link-spacing);
     }
   }
+}
+
+.header-logo-menu {
   .nav-link {
     @include color($header-logo-menu-link-color);
     font-weight: $font-weight-light;
@@ -23,6 +27,21 @@
 
     &.active {
       font-weight: $font-weight-bold;
+    }
+  }
+}
+
+.header-right-menu-wrapper {
+  .nav-item {
+    .btn {
+      bottom: 0;
+      padding: 0;
+      line-height: 1;
+
+      &:focus {
+        outline: 0;
+        box-shadow: none;
+      }
     }
   }
 }

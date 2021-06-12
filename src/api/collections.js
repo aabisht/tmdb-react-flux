@@ -5,7 +5,7 @@ const baseURL = apiConstants.API_URL + "/collection";
 const apiParam = new ApiParameters();
 
 // Get collection details by id.
-export function getDetails(collection_id) {
+export function getDetails(collection_id, language = "en-US") {
   const url =
     baseURL +
     "/" +
@@ -16,7 +16,7 @@ export function getDetails(collection_id) {
 }
 
 // Get the images for a collection by id.
-export function getImages(collection_id) {
+export function getImages(collection_id, language = "en-US") {
   const url =
     baseURL +
     "/" +
@@ -28,7 +28,7 @@ export function getImages(collection_id) {
 }
 
 // Get the list translations for a collection by id.
-export function getTranslations(collection_id) {
+export function getTranslations(collection_id, language = "en-US") {
   const url =
     baseURL +
     "/" +
