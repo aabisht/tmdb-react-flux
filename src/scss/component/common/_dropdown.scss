@@ -8,6 +8,7 @@
     min-width: calculateRem($dropdown-min-width);
     margin: 0;
     padding: 0;
+    @include margin-top($dropdown-arrow-width);
     @include backgroundColor($dropdown-background-color);
     @include color($dropdown-text-color);
     @include border-radius($dropdown-border-radius);
@@ -15,8 +16,8 @@
 
     &:before {
       content: "";
-      border-color: transparent;
-      // border-width: cal;
+      border-width: calculateRem($dropdown-arrow-width);
+      @include borderColor(transparent);
     }
 
     &.right {

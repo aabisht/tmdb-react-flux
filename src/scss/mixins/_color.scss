@@ -1,5 +1,5 @@
 @mixin color($color, $opacity: false) {
-  @if (type-of($color) == color) {
+  @if (type-of($color) == color and $color != transparent) {
     $color-name: getColorName($color);
     @if $opacity {
       color: RGBA(rgbValue($color), $opacity);
@@ -14,7 +14,7 @@
 }
 
 @mixin backgroundColor($color, $opacity: false) {
-  @if (type-of($color) == color) {
+  @if (type-of($color) == color and $color != transparent) {
     $color-name: getColorName($color);
     @if $opacity {
       background-color: RGBA(rgbValue($color), $opacity);
