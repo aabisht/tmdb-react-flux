@@ -1,18 +1,3 @@
-@mixin borderColor($color, $opacity: false) {
-  @if (type-of($color) == color and $color != transparent) {
-    $color-name: getColorName($color);
-    @if $opacity {
-      border-color: RGBA(rgbValue($color), $opacity);
-      border-color: RGBA($color-name, $opacity);
-    } @else {
-      border-color: RGB(rgbValue($color));
-      border-color: RGB($color-name);
-    }
-  } @else {
-    border-color: $color;
-  }
-}
-
 @mixin border($borderValue) {
   @if (
     type-of(nth($borderValue, 3)) ==
@@ -34,5 +19,176 @@
     border: calculateRem(nth($borderValue, 1))
       nth($borderValue, 2)
       nth($borderValue, 3);
+  }
+}
+
+@mixin border-top($borderValue) {
+  @if (
+    type-of(nth($borderValue, 3)) ==
+      color and
+      nth($borderValue, 3) !=
+      transparent
+  ) {
+    border-top: border-without-var(
+      nth($borderValue, 1),
+      nth($borderValue, 2),
+      nth($borderValue, 3)
+    );
+    border-top: border-with-var(
+      nth($borderValue, 1),
+      nth($borderValue, 2),
+      nth($borderValue, 3)
+    );
+  } @else {
+    border-top: calculateRem(nth($borderValue, 1))
+      nth($borderValue, 2)
+      nth($borderValue, 3);
+  }
+}
+
+@mixin border-right($borderValue) {
+  @if (
+    type-of(nth($borderValue, 3)) ==
+      color and
+      nth($borderValue, 3) !=
+      transparent
+  ) {
+    border-right: border-without-var(
+      nth($borderValue, 1),
+      nth($borderValue, 2),
+      nth($borderValue, 3)
+    );
+    border-right: border-with-var(
+      nth($borderValue, 1),
+      nth($borderValue, 2),
+      nth($borderValue, 3)
+    );
+  } @else {
+    border-right: calculateRem(nth($borderValue, 1))
+      nth($borderValue, 2)
+      nth($borderValue, 3);
+  }
+}
+
+@mixin border-bottom($borderValue) {
+  @if (
+    type-of(nth($borderValue, 3)) ==
+      color and
+      nth($borderValue, 3) !=
+      transparent
+  ) {
+    border-bottom: border-without-var(
+      nth($borderValue, 1),
+      nth($borderValue, 2),
+      nth($borderValue, 3)
+    );
+    border-bottom: border-with-var(
+      nth($borderValue, 1),
+      nth($borderValue, 2),
+      nth($borderValue, 3)
+    );
+  } @else {
+    border-bottom: calculateRem(nth($borderValue, 1))
+      nth($borderValue, 2)
+      nth($borderValue, 3);
+  }
+}
+
+@mixin border-left($borderValue) {
+  @if (
+    type-of(nth($borderValue, 3)) ==
+      color and
+      nth($borderValue, 3) !=
+      transparent
+  ) {
+    border-left: border-without-var(
+      nth($borderValue, 1),
+      nth($borderValue, 2),
+      nth($borderValue, 3)
+    );
+    border-left: border-with-var(
+      nth($borderValue, 1),
+      nth($borderValue, 2),
+      nth($borderValue, 3)
+    );
+  } @else {
+    border-left: calculateRem(nth($borderValue, 1))
+      nth($borderValue, 2)
+      nth($borderValue, 3);
+  }
+}
+
+@mixin borderColor($color, $opacity: false) {
+  @if (type-of($color) == color and $color != transparent) {
+    $color-name: getColorName($color);
+    @if $opacity {
+      border-color: RGBA(rgbValue($color), $opacity);
+      border-color: RGBA($color-name, $opacity);
+    } @else {
+      border-color: RGB(rgbValue($color));
+      border-color: RGB($color-name);
+    }
+  } @else {
+    border-color: $color;
+  }
+}
+
+@mixin border-bottom-color($color, $opacity: false) {
+  @if (type-of($color) == color and $color != transparent) {
+    $color-name: getColorName($color);
+    @if $opacity {
+      border-bottom-color: RGBA(rgbValue($color), $opacity);
+      border-bottom-color: RGBA($color-name, $opacity);
+    } @else {
+      border-bottom-color: RGB(rgbValue($color));
+      border-bottom-color: RGB($color-name);
+    }
+  } @else {
+    border-bottom-color: $color;
+  }
+}
+
+@mixin border-top-color($color, $opacity: false) {
+  @if (type-of($color) == color and $color != transparent) {
+    $color-name: getColorName($color);
+    @if $opacity {
+      border-top-color: RGBA(rgbValue($color), $opacity);
+      border-top-color: RGBA($color-name, $opacity);
+    } @else {
+      border-top-color: RGB(rgbValue($color));
+      border-top-color: RGB($color-name);
+    }
+  } @else {
+    border-top-color: $color;
+  }
+}
+
+@mixin border-left-color($color, $opacity: false) {
+  @if (type-of($color) == color and $color != transparent) {
+    $color-name: getColorName($color);
+    @if $opacity {
+      border-left-color: RGBA(rgbValue($color), $opacity);
+      border-left-color: RGBA($color-name, $opacity);
+    } @else {
+      border-left-color: RGB(rgbValue($color));
+      border-left-color: RGB($color-name);
+    }
+  } @else {
+    border-left-color: $color;
+  }
+}
+
+@mixin border-right-color($color, $opacity: false) {
+  @if (type-of($color) == color and $color != transparent) {
+    $color-name: getColorName($color);
+    @if $opacity {
+      border-right-color: RGBA(rgbValue($color), $opacity);
+      border-right-color: RGBA($color-name, $opacity);
+    } @else {
+      border-right-color: RGB(rgbValue($color));
+      border-right-color: RGB($color-name);
+    }
+  } @else {
+    border-right-color: $color;
   }
 }

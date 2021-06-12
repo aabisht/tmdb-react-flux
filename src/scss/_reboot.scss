@@ -618,3 +618,27 @@ progress {
 [hidden] {
   display: none !important;
 }
+
+// Scrollbars
+//  Works on Firefox
+* {
+  scrollbar-width: thin;
+  scrollbar-color: $scrollbar-thumb-color $scrollbar-bg-color;
+}
+
+// Works on Chrome, Edge, and Safari
+*::-webkit-scrollbar {
+  width: calculateRem($scrollbar-webkit-width);
+}
+
+*::-webkit-scrollbar-track {
+  // background: orange;
+  @include backgroundColor($scrollbar-bg-color);
+}
+
+*::-webkit-scrollbar-thumb {
+  // background-color: blue;
+  @include backgroundColor($scrollbar-thumb-color);
+  @include border-radius($scrollbar-webkit-width);
+  @include border(2px solid $scrollbar-bg-color);
+}

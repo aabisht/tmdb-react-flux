@@ -29,17 +29,18 @@ function LanguagePreferences() {
 
   return (
     <div className="language-preferences-wrapper">
-      <div className="h5">Language Preferences</div>
-      <div className="d-flex">
-        <span className="default-text">Default Language</span>
-        <span className="default-lan-name"></span>
+      <div className="language-preferences-header">
+        <div className="h5 text-nowrap mt-2">Language Preferences</div>
+        <div className="d-flex">
+          <span className="default-text mb-2">Default Language</span>
+          <span className="default-lan-name"></span>
+        </div>
       </div>
-      <div>
+      <div className="language-preferences-search-wrapper">
         <div className="form-group">
           <input type="text" className="form-control" />
         </div>
-
-        <ul className="list-unstyled">
+        <ul className="list-unstyled language-list-wrapper">
           {languagesWithPrimaryTranslations.map((language) => {
             return (
               <li key={language.index}>
