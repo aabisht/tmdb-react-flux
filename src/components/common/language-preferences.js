@@ -8,14 +8,20 @@ function LanguagePreferences() {
     setLanguagesWithPrimaryTranslations,
   ] = useState(configurationStores.getLanguageWithTranslations());
 
+  const [searchValue, updateSearchValue] = useState("");
+  const [searchResults, updateSearchResults] = useState(
+    languagesWithPrimaryTranslations
+  );
+
   useEffect(() => {
-    configurationStores.addChangeListener(onChange);
+    configurationStores.addChangeListener(onLanguagePreferencesChange);
     if (languagesWithPrimaryTranslations.length === 0)
       loadLanguagesWithPrimaryTranslations();
-    return () => configurationStores.removeChangeListner(onChange);
+    return () =>
+      configurationStores.removeChangeListner(onLanguagePreferencesChange);
   }, [languagesWithPrimaryTranslations.length]);
 
-  function onChange() {
+  function onLanguagePreferencesChange() {
     setLanguagesWithPrimaryTranslations(
       configurationStores.getLanguageWithTranslations()
     );
@@ -25,6 +31,31 @@ function LanguagePreferences() {
     return language.name && !language.name.includes("??")
       ? language.name
       : language.english_name;
+  }
+
+  function updateSearch(e) {
+    updateSearchValue(e.target.value);
+    updateSearchResults(
+      languagesWithPrimaryTranslations.filter((result) => {
+        return result.english_name.match(new RegExp(e.target.value, "gi"));
+      })
+    );
+  }
+
+  function searchList(searchMap) {
+    return (
+      <ul className="list-unstyled dropdown-list-wrappper language-list-wrapper">
+        {searchMap.map((language) => {
+          return (
+            <li data="search" key={language.index}>
+              <button type="button" className="btn d-block text-nowrap w-100">
+                {getLanguageName(language)} ({language.primary_translations})
+              </button>
+            </li>
+          );
+        })}
+      </ul>
+    );
   }
 
   return (
@@ -38,19 +69,16 @@ function LanguagePreferences() {
       </div>
       <div className="language-preferences-search-wrapper">
         <div className="form-group">
-          <input type="text" className="form-control" />
+          <input
+            type="text"
+            className="form-control"
+            value={searchValue}
+            onChange={updateSearch}
+          />
         </div>
-        <ul className="list-unstyled dropdown-list-wrappper language-list-wrapper">
-          {languagesWithPrimaryTranslations.map((language) => {
-            return (
-              <li key={language.index}>
-                <button type="button" className="btn d-block text-nowrap w-100">
-                  {getLanguageName(language)} ({language.primary_translations})
-                </button>
-              </li>
-            );
-          })}
-        </ul>
+        {searchResults.length === 0
+          ? searchList(languagesWithPrimaryTranslations)
+          : searchList(searchResults)}
       </div>
     </div>
   );
