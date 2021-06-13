@@ -65,4 +65,21 @@
       left: calculateRem(-$container-x-padding/2);
     }
   }
+
+  .dropdown-list-wrappper {
+    > li {
+      @include border-bottom(1px solid $dropdown-list-border-color);
+
+      &:last-child {
+        border-bottom: none;
+      }
+    }
+    .btn {
+      text-align: left;
+      border: none;
+      @include padding(
+        $dropdown-list-btn-x-padding $dropdown-list-btn-y-padding
+      );
+    }
+  }
 }

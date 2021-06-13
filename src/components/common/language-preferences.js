@@ -40,11 +40,11 @@ function LanguagePreferences() {
         <div className="form-group">
           <input type="text" className="form-control" />
         </div>
-        <ul className="list-unstyled language-list-wrapper">
+        <ul className="list-unstyled dropdown-list-wrappper language-list-wrapper">
           {languagesWithPrimaryTranslations.map((language) => {
             return (
               <li key={language.index}>
-                <button type="button" className="btn">
+                <button type="button" className="btn d-block text-nowrap w-100">
                   {getLanguageName(language)} ({language.primary_translations})
                 </button>
               </li>

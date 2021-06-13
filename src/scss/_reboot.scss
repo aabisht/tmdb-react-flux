@@ -624,6 +624,8 @@ progress {
 * {
   scrollbar-width: thin;
   scrollbar-color: $scrollbar-thumb-color $scrollbar-bg-color;
+  scrollbar-color: RGB(rgbValue($scrollbar-thumb-color))
+    RGB(rgbValue($scrollbar-bg-color));
 }
 
 // Works on Chrome, Edge, and Safari
