@@ -11,6 +11,8 @@ let _primary_translations = [];
 let _timezones = [];
 let _languages_primary_translations = [];
 
+let _defaultLanguage = "";
+
 class ConfigurationStores extends EventEmitter {
   addChangeListener(callback) {
     this.on(CHANGE_EVENT, callback);
@@ -51,6 +53,14 @@ class ConfigurationStores extends EventEmitter {
   getLanguageWithTranslations() {
     return _languages_primary_translations;
   }
+
+  getDefaultLanguage() {
+    _defaultLanguage =
+      _defaultLanguage.length === 0
+        ? navigator.language || navigator.userLanguage
+        : _defaultLanguage;
+    return _defaultLanguage;
+  }
 }
 
 const configurationStores = new ConfigurationStores();
@@ -83,6 +93,10 @@ Dispatcher.register((action) => {
       break;
     case actionTypes.LOAD_LANGUAGES_WITH_PRIMARY_TRANSLATIONS:
       _languages_primary_translations = action.languagesWithPrimaryTranslations;
+      configurationStores.emitChange();
+      break;
+    case actionTypes.LOAD_DEFAULT_LANGUAGE:
+      _defaultLanguage = action.defaultLanguage;
       configurationStores.emitChange();
       break;
     default:
