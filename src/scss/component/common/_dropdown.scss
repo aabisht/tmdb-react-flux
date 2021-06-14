@@ -82,4 +82,8 @@
       );
     }
   }
+
+  .no-record {
+    @include padding($dropdown-list-btn-x-padding $dropdown-list-btn-y-padding);
+  }
 }

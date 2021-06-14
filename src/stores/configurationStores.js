@@ -51,16 +51,6 @@ class ConfigurationStores extends EventEmitter {
   getLanguageWithTranslations() {
     return _languages_primary_translations;
   }
-
-  searchLanguageWithTranslations(searchValue) {
-    return _languages_primary_translations.filter(
-      (_languages_primary_translation) => {
-        return _languages_primary_translation.english_name
-          .toLowerCase()
-          .match(new RegExp(searchValue.toLowerCase(), "gi"));
-      }
-    );
-  }
 }
 
 const configurationStores = new ConfigurationStores();

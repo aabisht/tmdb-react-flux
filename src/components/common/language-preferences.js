@@ -10,13 +10,15 @@ function LanguagePreferences() {
 
   const [searchValue, updateSearchValue] = useState("");
   const [searchResults, updateSearchResults] = useState(
-    languagesWithPrimaryTranslations
+    configurationStores.getLanguageWithTranslations()
   );
 
   useEffect(() => {
     configurationStores.addChangeListener(onLanguagePreferencesChange);
-    if (languagesWithPrimaryTranslations.length === 0)
+    if (languagesWithPrimaryTranslations.length === 0) {
       loadLanguagesWithPrimaryTranslations();
+      updateSearchResults(configurationStores.getLanguageWithTranslations());
+    }
     return () =>
       configurationStores.removeChangeListner(onLanguagePreferencesChange);
   }, [languagesWithPrimaryTranslations.length]);
@@ -25,6 +27,7 @@ function LanguagePreferences() {
     setLanguagesWithPrimaryTranslations(
       configurationStores.getLanguageWithTranslations()
     );
+    updateSearchResults(configurationStores.getLanguageWithTranslations());
   }
 
   function getLanguageName(language) {
@@ -43,7 +46,7 @@ function LanguagePreferences() {
   }
 
   function searchList(searchMap) {
-    return (
+    return searchMap.length > 0 ? (
       <ul className="list-unstyled dropdown-list-wrappper language-list-wrapper">
         {searchMap.map((language) => {
           return (
@@ -55,6 +58,8 @@ function LanguagePreferences() {
           );
         })}
       </ul>
+    ) : (
+      <div className="text-center no-record">No record found</div>
     );
   }
 
@@ -76,9 +81,7 @@ function LanguagePreferences() {
             onChange={updateSearch}
           />
         </div>
-        {searchResults.length === 0
-          ? searchList(languagesWithPrimaryTranslations)
-          : searchList(searchResults)}
+        {searchList(searchResults)}
       </div>
     </div>
   );
