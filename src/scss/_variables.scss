@@ -322,6 +322,9 @@ $input-disabled-bg: $black-lighten-20-color !default;
 $input-disabled-border-color: $white-darken-20-color !default;
 
 // Header
+$header-y-padding: $grid-gutter-width/2 !default;
+$header-x-padding: $grid-gutter-width/2 !default;
+$header-height: 53px !default;
 $header-logo-img-width: 150px !default;
 $header-logo-right-space: $base-size * 2 !default;
 $header-logo-menu-link-color: $white-color !default;
