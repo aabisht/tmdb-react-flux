@@ -78,12 +78,12 @@
       text-align: left;
       border: none;
       @include padding(
-        $dropdown-list-btn-x-padding $dropdown-list-btn-y-padding
+        $dropdown-list-btn-y-padding $dropdown-list-btn-x-padding
       );
     }
   }
 
   .no-record {
-    @include padding($dropdown-list-btn-x-padding $dropdown-list-btn-y-padding);
+    @include padding($dropdown-list-btn-y-padding $dropdown-list-btn-x-padding);
   }
 }

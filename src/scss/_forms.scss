@@ -1,0 +1,42 @@
+.form-control {
+  display: block;
+  width: 100%;
+  font-weight: $input-font-weight;
+  line-height: $input-line-height;
+  background-clip: padding-box;
+  appearance: none;
+  @include padding($input-padding-y $input-padding-x);
+  @include fontSize($input-font-size);
+  @include color($input-color);
+  @include backgroundColor($input-bg);
+  @include border($input-border-width solid $input-border-color);
+  @include border-radius($input-border-radius, 0);
+  @include transition($input-transition);
+
+  &:focus {
+    outline: 0;
+    @include color($input-focus-color);
+    @include backgroundColor($input-focus-bg);
+    @include borderColor($input-focus-border-color);
+    @include box-shadow($input-focus-box-shadow);
+  }
+
+  &::placeholder {
+    @include color($input-placeholder-color);
+    opacity: 1;
+  }
+
+  &:disabled,
+  &[readonly],
+  &.disabled,
+  &.readonly {
+    opacity: 1;
+    @include backgroundColor($input-disabled-bg);
+    @include borderColor($input-disabled-border-color);
+  }
+
+  &.disabled,
+  &.readonly {
+    pointer-events: none;
+  }
+}

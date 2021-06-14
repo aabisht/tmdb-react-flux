@@ -254,8 +254,7 @@ $table-bg-scale: -80% !default;
 
 $input-btn-focus-width: 4px !default;
 $input-btn-focus-blur: 0 !default;
-$input-btn-focus-color-opacity: 0.25 !default;
-$input-btn-focus-color: $component-active-bg !default;
+$input-btn-focus-color: rgba($component-active-bg, 0.25) !default;
 
 // Buttons
 $btn-padding-y: 6px !default;
@@ -297,6 +296,30 @@ $grid-breakpoints: (
 
 $container-max-widths: 100% !default;
 $container-x-padding: 60px !default;
+
+// Forms
+// Input
+$input-padding-x: $btn-padding-x !default;
+$input-padding-y: $btn-padding-y !default;
+$input-font-size: $font-size-base !default;
+$input-font-weight: $font-weight-light !default;
+$input-line-height: 1.3 !default;
+$input-color: $body-color !default;
+$input-bg: $body-bg-color !default;
+$input-border-color: $input-color !default;
+$input-border-width: 1px !default;
+$input-border-radius: $btn-border-radius !default;
+$input-transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out !default;
+
+$input-focus-color: $input-color !default;
+$input-focus-bg: $input-bg !default;
+$input-focus-border-color: $input-btn-focus-color !default;
+$input-focus-box-shadow: 0 0 $input-btn-focus-blur $input-btn-focus-width
+  $input-btn-focus-color !default;
+
+$input-placeholder-color: $white-darken-10-color !default;
+$input-disabled-bg: $black-lighten-20-color !default;
+$input-disabled-border-color: $white-darken-20-color !default;
 
 // Header
 $header-logo-img-width: 150px !default;
