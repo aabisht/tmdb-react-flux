@@ -36,6 +36,11 @@
   @include backgroundColor($selection-body-bg-color);
 }
 
+html,
+body {
+  height: 100%;
+}
+
 // Body
 //
 // 1. Remove the margin in all browsers.

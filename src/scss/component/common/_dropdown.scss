@@ -4,7 +4,7 @@
   .dropdown-list-wrapper {
     position: absolute;
     z-index: 1000;
-    // display: none;
+    display: none;
     min-width: calculateRem($dropdown-min-width);
     margin: 0;
     padding: 0;
@@ -29,6 +29,10 @@
       position: absolute;
       left: calculateRem($container-x-padding/2);
       z-index: 2;
+    }
+
+    &.show {
+      display: block;
     }
 
     &:after {
