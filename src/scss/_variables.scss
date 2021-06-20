@@ -321,6 +321,9 @@ $input-placeholder-color: $white-darken-10-color !default;
 $input-disabled-bg: $black-lighten-20-color !default;
 $input-disabled-border-color: $white-darken-20-color !default;
 
+$form-group-icon-width: 34px !default;
+$form-group-icon-height: 34px !default;
+
 // Header
 $header-y-padding: $grid-gutter-width/2 !default;
 $header-x-padding: $grid-gutter-width/2 !default;
@@ -352,3 +355,8 @@ $language-list-wrapper-max-height: 38vh !default;
 $scrollbar-bg-color: $black-lighten-5-color !default;
 $scrollbar-thumb-color: $white-darken-5-color !default;
 $scrollbar-webkit-width: 12px !default;
+
+// Header Search
+$header-search-transition: all 0.5s ease !default;
+$header-search-width: 300px !default;
+$header-search-icon-width: 30px !default;

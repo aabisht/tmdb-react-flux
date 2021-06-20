@@ -55,7 +55,7 @@ function LanguagePreferences() {
 
   return (
     <div className="language-preferences-wrapper">
-      <div className="language-preferences-header">
+      <div className="language-preferences-header ps-2 pe-2">
         <div className="h5 text-nowrap mt-3 mb-3">Language Preferences</div>
         <div className="align-items-center d-flex justify-content-between mb-3">
           <span className="default-text ">Default Language</span>
@@ -63,14 +63,19 @@ function LanguagePreferences() {
         </div>
       </div>
       <div className="language-preferences-search-wrapper">
-        <div className="form-group mb-3">
-          <input
-            type="text"
-            className="form-control"
-            value={searchValue}
-            onChange={updateSearch}
-            placeholder="Search your language"
-          />
+        <div className="ps-2 pe-2">
+          <div className="form-group mb-3 has-icons icon-right">
+            <input
+              type="text"
+              className="form-control"
+              value={searchValue}
+              onChange={updateSearch}
+              placeholder="Search your language"
+            />
+            <span className="icon-wrapper">
+              <span className="material-icons-outlined">search</span>
+            </span>
+          </div>
         </div>
         {searchResults.length > 0 ? (
           <ul className="list-unstyled dropdown-list-wrappper language-list-wrapper">

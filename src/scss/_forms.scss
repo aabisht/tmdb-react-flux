@@ -40,3 +40,36 @@
     pointer-events: none;
   }
 }
+
+.form-group {
+  &.has-icons {
+    position: relative;
+
+    .icon-wrapper {
+      position: absolute;
+      top: 0;
+      height: calculateRem($form-group-icon-height);
+      width: calculateRem($form-group-icon-width);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    &.icon-left {
+      .form-control {
+        @include padding-left($form-group-icon-width);
+      }
+      .icon-wrapper {
+        left: 0;
+      }
+    }
+    &.icon-right {
+      .form-control {
+        @include padding-right($form-group-icon-width);
+      }
+      .icon-wrapper {
+        right: 0;
+      }
+    }
+  }
+}

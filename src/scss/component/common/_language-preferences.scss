@@ -1,9 +1,3 @@
-.language-preferences-header,
-.language-preferences-search-wrapper .form-group {
-  @include padding-left($language-preferences-x-padding);
-  @include padding-right($language-preferences-x-padding);
-}
-
 .language-list-wrapper {
   height: 100%;
   max-height: $language-list-wrapper-max-height;

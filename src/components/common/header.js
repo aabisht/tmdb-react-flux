@@ -3,6 +3,7 @@ import { Link, NavLink } from "react-router-dom";
 import DropDown from "./dropdown";
 import LanguagePreferences from "./language-preferences";
 import logo from "../../assets/logo.svg";
+import HeaderSearch from "./header-search";
 
 function Header() {
   return (
@@ -74,9 +75,7 @@ function Header() {
             <div className="header-right-menu-wrapper">
               <ul className="navbar-nav list-inline mb-0">
                 <li className="nav-item list-inline-item">
-                  <button type="button" className="btn">
-                    <span className="material-icons-outlined">search</span>
-                  </button>
+                  <HeaderSearch />
                 </li>
                 <li className="nav-item list-inline-item">
                   <DropDown
