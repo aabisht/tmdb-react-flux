@@ -1,6 +1,6 @@
 .header-search-wrapper {
-  position: relative;
   width: calculateRem($header-search-width);
+  position: relative;
 
   .search-btn,
   .search-form-control {
@@ -16,19 +16,38 @@
     }
   }
 
-  .search-form-control {
-    width: 0;
+  .search-form-group-wrapper {
     right: 0px;
     top: calculateRem(-3px);
     position: absolute;
     z-index: 1;
-    border-color: transparent;
+
+    .search-form-control {
+      width: 0;
+      border-color: transparent;
+      padding-left: 0;
+      padding-right: 0;
+      background: transparent;
+    }
+
+    .icon-wrapper {
+      display: none;
+    }
 
     &.show {
-      display: block;
-      width: calculateRem($header-search-width);
-      padding-left: calculateRem($header-search-icon-width + 4px);
-      @include borderColor($input-border-color);
+      .search-form-control {
+        @include padding(
+          $input-padding-y $form-group-icon-width $input-padding-y
+            ($header-search-icon-width + 4px)
+        );
+        width: calculateRem($header-search-width);
+        @include borderColor($input-border-color);
+        @include backgroundColor($input-bg);
+      }
+
+      .icon-wrapper {
+        display: flex;
+      }
     }
   }
 }
