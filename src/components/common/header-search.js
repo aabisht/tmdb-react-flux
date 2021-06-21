@@ -26,7 +26,7 @@ function HeaderSearch() {
         .querySelectorAll(".header-logo-menu-wrapper")[0]
         .removeEventListener("click", handleSearchCloseOnMenuClick);
     };
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   let handleSearchToggle = (event) => {
     if (!document.body.classList.contains("search-active")) {
