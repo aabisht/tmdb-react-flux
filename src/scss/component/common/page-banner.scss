@@ -1,0 +1,59 @@
+.page-banner-wrapper {
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+}
+
+.page-banner-bg-wrapper {
+  .page-banner-img-bg,
+  .page-banner-overlay-bg {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .page-banner-img-bg {
+    max-width: none;
+    min-width: 100%;
+    min-height: 100%;
+    z-index: 1;
+  }
+
+  .page-banner-overlay-bg {
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(
+      72deg,
+      rgba($black-color, 0.6) 0%,
+      rgba($black-color, 0) 102%
+    );
+    z-index: 2;
+  }
+}
+
+.page-banner-content-wrapper {
+  position: relative;
+  padding-bottom: 10vh;
+  z-index: 3;
+}
+
+.page-banner-info-wrapper {
+  @include padding-right($page-banner-info-wrapper-right-padding);
+}
+
+.rating-wrapper {
+  width: calculateRem($rating-width);
+  @include backgroundColor(
+    $rating-wrapper-bg-color,
+    $rating-wrapper-bg-opacity
+  );
+  @include color($rating-wrapper-color);
+  @include padding($rating-y-padding $rating-x-padding);
+  @include border-left(3px solid $rating-wrapper-color);
+}
+
+.page-banner-info-container {
+  width: 100%;
+  max-width: calculateRem($page-banner-info-container-width);
+}

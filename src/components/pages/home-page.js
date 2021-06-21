@@ -1,7 +1,8 @@
 import React from "react";
+import PageBanner from "../common/page-banner";
 
 function HomePage() {
-  return <h1>Home Page</h1>;
+  return <PageBanner />;
 }
 
 export default HomePage;

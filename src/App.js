@@ -13,14 +13,18 @@ function App() {
   return (
     <>
       <Header />
-      <Switch>
-        <Route path="/" exact component={HomePage} />
-        <Route path="/tv-shows" component={TVShowsPage} />
-        <Route path="/movies" component={MoviesPage} />
-        <Route path="/popular" component={PopularPage} />
-        <Route path="/my-list" component={MyListPage} />
-        <Route path="/search/:slug" component={SearchPage} />
-      </Switch>
+      <div className="body-container">
+        <div className="body-container-wrapper">
+          <Switch>
+            <Route path="/" exact component={HomePage} />
+            <Route path="/tv-shows" component={TVShowsPage} />
+            <Route path="/movies" component={MoviesPage} />
+            <Route path="/popular" component={PopularPage} />
+            <Route path="/my-list" component={MyListPage} />
+            <Route path="/search/:slug" component={SearchPage} />
+          </Switch>
+        </div>
+      </div>
     </>
   );
 }

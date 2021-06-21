@@ -326,7 +326,7 @@ $form-group-icon-height: 34px !default;
 
 // Header
 $header-y-padding: $grid-gutter-width/2 !default;
-$header-x-padding: $grid-gutter-width/2 !default;
+$header-x-padding: 0 !default;
 $header-height: 53px !default;
 $header-logo-img-width: 150px !default;
 $header-logo-right-space: $base-size * 2 !default;
@@ -360,3 +360,13 @@ $scrollbar-webkit-width: 12px !default;
 $header-search-transition: all 0.5s ease !default;
 $header-search-width: 300px !default;
 $header-search-icon-width: 30px !default;
+
+// Page Banner
+$page-banner-info-wrapper-right-padding: 60px !default;
+$rating-wrapper-bg-color: $black-color !default;
+$rating-wrapper-bg-opacity: 0.6 !default;
+$rating-wrapper-color: $white-color !default;
+$rating-y-padding: 10px !default;
+$rating-x-padding: 10px !default;
+$rating-width: 120px !default;
+$page-banner-info-container-width: 900px !default;
