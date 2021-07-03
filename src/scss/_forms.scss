@@ -19,6 +19,10 @@
     @include backgroundColor($input-focus-bg);
     @include borderColor($input-focus-border-color);
     @include box-shadow($input-focus-box-shadow);
+
+    ~ .icon-wrapper {
+      @include color($input-focus-border-color);
+    }
   }
 
   &::placeholder {
@@ -38,6 +42,31 @@
   &.disabled,
   &.readonly {
     pointer-events: none;
+  }
+
+  &.floating-input {
+    @include padding($floating-input-padding-y $floating-input-padding-x);
+
+    &:focus ~ .floating-label {
+      @include color($input-focus-border-color);
+    }
+  }
+}
+
+.form-label {
+  @include fontSize($form-label-font-size);
+  font-weight: $form-label-font-weight;
+
+  &.floating-label {
+    position: absolute;
+    left: calculateRem(4px);
+    top: 0;
+    line-height: $input-line-height;
+    @include backgroundColor($floating-form-label-bg);
+    @include padding(0 $floating-input-padding-x);
+    @include translateY($floating-form-label-initial-position);
+    @include transition($floating-form-label-transition);
+    @include transform-origin(0 100%);
   }
 }
 
@@ -69,6 +98,20 @@
       }
       .icon-wrapper {
         right: 0;
+      }
+    }
+  }
+
+  &.floating-label-group {
+    position: relative;
+
+    &.active {
+      .floating-label {
+        @include transform(
+          translateY(calculateRem(-$floating-form-label-initial-position))
+            scale(0.8)
+        );
+        @include transform-origin(0 0);
       }
     }
   }

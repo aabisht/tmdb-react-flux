@@ -274,7 +274,7 @@ $btn-padding-x-sm: $base-size/2 !default;
 $btn-font-size-sm: $font-size-sm !default;
 $btn-border-radius-sm: 3px !default;
 
-$btn-padding-y-lg: $base-size/2 !default;
+$btn-padding-y-lg: 12px !default;
 $btn-padding-x-lg: $base-size !default;
 $btn-font-size-lg: $font-size-lg !default;
 $btn-border-radius-lg: 5px !default;
@@ -320,6 +320,15 @@ $input-focus-box-shadow: 0 0 $input-btn-focus-blur $input-btn-focus-width
 $input-placeholder-color: $white-darken-10-color !default;
 $input-disabled-bg: $black-lighten-20-color !default;
 $input-disabled-border-color: $white-darken-20-color !default;
+
+$form-label-font-size: $input-font-size !default;
+$form-label-font-weight: $font-weight-bold !default;
+$floating-input-padding-x: $btn-padding-x-lg !default;
+$floating-input-padding-y: $btn-padding-y-lg !default;
+$floating-form-label-initial-position: $floating-input-padding-y !default;
+$floating-form-label-transition: transform 0.2s ease-out, color 0.2s ease-out,
+  -webkit-transform 0.2s ease-out !default;
+$floating-form-label-bg: $input-bg !default;
 
 $form-group-icon-width: 34px !default;
 $form-group-icon-height: 34px !default;
