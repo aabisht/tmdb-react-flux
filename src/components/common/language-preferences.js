@@ -77,7 +77,14 @@ function LanguagePreferences() {
             value={searchValue}
             hasIcon="true"
             iconPosition="right"
-            iconText={[<span className="material-icons-outlined">search</span>]}
+            iconText={[
+              <span
+                className="material-icons-outlined"
+                key="languageSearchInput"
+              >
+                search
+              </span>,
+            ]}
           />
         </div>
         {searchResults.length > 0 ? (

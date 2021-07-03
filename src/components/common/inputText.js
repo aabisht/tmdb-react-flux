@@ -46,10 +46,13 @@ function InputText(props) {
           className={inputClass}
           value={props.value}
           placeholder={props.placeholder}
+          autoComplete="off"
         />
       )}
       {props.hasIcon === "true" && (
-        <span className="icon-wrapper">{props.iconText}</span>
+        <span className="icon-wrapper" key="props.id">
+          {props.iconText}
+        </span>
       )}
       {props.error && <div className="invalid-feedback">{props.error}</div>}
     </div>
@@ -68,9 +71,10 @@ InputText.propType = {
   onChange: PropTypes.func,
   value: PropTypes.string,
   error: PropTypes.string,
-  hasIcon: PropTypes.string,
+  hasIcon: PropTypes.bool,
   iconPosition: PropTypes.string,
   iconText: PropTypes.string,
+  floatingLabels: PropTypes.bool,
 };
 
 InputText.defaultProps = {

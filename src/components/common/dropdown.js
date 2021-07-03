@@ -58,6 +58,7 @@ function DropDown(props) {
 DropDown.propType = {
   dropdownText: PropTypes.func.required,
   dropdownList: PropTypes.func.required,
+  dropdownPosition: PropTypes.string,
 };
 
 export default DropDown;

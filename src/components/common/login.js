@@ -13,6 +13,7 @@ function Login(props) {
           type="text"
           placeholder="Enter Username"
           formGroupClassName="mb-3"
+          floatingLabels="true"
         />
         <InputText
           label="Password"
