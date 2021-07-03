@@ -15,18 +15,18 @@ function InputText(props) {
     wrapperClass += " has-icons icon-" + props.iconPosition;
   }
 
-  if (
-    props.placeholder ||
-    inputFocus ||
-    (props.value && props.value.length > 0)
-  ) {
-    wrapperClass += " active";
-  }
-
   if (props.floatingLabels === "true") {
     wrapperClass += " floating-label-group";
     labelClass += " floating-label";
     inputClass += " floating-input";
+
+    if (
+      props.placeholder ||
+      inputFocus ||
+      (props.value && props.value.length > 0)
+    ) {
+      wrapperClass += " active";
+    }
   }
 
   if (props.error.length > 0) {
@@ -39,12 +39,8 @@ function InputText(props) {
   }
 
   if (props.labelClassName) {
-    labelClass += " " + labelClass;
+    labelClass += " " + props.labelClassName;
   }
-
-  // if (props.value) {
-  //   updateInputHasValue(props.value);
-  // }
 
   let handleInputFocusIn = () => {
     updateInputFocus(true);
