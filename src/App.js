@@ -8,6 +8,7 @@ import MoviesPage from "./components/pages/movies-page";
 import PopularPage from "./components/pages/popular-page";
 import MyListPage from "./components/pages/my-list-page";
 import SearchPage from "./components/pages/search-page";
+import LoginPage from "./components/pages/login-page";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
             <Route path="/popular" component={PopularPage} />
             <Route path="/my-list" component={MyListPage} />
             <Route path="/search/:slug" component={SearchPage} />
+            <Route path="/login" component={LoginPage} />
           </Switch>
         </div>
       </div>

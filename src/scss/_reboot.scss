@@ -649,3 +649,8 @@ progress {
   @include border-radius($scrollbar-webkit-width);
   @include border(2px solid $scrollbar-bg-color);
 }
+
+.page-no-banner {
+  padding-top: calculateRem($header-height);
+  min-height: 100vh;
+}

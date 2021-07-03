@@ -99,12 +99,13 @@ function Header() {
                       <span className="material-icons">notifications</span>,
                     ]}
                   />
-                </li>
-                <li className="nav-item list-inline-item">
+                </li> */}
+                {/* <li className="nav-item list-inline-item">
                   <DropDown
                     dropdownText={[
                       <span className="material-icons">account_circle</span>,
                     ]}
+                    dropdownPosition="right"
                   />
                 </li> */}
               </ul>

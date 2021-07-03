@@ -28,23 +28,24 @@ function HeaderSearch() {
     };
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
+  let focusSearchInput = (_this) => {
+    for (let sibling of _this.parentNode.children) {
+      sibling.classList.contains("show")
+        ? sibling.classList.remove("show")
+        : sibling.classList.add("show");
+
+      sibling.classList.contains("search-form-group-wrapper") &&
+      sibling.classList.contains("show")
+        ? textInput.current.focus()
+        : textInput.current.blur();
+    }
+  };
+
   let handleSearchToggle = (event) => {
     if (!document.body.classList.contains("search-active")) {
       event.stopPropagation();
       let _this = event.currentTarget;
-
-      for (let sibling of _this.parentNode.children) {
-        sibling.classList.contains("show")
-          ? sibling.classList.remove("show")
-          : sibling.classList.add("show");
-
-        if (
-          sibling.classList.contains("search-form-group-wrapper") &&
-          sibling.classList.contains("show")
-        ) {
-          textInput.current.focus();
-        }
-      }
+      focusSearchInput(_this);
     }
   };
 
@@ -85,16 +86,16 @@ function HeaderSearch() {
     history.push(routeTo);
   };
 
+  let goToSearch = (inputValue) => {
+    updateHeaderSearchClear(true);
+    document.body.classList.add("search-active");
+    history.push("/search/" + inputValue);
+  };
+
   let handleSearchSubmit = (event) => {
     const inputValue = event.target.value;
     updateHeaderSearchValue(inputValue);
-    if (inputValue.length > 0) {
-      updateHeaderSearchClear(true);
-      document.body.classList.add("search-active");
-      history.push("/search/" + inputValue);
-    } else {
-      clearSearch();
-    }
+    inputValue.length > 0 ? goToSearch(inputValue) : clearSearch();
   };
 
   let handleSearchClear = () => {

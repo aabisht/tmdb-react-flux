@@ -6,6 +6,7 @@
   top: 0;
   z-index: 4;
   width: 100%;
+  height: calculateRem($header-height);
 
   &:before {
     content: "";

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { loadLanguagesWithPrimaryTranslations } from "../../actions/configurationAction";
 import configurationStores from "../../stores/configurationStores";
+import InputText from "./inputText";
 
 function LanguagePreferences() {
   const [
@@ -64,18 +65,20 @@ function LanguagePreferences() {
       </div>
       <div className="language-preferences-search-wrapper">
         <div className="ps-2 pe-2">
-          <div className="form-group mb-3 has-icons icon-right">
-            <input
-              type="text"
-              className="form-control"
-              value={searchValue}
-              onChange={updateSearch}
-              placeholder="Search your language"
-            />
-            <span className="icon-wrapper">
-              <span className="material-icons-outlined">search</span>
-            </span>
-          </div>
+          <InputText
+            label="Search your language"
+            id="languageSearchInput"
+            name="userName"
+            type="text"
+            placeholder="Search your language"
+            formGroupClassName="mb-3"
+            labelClassName="d-none"
+            onChange={updateSearch}
+            value={searchValue}
+            hasIcon="true"
+            iconPosition="right"
+            iconText={[<span className="material-icons-outlined">search</span>]}
+          />
         </div>
         {searchResults.length > 0 ? (
           <ul className="list-unstyled dropdown-list-wrappper language-list-wrapper">
