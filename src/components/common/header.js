@@ -4,8 +4,11 @@ import DropDown from "./dropdown";
 import LanguagePreferences from "./language-preferences";
 import logo from "../../assets/logo.svg";
 import HeaderSearch from "./header-search";
+import sharedStores from "../../stores/sharedStores";
 
 function Header() {
+  const isLoginPageFlag = sharedStores.getIsLoginPage();
+
   return (
     <div className="header-container">
       <div className="header-container-wrapper">
@@ -69,6 +72,16 @@ function Header() {
                       My List
                     </NavLink>
                   </li>
+                  <li className="nav-item list-inline-item">
+                    <NavLink
+                      className="nav-link"
+                      to="/login"
+                      exact
+                      activeClassName="active"
+                    >
+                      Login
+                    </NavLink>
+                  </li>
                 </ul>
               </div>
             </div>
@@ -100,14 +113,20 @@ function Header() {
                     ]}
                   />
                 </li> */}
-                {/* <li className="nav-item list-inline-item">
-                  <DropDown
-                    dropdownText={[
-                      <span className="material-icons">account_circle</span>,
-                    ]}
-                    dropdownPosition="right"
-                  />
-                </li> */}
+                {!isLoginPageFlag ? (
+                  <li className="nav-item list-inline-item">
+                    <DropDown
+                      dropdownText={[
+                        <span className="material-icons" key="headerAccount">
+                          account_circle
+                        </span>,
+                      ]}
+                      dropdownPosition="right"
+                    />
+                  </li>
+                ) : (
+                  <></>
+                )}
               </ul>
             </div>
           </div>
