@@ -15,7 +15,6 @@ function Login(props) {
 
   return (
     <>
-      <h2>Login</h2>
       <form onSubmit={props.onSubmit}>
         <InputText
           label="User Name"

@@ -1,0 +1,11 @@
+.login-wrapper {
+  width: 100%;
+  max-width: calculateRem($login-wrapper-width);
+  @include backgroundColor(
+    $login-wrapper-bg-color,
+    $login-wrapper-bg-color-opacity
+  );
+  @include border-radius($login-wrapper-border-radius);
+  @include border($login-wrapper-border);
+  @include padding($login-wrapper-padding-x $login-wrapper-padding-y);
+}
