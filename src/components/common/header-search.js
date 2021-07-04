@@ -107,7 +107,7 @@ function HeaderSearch() {
     <div className="header-search-wrapper">
       <button
         type="button"
-        className="btn search-btn"
+        className="btn search-btn link-text"
         onClick={handleSearchToggle}
       >
         <span className="material-icons-outlined">search</span>

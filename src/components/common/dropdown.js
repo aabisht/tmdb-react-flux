@@ -7,6 +7,12 @@ function DropDown(props) {
     wrapperClass += " " + props.dropdownPosition;
   }
 
+  let dropdownBtnClass = "btn dropdown-btn";
+
+  if (props.dropdownTextClass) {
+    dropdownBtnClass += " " + props.dropdownTextClass;
+  }
+
   useEffect(() => {
     document.body.addEventListener("click", handleCloseDropdownonBodyClick);
     return () =>
@@ -43,7 +49,7 @@ function DropDown(props) {
     <div className="dropdown-wrapper">
       <button
         type="button"
-        className="btn dropdown-btn"
+        className={dropdownBtnClass}
         onClick={handleDropDownToggle}
       >
         {props.dropdownText}
@@ -59,6 +65,7 @@ DropDown.propType = {
   dropdownText: PropTypes.func.required,
   dropdownList: PropTypes.func.required,
   dropdownPosition: PropTypes.string,
+  dropdownTextClass: PropTypes.string,
 };
 
 export default DropDown;

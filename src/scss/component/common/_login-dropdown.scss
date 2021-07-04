@@ -1,0 +1,6 @@
+.login-dropdown-wrapper {
+  min-width: calculateRem($login-dropdown-wrapper-width);
+  @include padding(
+    $login-dropdown-wrapper-padding-x $login-dropdown-wrapper-padding-y
+  );
+}

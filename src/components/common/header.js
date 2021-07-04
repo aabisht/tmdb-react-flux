@@ -5,6 +5,7 @@ import LanguagePreferences from "./language-preferences";
 import logo from "../../assets/logo.svg";
 import HeaderSearch from "./header-search";
 import sharedStores from "../../stores/sharedStores";
+import LoginDropdown from "./login-dropdown";
 
 function Header() {
   const isLoginPageFlag = sharedStores.getIsLoginPage();
@@ -104,6 +105,7 @@ function Header() {
                       <LanguagePreferences key="headerTranslateList" />,
                     ]}
                     dropdownPosition="right"
+                    dropdownTextClass="link-text"
                   />
                 </li>
                 {/* <li className="nav-item list-inline-item">
@@ -121,7 +123,9 @@ function Header() {
                           account_circle
                         </span>,
                       ]}
+                      dropdownList={[<LoginDropdown key="headerAccount" />]}
                       dropdownPosition="right"
+                      dropdownTextClass="link-text"
                     />
                   </li>
                 ) : (

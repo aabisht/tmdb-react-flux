@@ -343,6 +343,7 @@ $header-logo-menu-link-color: $white-color !default;
 $header-logo-menu-link-spacing: $base-size !default;
 $header-logo-menu-link-active-color: $secondary-color !default;
 $header-height: 53px !default;
+$header-dropdown-opacity: 0.8 !default;
 
 // Dropdown
 $dropdown-min-width: $base-size * 10 !default;
@@ -380,6 +381,11 @@ $rating-y-padding: 10px !default;
 $rating-x-padding: 10px !default;
 $rating-width: 120px !default;
 $page-banner-info-container-width: 900px !default;
+
+// Login Dropdown
+$login-dropdown-wrapper-padding-x: 50px !default;
+$login-dropdown-wrapper-padding-y: 32px !default;
+$login-dropdown-wrapper-width: 320px !default;
 
 // Login Page
 $login-wrapper-width: 450px !default;
