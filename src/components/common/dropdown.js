@@ -23,6 +23,17 @@ function DropDown(props) {
     event.stopPropagation();
     let _this = event.currentTarget;
 
+    Object.keys(document.querySelectorAll(".dropdown-btn")).forEach(
+      (objectKey) => {
+        let _element = document.querySelectorAll(".dropdown-btn")[objectKey];
+        if (_element !== _this) {
+          Object.keys(_element.parentNode.children).forEach((siblingsKey) => {
+            _element.parentNode.children[siblingsKey].classList.remove("show");
+          });
+        }
+      }
+    );
+
     for (let sibling of _this.parentNode.children) {
       sibling.classList.contains("show")
         ? sibling.classList.remove("show")
