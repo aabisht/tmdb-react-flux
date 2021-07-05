@@ -42,6 +42,15 @@ function HeaderSearch() {
   };
 
   let handleSearchToggle = (event) => {
+    Object.keys(document.querySelectorAll(".dropdown-btn")).forEach(
+      (objectKey) => {
+        let _element = document.querySelectorAll(".dropdown-btn")[objectKey];
+        Object.keys(_element.parentNode.children).forEach((siblingsKey) => {
+          _element.parentNode.children[siblingsKey].classList.remove("show");
+        });
+      }
+    );
+
     if (!document.body.classList.contains("search-active")) {
       event.stopPropagation();
       let _this = event.currentTarget;
