@@ -13,6 +13,15 @@ let _languages_primary_translations = [];
 
 let _defaultLanguage = "";
 
+let _base_url = "";
+let _backdrop_sizes = [];
+let _logo_sizes = [];
+let _poster_sizes = [];
+let _profile_sizes = [];
+let _still_sizes = [];
+
+let _change_keys = [];
+
 class ConfigurationStores extends EventEmitter {
   addChangeListener(callback) {
     this.on(CHANGE_EVENT, callback);
@@ -61,6 +70,34 @@ class ConfigurationStores extends EventEmitter {
         : _defaultLanguage;
     return _defaultLanguage;
   }
+
+  getBaseURL() {
+    return _base_url;
+  }
+
+  getBackdropSizes() {
+    return _backdrop_sizes;
+  }
+
+  getLogoSizes() {
+    return _logo_sizes;
+  }
+
+  getPosterSizes() {
+    return _poster_sizes;
+  }
+
+  getProfileSizes() {
+    return _profile_sizes;
+  }
+
+  getStillSizes() {
+    return _still_sizes;
+  }
+
+  getChangeKeys() {
+    return _change_keys;
+  }
 }
 
 const configurationStores = new ConfigurationStores();
@@ -69,6 +106,13 @@ Dispatcher.register((action) => {
   switch (action.actionType) {
     case actionTypes.LOAD_API_CONFIGURATIONS:
       _api_configurations = action.api_configurations;
+      _base_url = action.api_configurations.images.secure_base_url;
+      _backdrop_sizes = action.api_configurations.images.backdrop_sizes;
+      _logo_sizes = action.api_configurations.images.logo_sizes;
+      _poster_sizes = action.api_configurations.images.poster_sizes;
+      _profile_sizes = action.api_configurations.images.profile_sizes;
+      _still_sizes = action.api_configurations.images.still_sizes;
+      _change_keys = action.api_configurations.change_keys;
       configurationStores.emitChange();
       break;
     case actionTypes.LOAD_COUNTRIES:

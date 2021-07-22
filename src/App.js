@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { Route, Switch, useLocation } from "react-router-dom";
+import React from "react";
+import { Route, Switch } from "react-router-dom";
 import Header from "./components/common/header";
 
 import HomePage from "./components/pages/home-page";
@@ -10,25 +10,7 @@ import MyListPage from "./components/pages/my-list-page";
 import SearchPage from "./components/pages/search-page";
 import LoginPage from "./components/pages/login-page";
 
-import { isLoginPage } from "./actions/sharedAction";
-import sharedStores from "./stores/sharedStores";
-
 function App() {
-  const location = useLocation();
-  const isLoginPageFlag = sharedStores.getIsLoginPage();
-
-  isLoginPage(location.pathname === "/login" ? true : false);
-
-  let onLoginPageFlagChange = () => {
-    sharedStores.getIsLoginPage();
-  };
-
-  useEffect(() => {
-    isLoginPage(location.pathname === "/login" ? true : false);
-    sharedStores.addChangeListener(onLoginPageFlagChange);
-    return () => sharedStores.removeChangeListner(onLoginPageFlagChange);
-  }, [location, isLoginPageFlag]);
-
   return (
     <>
       <Header />

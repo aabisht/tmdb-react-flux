@@ -1,14 +1,17 @@
 import React from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import DropDown from "./dropdown";
 import LanguagePreferences from "./language-preferences";
 import logo from "../../assets/logo.svg";
 import HeaderSearch from "./header-search";
-import sharedStores from "../../stores/sharedStores";
 import LoginDropdown from "./login-dropdown";
 
 function Header() {
-  const isLoginPageFlag = sharedStores.getIsLoginPage();
+  const location = useLocation();
+
+  const isCurrentURL = (url) => {
+    return location.pathname.toLowerCase() === url.toLowerCase();
+  };
 
   return (
     <div className="header-container">
@@ -115,7 +118,7 @@ function Header() {
                     ]}
                   />
                 </li> */}
-                {!isLoginPageFlag ? (
+                {!isCurrentURL("/login") ? (
                   <li className="nav-item list-inline-item">
                     <DropDown
                       dropdownText={[
@@ -128,9 +131,7 @@ function Header() {
                       dropdownTextClass="link-text"
                     />
                   </li>
-                ) : (
-                  <></>
-                )}
+                ) : null}
               </ul>
             </div>
           </div>

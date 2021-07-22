@@ -1,9 +1,9 @@
 import dispatcher from "../appDispatcher";
 import SharedActionTypes from "./actionTypes/sharedActionTypes";
 
-export function isLoginPage(isLoginPageFlag) {
+export function isUserLoggedIn(isUserLoggedInFlag) {
   return dispatcher.dispatch({
-    actionType: SharedActionTypes.IS_LOGIN_PAGE,
-    isLoginPage: isLoginPageFlag,
+    actionType: SharedActionTypes.IS_USER_LOGGED_IN,
+    isUserLoggedInFlag,
   });
 }
