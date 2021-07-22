@@ -1,7 +1,14 @@
 import React from "react";
 import Login from "../common/login";
+import sharedStores from "../../stores/sharedStores";
+import { useHistory } from "react-router-dom";
 
 function LoginPage() {
+  const isLogin = sharedStores.getIsUserLoggedIn();
+  const history = useHistory();
+
+  if (isLogin) history.push("/");
+
   return (
     <div className="container">
       <div className="page-no-banner d-flex align-items-center justify-content-center">

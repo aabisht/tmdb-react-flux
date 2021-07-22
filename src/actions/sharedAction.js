@@ -7,3 +7,10 @@ export function isUserLoggedIn(isUserLoggedInFlag) {
     isUserLoggedInFlag,
   });
 }
+
+export function createSessionId(sessionId) {
+  return dispatcher.dispatch({
+    actionType: SharedActionTypes.CREATE_SESSION_WITH_LOGIN,
+    sessionId,
+  });
+}

@@ -17,7 +17,27 @@ export function getRequestToken() {
   return fetch(url).then(handleResponse).catch(handleError);
 }
 
-// This method allows you to mark a movie or TV show as a favorite item.
+// You can use this method to create a fully valid session ID once a user has validated the request token.
+export function createSession(request_token) {
+  const url =
+    baseURL + "/session/new" + apiParam.setApiKey(apiConstants.API_KEY);
+
+  const mediaData = {
+    request_token: request_token,
+  };
+
+  return fetch(url, {
+    method: "POST",
+    headers: { "content-type": "application/json;charset=utf-8" },
+    body: JSON.stringify({
+      ...mediaData,
+    }),
+  })
+    .then(handleResponse)
+    .catch(handleError);
+}
+
+// This method allows an application to validate a request token by entering a username and password.
 export function createSessionWithLogin(username, password, request_token) {
   const url =
     baseURL +

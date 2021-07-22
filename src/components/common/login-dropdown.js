@@ -4,7 +4,6 @@ import sharedStores from "../../stores/sharedStores";
 
 function LoginDropdown() {
   const isUserLoggedInFlag = sharedStores.getIsUserLoggedIn();
-  console.log("LoginDropdown: ", isUserLoggedInFlag);
 
   return isUserLoggedInFlag ? (
     <></>

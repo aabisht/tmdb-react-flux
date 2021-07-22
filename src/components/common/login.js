@@ -1,12 +1,17 @@
 import React, { useState, useEffect } from "react";
 import InputText from "./inputText";
-import { isUserLoggedIn } from "../../actions/sharedAction";
+import { isUserLoggedIn, createSessionId } from "../../actions/sharedAction";
 import sharedStores from "../../stores/sharedStores";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
+import * as authenticationApi from "../../api/authentication";
 
 function Login() {
   const history = useHistory();
-  const routeTo = "/";
+  const location = useLocation();
+  const routeTo =
+    location.pathname.toLowerCase() === "/login" ? "/" : location.pathname;
+
+  const sessionStorageSession = sessionStorage.getItem("sessionID");
 
   const [username, updateUsernameValue] = useState("");
   const [password, updatePasswordValue] = useState("");
@@ -20,7 +25,12 @@ function Login() {
 
   useEffect(() => {
     sharedStores.addChangeListener(onUserLoggedInFlagChange);
-    if (isUserLoggedInFlag === undefined) isUserLoggedIn(false);
+    if (sessionStorageSession) {
+      isUserLoggedIn(true);
+      createSessionId(sessionStorageSession);
+    } else {
+      isUserLoggedIn(isUserLoggedInFlag ? true : false);
+    }
     return () => sharedStores.removeChangeListner(onUserLoggedInFlagChange);
   }, [isUserLoggedInFlag]);
 
@@ -34,8 +44,31 @@ function Login() {
 
   let handleOnSubmit = (event) => {
     event.preventDefault();
-    isUserLoggedIn(true);
-    history.push(routeTo);
+    authenticationApi.getRequestToken().then((request_token_data) => {
+      if (request_token_data.success) {
+        authenticationApi
+          .createSessionWithLogin(
+            username,
+            password,
+            request_token_data.request_token
+          )
+          .then((validateData) => {
+            if (validateData.success) {
+              authenticationApi
+                .createSession(validateData.request_token)
+                .then((sessionData) => {
+                  if (sessionData.success) {
+                    createSessionId(sessionData.session_id);
+                    sessionStorage.setItem("sessionID", sessionData.session_id);
+                    isUserLoggedIn(sessionData.success);
+                  }
+                });
+            }
+          });
+      }
+    });
+    // isUserLoggedIn(true);
+    // history.push(routeTo);
   };
 
   return (

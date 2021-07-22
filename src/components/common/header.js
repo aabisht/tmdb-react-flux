@@ -5,6 +5,8 @@ import LanguagePreferences from "./language-preferences";
 import logo from "../../assets/logo.svg";
 import HeaderSearch from "./header-search";
 import LoginDropdown from "./login-dropdown";
+import sharedStores from "../../stores/sharedStores";
+import { isUserLoggedIn, createSessionId } from "../../actions/sharedAction";
 
 function Header() {
   const location = useLocation();
@@ -12,6 +14,16 @@ function Header() {
   const isCurrentURL = (url) => {
     return location.pathname.toLowerCase() === url.toLowerCase();
   };
+
+  const sessionStorageSession = sessionStorage.getItem("sessionID");
+  let isLogin;
+  if (sessionStorageSession) {
+    isUserLoggedIn(true);
+    createSessionId(sessionStorageSession);
+    isLogin = true;
+  } else {
+    isLogin = sharedStores.getIsUserLoggedIn();
+  }
 
   return (
     <div className="header-container">
@@ -76,16 +88,18 @@ function Header() {
                       My List
                     </NavLink>
                   </li>
-                  <li className="nav-item list-inline-item">
-                    <NavLink
-                      className="nav-link"
-                      to="/login"
-                      exact
-                      activeClassName="active"
-                    >
-                      Login
-                    </NavLink>
-                  </li>
+                  {!isLogin ? (
+                    <li className="nav-item list-inline-item">
+                      <NavLink
+                        className="nav-link"
+                        to="/login"
+                        exact
+                        activeClassName="active"
+                      >
+                        Login
+                      </NavLink>
+                    </li>
+                  ) : null}
                 </ul>
               </div>
             </div>
@@ -118,7 +132,7 @@ function Header() {
                     ]}
                   />
                 </li> */}
-                {!isCurrentURL("/login") ? (
+                {!isCurrentURL("/login") && !isLogin ? (
                   <li className="nav-item list-inline-item">
                     <DropDown
                       dropdownText={[
