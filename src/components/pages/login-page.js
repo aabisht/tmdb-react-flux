@@ -1,13 +1,13 @@
 import React from "react";
 import Login from "../common/login";
-import sharedStores from "../../stores/sharedStores";
+import AuthenticationStores from "../../stores/authenticationStores";
 import { useHistory } from "react-router-dom";
 
 function LoginPage() {
   const history = useHistory();
   const sessionStorageSession = sessionStorage.getItem("sessionID");
 
-  if (sharedStores.getIsUserLoggedIn() || sessionStorageSession)
+  if (AuthenticationStores.getIsUserLoggedIn() || sessionStorageSession)
     history.push("/");
 
   return (

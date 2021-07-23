@@ -1,18 +1,16 @@
 import React from "react";
-import Login from "./login";
 import sharedStores from "../../stores/authenticationStores";
 
-function LoginDropdown() {
+function HeaderAccountDropdown() {
   const isUserLoggedInFlag = sharedStores.getIsUserLoggedIn();
 
-  return isUserLoggedInFlag ? (
+  return !isUserLoggedInFlag ? (
     <></>
   ) : (
     <div className="login-dropdown-wrapper">
-      <div className="h3 mb-4">Login</div>
-      <Login />
+      <div className="h3 mb-4">User</div>
     </div>
   );
 }
 
-export default LoginDropdown;
+export default HeaderAccountDropdown;

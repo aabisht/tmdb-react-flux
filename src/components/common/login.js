@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import InputText from "./inputText";
-import { isUserLoggedIn, createSessionId } from "../../actions/sharedAction";
 import { useHistory, useLocation } from "react-router-dom";
-import * as authenticationApi from "../../api/authentication";
+import InputText from "./inputText";
+import * as authenticationAction from "../../actions/authenticationAction";
+import AuthenticationStores from "../../stores/authenticationStores";
 
 function Login() {
   const history = useHistory();
@@ -23,30 +23,36 @@ function Login() {
 
   let handleOnSubmit = (event) => {
     event.preventDefault();
-    authenticationApi.getRequestToken().then((request_token_data) => {
-      if (request_token_data.success) {
-        authenticationApi
-          .createSessionWithLogin(
-            username,
-            password,
-            request_token_data.request_token
-          )
-          .then((validateData) => {
-            if (validateData.success) {
-              authenticationApi
-                .createSession(validateData.request_token)
-                .then((sessionData) => {
-                  if (sessionData.success) {
-                    createSessionId(sessionData.session_id);
-                    sessionStorage.setItem("sessionID", sessionData.session_id);
-                    isUserLoggedIn(sessionData.success);
-                    history.push(routeTo);
-                  }
-                });
-            }
-          });
-      }
+    authenticationAction.createRequestToken().then(() => {
+      console.log(
+        "Login Component",
+        AuthenticationStores.getRequestTokenData()
+      );
     });
+    // authenticationApi.getRequestToken().then((request_token_data) => {
+    //   if (request_token_data.success) {
+    //     authenticationApi
+    //       .createSessionWithLogin(
+    //         username,
+    //         password,
+    //         request_token_data.request_token
+    //       )
+    //       .then((validateData) => {
+    //         if (validateData.success) {
+    //           authenticationApi
+    //             .createSession(validateData.request_token)
+    //             .then((sessionData) => {
+    //               if (sessionData.success) {
+    //                 createSessionId(sessionData.session_id);
+    //                 sessionStorage.setItem("sessionID", sessionData.session_id);
+    //                 isUserLoggedIn(sessionData.success);
+    //                 history.push(routeTo);
+    //               }
+    //             });
+    //         }
+    //       });
+    //   }
+    // });
   };
 
   return (

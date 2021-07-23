@@ -1,12 +1,13 @@
 import { EventEmitter } from "events";
 import Dispatcher from "../appDispatcher";
-import actionType from "../actions/actionTypes/sharedActionTypes";
+import actionType from "../actions/actionTypes/authenticationActionTypes";
 
 const CHANGE_EVENT = "change";
 let _isUserLoggedInFlag = false;
 let _userSession;
+let _requestTokenData = [];
 
-class SharedStores extends EventEmitter {
+class AuthenticationStores extends EventEmitter {
   addChangeListener(callback) {
     this.on(CHANGE_EVENT, callback);
   }
@@ -26,23 +27,31 @@ class SharedStores extends EventEmitter {
   getSessionId() {
     return _userSession;
   }
+
+  getRequestTokenData() {
+    return _requestTokenData;
+  }
 }
 
-const sharedStores = new SharedStores();
+const authenticationStores = new AuthenticationStores();
 
 Dispatcher.register((action) => {
   switch (action.actionType) {
     case actionType.IS_USER_LOGGED_IN:
       _isUserLoggedInFlag = action.isUserLoggedInFlag;
-      sharedStores.emitChange();
+      authenticationStores.emitChange();
       break;
     case actionType.CREATE_SESSION_WITH_LOGIN:
       _userSession = action.sessionId;
-      sharedStores.emitChange();
+      authenticationStores.emitChange();
+      break;
+    case actionType.CREATE_REQUEST_TOKEN:
+      _requestTokenData = action.request_token_data;
+      authenticationStores.emitChange();
       break;
     default:
       break;
   }
 });
 
-export default sharedStores;
+export default authenticationStores;

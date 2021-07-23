@@ -5,8 +5,9 @@ import LanguagePreferences from "./language-preferences";
 import logo from "../../assets/logo.svg";
 import HeaderSearch from "./header-search";
 import LoginDropdown from "./login-dropdown";
-import sharedStores from "../../stores/sharedStores";
-import { isUserLoggedIn, createSessionId } from "../../actions/sharedAction";
+import HeaderAccountDropdown from "./header-account-dropdown";
+import AuthenticationStores from "../../stores/authenticationStores";
+import * as authenticationAction from "../../actions/authenticationAction";
 
 function Header() {
   const location = useLocation();
@@ -17,21 +18,22 @@ function Header() {
   };
 
   const [isUserLoggedInFlag, setIsUserLoggedInFlag] = useState(
-    sharedStores.getIsUserLoggedIn()
+    AuthenticationStores.getIsUserLoggedIn()
   );
 
   let onUserLoggedInFlagChange = () => {
-    setIsUserLoggedInFlag(sharedStores.getIsUserLoggedIn());
+    setIsUserLoggedInFlag(AuthenticationStores.getIsUserLoggedIn());
   };
 
   useEffect(() => {
-    sharedStores.addChangeListener(onUserLoggedInFlagChange);
-    if (!isUserLoggedInFlag) isUserLoggedIn(false);
+    AuthenticationStores.addChangeListener(onUserLoggedInFlagChange);
+    if (!isUserLoggedInFlag) authenticationAction.isUserLoggedIn(false);
     if (sessionStorageSession) {
-      isUserLoggedIn(true);
-      createSessionId(sessionStorageSession);
+      authenticationAction.isUserLoggedIn(true);
+      authenticationAction.createSessionId(sessionStorageSession);
     }
-    return () => sharedStores.removeChangeListner(onUserLoggedInFlagChange);
+    return () =>
+      AuthenticationStores.removeChangeListner(onUserLoggedInFlagChange);
   }, [isUserLoggedInFlag, sessionStorageSession]);
 
   return (
@@ -150,6 +152,25 @@ function Header() {
                         </span>,
                       ]}
                       dropdownList={[<LoginDropdown key="headerAccount" />]}
+                      dropdownPosition="right"
+                      dropdownTextClass="link-text"
+                    />
+                  </li>
+                ) : null}
+                {isUserLoggedInFlag ? (
+                  <li className="nav-item list-inline-item">
+                    <DropDown
+                      dropdownText={[
+                        <span
+                          className="material-icons"
+                          key="headerLoggedInAccount"
+                        >
+                          account_circle
+                        </span>,
+                      ]}
+                      dropdownList={[
+                        <HeaderAccountDropdown key="headerLoggedInAccount" />,
+                      ]}
                       dropdownPosition="right"
                       dropdownTextClass="link-text"
                     />
