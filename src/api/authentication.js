@@ -70,7 +70,7 @@ export function deleteSession(session_id) {
   };
 
   return fetch(url, {
-    method: "POST",
+    method: "DELETE",
     headers: { "content-type": "application/json;charset=utf-8" },
     body: JSON.stringify({
       ...mediaData,

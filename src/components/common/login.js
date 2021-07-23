@@ -9,7 +9,6 @@ function Login() {
   const location = useLocation();
   const routeTo =
     location.pathname.toLowerCase() === "/login" ? "/" : location.pathname;
-
   const [username, updateUsernameValue] = useState("");
   const [password, updatePasswordValue] = useState("");
 
@@ -21,38 +20,40 @@ function Login() {
     updatePasswordValue(event.target.value);
   };
 
+  let createRequestToken = () => {
+    authenticationAction.createRequestToken().then(() => {
+      const requestTokenData = AuthenticationStores.getRequestTokenData();
+      if (requestTokenData?.success) {
+        createSessionWithLogin(requestTokenData.request_token);
+      }
+    });
+  };
+
+  let createSessionWithLogin = (request_token) => {
+    authenticationAction
+      .createSessionWithLogin(username, password, request_token)
+      .then(() => {
+        const sessionWithLoginData = AuthenticationStores.getSessionWithLogin();
+        if (sessionWithLoginData?.success) {
+          createSession(sessionWithLoginData.request_token);
+        }
+      });
+  };
+
+  let createSession = (request_token) => {
+    authenticationAction.createSession(request_token).then(() => {
+      const sessionData = AuthenticationStores.getSessionData();
+      if (sessionData.success) {
+        sessionStorage.setItem("sessionData", JSON.stringify(sessionData));
+        authenticationAction.isUserLoggedIn(true);
+        history.push(routeTo);
+      }
+    });
+  };
+
   let handleOnSubmit = (event) => {
     event.preventDefault();
-    authenticationAction.createRequestToken().then(() => {
-      console.log(
-        "Login Component",
-        AuthenticationStores.getRequestTokenData()
-      );
-    });
-    // authenticationApi.getRequestToken().then((request_token_data) => {
-    //   if (request_token_data.success) {
-    //     authenticationApi
-    //       .createSessionWithLogin(
-    //         username,
-    //         password,
-    //         request_token_data.request_token
-    //       )
-    //       .then((validateData) => {
-    //         if (validateData.success) {
-    //           authenticationApi
-    //             .createSession(validateData.request_token)
-    //             .then((sessionData) => {
-    //               if (sessionData.success) {
-    //                 createSessionId(sessionData.session_id);
-    //                 sessionStorage.setItem("sessionID", sessionData.session_id);
-    //                 isUserLoggedIn(sessionData.success);
-    //                 history.push(routeTo);
-    //               }
-    //             });
-    //         }
-    //       });
-    //   }
-    // });
+    createRequestToken();
   };
 
   return (

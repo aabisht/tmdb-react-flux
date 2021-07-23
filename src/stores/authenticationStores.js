@@ -4,8 +4,9 @@ import actionType from "../actions/actionTypes/authenticationActionTypes";
 
 const CHANGE_EVENT = "change";
 let _isUserLoggedInFlag = false;
-let _userSession;
+let _sessionWithLoginData = [];
 let _requestTokenData = [];
+let _sessionData = [];
 
 class AuthenticationStores extends EventEmitter {
   addChangeListener(callback) {
@@ -24,12 +25,16 @@ class AuthenticationStores extends EventEmitter {
     return _isUserLoggedInFlag;
   }
 
-  getSessionId() {
-    return _userSession;
-  }
-
   getRequestTokenData() {
     return _requestTokenData;
+  }
+
+  getSessionWithLogin() {
+    return _sessionWithLoginData;
+  }
+
+  getSessionData() {
+    return _sessionData;
   }
 }
 
@@ -41,14 +46,29 @@ Dispatcher.register((action) => {
       _isUserLoggedInFlag = action.isUserLoggedInFlag;
       authenticationStores.emitChange();
       break;
-    case actionType.CREATE_SESSION_WITH_LOGIN:
-      _userSession = action.sessionId;
-      authenticationStores.emitChange();
-      break;
     case actionType.CREATE_REQUEST_TOKEN:
       _requestTokenData = action.request_token_data;
       authenticationStores.emitChange();
       break;
+    case actionType.CREATE_SESSION_WITH_LOGIN:
+      _sessionWithLoginData = action.create_session_with_login_data;
+      authenticationStores.emitChange();
+      break;
+    case actionType.CREATE_SESSION:
+      _sessionData = action.session_data;
+      authenticationStores.emitChange();
+      break;
+    case actionType.DELETE_SESSION:
+      if (action.delete_session_data) {
+        _sessionWithLoginData = [];
+        _requestTokenData = [];
+        _sessionData = [];
+        _isUserLoggedInFlag = false;
+        authenticationStores.emitChange();
+        break;
+      } else {
+        break;
+      }
     default:
       break;
   }

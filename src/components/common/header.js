@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import DropDown from "./dropdown";
 import LanguagePreferences from "./language-preferences";
@@ -11,30 +11,23 @@ import * as authenticationAction from "../../actions/authenticationAction";
 
 function Header() {
   const location = useLocation();
-  const sessionStorageSession = sessionStorage.getItem("sessionID");
 
   const isCurrentURL = (url) => {
     return location.pathname.toLowerCase() === url.toLowerCase();
   };
 
-  const [isUserLoggedInFlag, setIsUserLoggedInFlag] = useState(
+  const [isUserLoggedInFlag, updateIsUserLoggedInFlag] = useState(
     AuthenticationStores.getIsUserLoggedIn()
   );
+  const sessionStorageSession = JSON.parse(
+    sessionStorage.getItem("sessionData")
+  );
 
-  let onUserLoggedInFlagChange = () => {
-    setIsUserLoggedInFlag(AuthenticationStores.getIsUserLoggedIn());
-  };
-
-  useEffect(() => {
-    AuthenticationStores.addChangeListener(onUserLoggedInFlagChange);
-    if (!isUserLoggedInFlag) authenticationAction.isUserLoggedIn(false);
-    if (sessionStorageSession) {
-      authenticationAction.isUserLoggedIn(true);
-      authenticationAction.createSessionId(sessionStorageSession);
-    }
-    return () =>
-      AuthenticationStores.removeChangeListner(onUserLoggedInFlagChange);
-  }, [isUserLoggedInFlag, sessionStorageSession]);
+  if (!isUserLoggedInFlag && sessionStorageSession?.success) {
+    updateIsUserLoggedInFlag(true);
+    authenticationAction.isUserLoggedIn(true);
+    authenticationAction.createSessionWithSavedSession(sessionStorageSession);
+  }
 
   return (
     <div className="header-container">

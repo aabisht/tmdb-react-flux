@@ -5,10 +5,8 @@ import { useHistory } from "react-router-dom";
 
 function LoginPage() {
   const history = useHistory();
-  const sessionStorageSession = sessionStorage.getItem("sessionID");
 
-  if (AuthenticationStores.getIsUserLoggedIn() || sessionStorageSession)
-    history.push("/");
+  if (AuthenticationStores.getIsUserLoggedIn()) history.push("/");
 
   return (
     <div className="container">
