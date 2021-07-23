@@ -12,15 +12,15 @@ function Login() {
   const [username, updateUsernameValue] = useState("");
   const [password, updatePasswordValue] = useState("");
 
-  let handleOnchangeUsername = (event) => {
+  const handleOnchangeUsername = (event) => {
     updateUsernameValue(event.target.value);
   };
 
-  let handleOnchangePassword = (event) => {
+  const handleOnchangePassword = (event) => {
     updatePasswordValue(event.target.value);
   };
 
-  let createRequestToken = () => {
+  const createRequestToken = () => {
     authenticationAction.createRequestToken().then(() => {
       const requestTokenData = AuthenticationStores.getRequestTokenData();
       if (requestTokenData?.success) {
@@ -29,7 +29,7 @@ function Login() {
     });
   };
 
-  let createSessionWithLogin = (request_token) => {
+  const createSessionWithLogin = (request_token) => {
     authenticationAction
       .createSessionWithLogin(username, password, request_token)
       .then(() => {
@@ -40,7 +40,7 @@ function Login() {
       });
   };
 
-  let createSession = (request_token) => {
+  const createSession = (request_token) => {
     authenticationAction.createSession(request_token).then(() => {
       const sessionData = AuthenticationStores.getSessionData();
       if (sessionData.success) {
@@ -51,7 +51,7 @@ function Login() {
     });
   };
 
-  let handleOnSubmit = (event) => {
+  const handleOnSubmit = (event) => {
     event.preventDefault();
     createRequestToken();
   };

@@ -1,9 +1,9 @@
 import React from "react";
 import Login from "./login";
-import sharedStores from "../../stores/authenticationStores";
+import AuthenticationStores from "../../stores/authenticationStores";
 
 function LoginDropdown() {
-  const isUserLoggedInFlag = sharedStores.getIsUserLoggedIn();
+  const isUserLoggedInFlag = AuthenticationStores.getIsUserLoggedIn();
 
   return isUserLoggedInFlag ? (
     <></>

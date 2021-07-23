@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import DropDown from "./dropdown";
 import LanguagePreferences from "./language-preferences";
@@ -7,7 +7,9 @@ import HeaderSearch from "./header-search";
 import LoginDropdown from "./login-dropdown";
 import HeaderAccountDropdown from "./header-account-dropdown";
 import AuthenticationStores from "../../stores/authenticationStores";
+import ConfigurationStores from "../../stores/configurationStores";
 import * as authenticationAction from "../../actions/authenticationAction";
+import * as configurationAction from "../../actions/configurationAction";
 
 function Header() {
   const location = useLocation();
@@ -22,12 +24,27 @@ function Header() {
   const sessionStorageSession = JSON.parse(
     sessionStorage.getItem("sessionData")
   );
+  const [apiConfigurations, setApiConfigurations] = useState(
+    ConfigurationStores.getAPIConfiguration()
+  );
 
   if (!isUserLoggedInFlag && sessionStorageSession?.success) {
     updateIsUserLoggedInFlag(true);
     authenticationAction.isUserLoggedIn(true);
     authenticationAction.createSessionWithSavedSession(sessionStorageSession);
   }
+
+  useEffect(() => {
+    ConfigurationStores.addChangeListener(onApiConfigurationsChange);
+    if (apiConfigurations.length === 0)
+      configurationAction.loadAPIConfiguration();
+    return () =>
+      ConfigurationStores.removeChangeListner(onApiConfigurationsChange);
+  }, [apiConfigurations.length]);
+
+  const onApiConfigurationsChange = () => {
+    setApiConfigurations(ConfigurationStores.getAPIConfiguration());
+  };
 
   return (
     <div className="header-container">

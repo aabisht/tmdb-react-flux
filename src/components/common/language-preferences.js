@@ -28,31 +28,31 @@ function LanguagePreferences() {
       configurationStores.removeChangeListner(onLanguagePreferencesChange);
   }, [languagesWithPrimaryTranslations.length]);
 
-  function onLanguagePreferencesChange() {
+  const onLanguagePreferencesChange = () => {
     setLanguagesWithPrimaryTranslations(
       configurationStores.getLanguageWithTranslations()
     );
     updateSearchResults(configurationStores.getLanguageWithTranslations());
     setDefaultLanguage(configurationStores.getDefaultLanguage());
-  }
+  };
 
-  function getLanguageName(language) {
+  const getLanguageName = (language) => {
     return language.name && !language.name.includes("??")
       ? language.name
       : language.english_name;
-  }
+  };
 
-  function updateSearch(e) {
-    updateSearchValue(e.target.value);
+  const updateSearch = (event) => {
+    updateSearchValue(event.target.value);
     updateSearchResults(
       languagesWithPrimaryTranslations.filter((result) => {
-        return result.english_name.match(new RegExp(e.target.value, "gi"));
+        return result.english_name.match(new RegExp(event.target.value, "gi"));
       })
     );
-  }
-  function handeChangeDefaultLanguage(event) {
+  };
+  const handeChangeDefaultLanguage = (event) => {
     setDefaultLanguage(event.target.getAttribute("data-lang"));
-  }
+  };
 
   return (
     <div className="language-preferences-wrapper">

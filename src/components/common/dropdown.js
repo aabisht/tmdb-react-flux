@@ -19,7 +19,7 @@ function DropDown(props) {
       window.removeEventListener("click", handleCloseDropdownonBodyClick);
   }, []);
 
-  let handleDropDownToggle = (event) => {
+  const handleDropDownToggle = (event) => {
     event.stopPropagation();
     let _this = event.currentTarget;
 
@@ -41,11 +41,11 @@ function DropDown(props) {
     }
   };
 
-  let handleDropdownListClick = (event) => {
+  const handleDropdownListClick = (event) => {
     event.stopPropagation();
   };
 
-  let handleCloseDropdownonBodyClick = () => {
+  const handleCloseDropdownonBodyClick = () => {
     for (let element of document.querySelectorAll(".dropdown-btn.show")) {
       element.classList.remove("show");
     }

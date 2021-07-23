@@ -3,61 +3,61 @@ import ConfigurationActionTypes from "./actionTypes/configurationActionTypes";
 import * as configurationApi from "../api/configuration";
 import { forkJoin } from "rxjs";
 
-export function loadAPIConfiguration() {
+export const loadAPIConfiguration = () => {
   return configurationApi.getAPIConfiguration().then((api_configurations) => {
     dispatcher.dispatch({
       actionType: ConfigurationActionTypes.LOAD_API_CONFIGURATIONS,
       api_configurations,
     });
   });
-}
+};
 
-export function loadCountries() {
+export const loadCountries = () => {
   return configurationApi.getCountries().then((countries) => {
     dispatcher.dispatch({
       actionType: ConfigurationActionTypes.LOAD_COUNTRIES,
       countries,
     });
   });
-}
+};
 
-export function loadJobs() {
+export const loadJobs = () => {
   return configurationApi.getJobs().then((jobs) => {
     dispatcher.dispatch({
       actionType: ConfigurationActionTypes.LOAD_JOBS,
       jobs,
     });
   });
-}
+};
 
-export function loadLanguages() {
+export const loadLanguages = () => {
   return configurationApi.getLanguages().then((languages) => {
     dispatcher.dispatch({
       actionType: ConfigurationActionTypes.LOAD_LANGUAGES,
       languages,
     });
   });
-}
+};
 
-export function loadPrimaryTranslations() {
+export const loadPrimaryTranslations = () => {
   return configurationApi.getPrimaryTranslations().then((translations) => {
     dispatcher.dispatch({
       actionType: ConfigurationActionTypes.LOAD_PRIMARY_TRANSLATIONS,
       translations,
     });
   });
-}
+};
 
-export function loadTimezones() {
+export const loadTimezones = () => {
   return configurationApi.getTimezones().then((timezones) => {
     dispatcher.dispatch({
       actionType: ConfigurationActionTypes.LOAD_TIME_ZONE,
       timezones,
     });
   });
-}
+};
 
-export function loadLanguagesWithPrimaryTranslations() {
+export const loadLanguagesWithPrimaryTranslations = () => {
   const languages = configurationApi.getLanguages();
   const primaryTranslations = configurationApi.getPrimaryTranslations();
   const pArray = [languages, primaryTranslations];
@@ -90,4 +90,4 @@ export function loadLanguagesWithPrimaryTranslations() {
       languagesWithPrimaryTranslations: _languagesWithPrimaryTranslations[0],
     });
   });
-}
+};

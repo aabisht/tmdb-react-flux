@@ -28,7 +28,7 @@ function HeaderSearch() {
     };
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  let focusSearchInput = (_this) => {
+  const focusSearchInput = (_this) => {
     for (let sibling of _this.parentNode.children) {
       sibling.classList.contains("show")
         ? sibling.classList.remove("show")
@@ -41,7 +41,7 @@ function HeaderSearch() {
     }
   };
 
-  let handleSearchToggle = (event) => {
+  const handleSearchToggle = (event) => {
     Object.keys(document.querySelectorAll(".dropdown-btn")).forEach(
       (objectKey) => {
         let _element = document.querySelectorAll(".dropdown-btn")[objectKey];
@@ -58,11 +58,11 @@ function HeaderSearch() {
     }
   };
 
-  let handleSearchInputClick = (event) => {
+  const handleSearchInputClick = (event) => {
     event.stopPropagation();
   };
 
-  let handleSearchCloseOnBodyClick = () => {
+  const handleSearchCloseOnBodyClick = () => {
     if (!document.body.classList.contains("search-active")) {
       for (let element of document.querySelectorAll(".search-btn.show")) {
         element.classList.remove("show");
@@ -75,7 +75,7 @@ function HeaderSearch() {
     }
   };
 
-  let handleSearchCloseOnMenuClick = () => {
+  const handleSearchCloseOnMenuClick = () => {
     for (let element of document.querySelectorAll(".search-btn.show")) {
       element.classList.remove("show");
     }
@@ -87,7 +87,7 @@ function HeaderSearch() {
     clearSearch();
   };
 
-  let clearSearch = () => {
+  const clearSearch = () => {
     textInput.current.value = "";
     updateHeaderSearchValue("");
     updateHeaderSearchClear(false);
@@ -95,19 +95,19 @@ function HeaderSearch() {
     history.push(routeTo);
   };
 
-  let goToSearch = (inputValue) => {
+  const goToSearch = (inputValue) => {
     updateHeaderSearchClear(true);
     document.body.classList.add("search-active");
     history.push("/search/" + inputValue);
   };
 
-  let handleSearchSubmit = (event) => {
+  const handleSearchSubmit = (event) => {
     const inputValue = event.target.value;
     updateHeaderSearchValue(inputValue);
     inputValue.length > 0 ? goToSearch(inputValue) : clearSearch();
   };
 
-  let handleSearchClear = () => {
+  const handleSearchClear = () => {
     textInput.current.focus();
     clearSearch();
   };

@@ -42,11 +42,11 @@ function InputText(props) {
     labelClass += " " + props.labelClassName;
   }
 
-  let handleInputFocusIn = () => {
+  const handleInputFocusIn = () => {
     updateInputFocus(true);
   };
 
-  let handleInputFocusOut = () => {
+  const handleInputFocusOut = () => {
     updateInputFocus(false);
   };
 
