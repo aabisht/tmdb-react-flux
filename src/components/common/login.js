@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import InputText from "./inputText";
 import { isUserLoggedIn, createSessionId } from "../../actions/sharedAction";
-import sharedStores from "../../stores/sharedStores";
 import { useHistory, useLocation } from "react-router-dom";
 import * as authenticationApi from "../../api/authentication";
 
@@ -11,28 +10,8 @@ function Login() {
   const routeTo =
     location.pathname.toLowerCase() === "/login" ? "/" : location.pathname;
 
-  const sessionStorageSession = sessionStorage.getItem("sessionID");
-
   const [username, updateUsernameValue] = useState("");
   const [password, updatePasswordValue] = useState("");
-  const [isUserLoggedInFlag, setIsUserLoggedInFlag] = useState(
-    sharedStores.getIsUserLoggedIn()
-  );
-
-  let onUserLoggedInFlagChange = () => {
-    setIsUserLoggedInFlag(sharedStores.getIsUserLoggedIn());
-  };
-
-  useEffect(() => {
-    sharedStores.addChangeListener(onUserLoggedInFlagChange);
-    if (sessionStorageSession) {
-      isUserLoggedIn(true);
-      createSessionId(sessionStorageSession);
-    } else {
-      isUserLoggedIn(isUserLoggedInFlag ? true : false);
-    }
-    return () => sharedStores.removeChangeListner(onUserLoggedInFlagChange);
-  }, [isUserLoggedInFlag]);
 
   let handleOnchangeUsername = (event) => {
     updateUsernameValue(event.target.value);
@@ -61,14 +40,13 @@ function Login() {
                     createSessionId(sessionData.session_id);
                     sessionStorage.setItem("sessionID", sessionData.session_id);
                     isUserLoggedIn(sessionData.success);
+                    history.push(routeTo);
                   }
                 });
             }
           });
       }
     });
-    // isUserLoggedIn(true);
-    // history.push(routeTo);
   };
 
   return (

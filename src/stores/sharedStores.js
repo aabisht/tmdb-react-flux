@@ -3,7 +3,7 @@ import Dispatcher from "../appDispatcher";
 import actionType from "../actions/actionTypes/sharedActionTypes";
 
 const CHANGE_EVENT = "change";
-let _isUserLoggedInFlag;
+let _isUserLoggedInFlag = false;
 let _userSession;
 
 class SharedStores extends EventEmitter {

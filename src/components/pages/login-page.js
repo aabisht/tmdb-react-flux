@@ -4,10 +4,11 @@ import sharedStores from "../../stores/sharedStores";
 import { useHistory } from "react-router-dom";
 
 function LoginPage() {
-  const isLogin = sharedStores.getIsUserLoggedIn();
   const history = useHistory();
+  const sessionStorageSession = sessionStorage.getItem("sessionID");
 
-  if (isLogin) history.push("/");
+  if (sharedStores.getIsUserLoggedIn() || sessionStorageSession)
+    history.push("/");
 
   return (
     <div className="container">

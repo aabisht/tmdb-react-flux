@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import DropDown from "./dropdown";
 import LanguagePreferences from "./language-preferences";
@@ -10,20 +10,29 @@ import { isUserLoggedIn, createSessionId } from "../../actions/sharedAction";
 
 function Header() {
   const location = useLocation();
+  const sessionStorageSession = sessionStorage.getItem("sessionID");
 
   const isCurrentURL = (url) => {
     return location.pathname.toLowerCase() === url.toLowerCase();
   };
 
-  const sessionStorageSession = sessionStorage.getItem("sessionID");
-  let isLogin;
-  if (sessionStorageSession) {
-    isUserLoggedIn(true);
-    createSessionId(sessionStorageSession);
-    isLogin = true;
-  } else {
-    isLogin = sharedStores.getIsUserLoggedIn();
-  }
+  const [isUserLoggedInFlag, setIsUserLoggedInFlag] = useState(
+    sharedStores.getIsUserLoggedIn()
+  );
+
+  let onUserLoggedInFlagChange = () => {
+    setIsUserLoggedInFlag(sharedStores.getIsUserLoggedIn());
+  };
+
+  useEffect(() => {
+    sharedStores.addChangeListener(onUserLoggedInFlagChange);
+    if (!isUserLoggedInFlag) isUserLoggedIn(false);
+    if (sessionStorageSession) {
+      isUserLoggedIn(true);
+      createSessionId(sessionStorageSession);
+    }
+    return () => sharedStores.removeChangeListner(onUserLoggedInFlagChange);
+  }, [isUserLoggedInFlag, sessionStorageSession]);
 
   return (
     <div className="header-container">
@@ -88,7 +97,7 @@ function Header() {
                       My List
                     </NavLink>
                   </li>
-                  {!isLogin ? (
+                  {!isUserLoggedInFlag ? (
                     <li className="nav-item list-inline-item">
                       <NavLink
                         className="nav-link"
@@ -132,7 +141,7 @@ function Header() {
                     ]}
                   />
                 </li> */}
-                {!isCurrentURL("/login") && !isLogin ? (
+                {!isCurrentURL("/login") && !isUserLoggedInFlag ? (
                   <li className="nav-item list-inline-item">
                     <DropDown
                       dropdownText={[
