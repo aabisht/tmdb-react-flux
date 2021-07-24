@@ -93,7 +93,9 @@ function InputText(props) {
           {props.iconText}
         </span>
       )}
-      {props.error && <div className="invalid-feedback">{props.error}</div>}
+      {props.error && (
+        <div className="invalid-feedback mt-1">{props.error}</div>
+      )}
     </div>
   );
 }

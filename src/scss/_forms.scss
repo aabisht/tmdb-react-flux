@@ -115,4 +115,33 @@
       }
     }
   }
+
+  &.has-error {
+    .form-label,
+    .invalid-feedback {
+      @include color($input-error-color);
+    }
+
+    .form-control {
+      @include borderColor($input-error-color);
+
+      &.floating-input {
+        &:focus ~ .floating-label {
+          @include color($input-error-color);
+        }
+      }
+
+      &:focus {
+        @include box-shadow($input-error-focus-box-shadow);
+
+        ~ .icon-wrapper {
+          @include color($input-error-color);
+        }
+      }
+    }
+
+    .invalid-feedback {
+      @include fontSize($invalid-feedback-font-size);
+    }
+  }
 }

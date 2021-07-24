@@ -13,13 +13,17 @@ function Login() {
     location.pathname.toLowerCase() === "/login" ? "/" : location.pathname;
   const [username, updateUsernameValue] = useState("");
   const [password, updatePasswordValue] = useState("");
+  const [errors, setErrors] = useState({});
+  const [btnClass, updateBtnClass] = useState("btn btn-block primary disabled");
 
   const handleOnchangeUsername = (event) => {
     updateUsernameValue(event.target.value);
+    handeFormChange(event.target.value, password);
   };
 
   const handleOnchangePassword = (event) => {
     updatePasswordValue(event.target.value);
+    handeFormChange(username, event.target.value);
   };
 
   const createRequestToken = () => {
@@ -67,7 +71,24 @@ function Login() {
 
   const handleOnSubmit = (event) => {
     event.preventDefault();
+    if (!formIsValid()) return;
     createRequestToken();
+  };
+
+  const formIsValid = () => {
+    const _errors = {};
+    if (!username) _errors.username = "Username is required";
+    if (!password) _errors.password = "Password is required";
+    setErrors(_errors);
+    return Object.keys(_errors).length === 0;
+  };
+
+  const handeFormChange = (_userName, _password) => {
+    updateBtnClass(
+      !_userName || !_password
+        ? "btn btn-block primary disabled"
+        : "btn btn-block primary"
+    );
   };
 
   return (
@@ -82,6 +103,7 @@ function Login() {
           floatingLabels="true"
           value={username}
           onChange={handleOnchangeUsername}
+          error={errors.username}
         />
         <InputText
           label="Password"
@@ -92,8 +114,9 @@ function Login() {
           floatingLabels="true"
           value={password}
           onChange={handleOnchangePassword}
+          error={errors.password}
         />
-        <button type="submit" className="btn btn-block primary">
+        <button type="submit" className={btnClass}>
           Login
         </button>
       </form>

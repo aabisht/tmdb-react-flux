@@ -255,6 +255,7 @@ $table-bg-scale: -80% !default;
 $input-btn-focus-width: 4px !default;
 $input-btn-focus-blur: 0 !default;
 $input-btn-focus-color: rgba($component-active-bg, 0.25) !default;
+$input-error-btn-focus-color: rgba($danger-color, 0.25) !default;
 
 // Buttons
 $btn-padding-y: 6px !default;
@@ -332,6 +333,11 @@ $floating-form-label-bg: $input-bg !default;
 
 $form-group-icon-width: 34px !default;
 $form-group-icon-height: 34px !default;
+
+$input-error-color: $danger-color !default;
+$input-error-focus-box-shadow: 0 0 $input-btn-focus-blur $input-btn-focus-width
+  $input-error-btn-focus-color !default;
+$invalid-feedback-font-size: $font-size-sm !default;
 
 // Header
 $header-y-padding: $grid-gutter-width/2 !default;

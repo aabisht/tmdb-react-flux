@@ -17,15 +17,16 @@ function FullPageLoader(props) {
     setShowLoaderFlag(ConfigurationStores.getFullPageLoaderValue());
   };
 
-  let wrapperClass = "full-page-loader-conainer p-fixed w-100 h-100 ";
+  let wrapperClass =
+    "full-page-loader-conainer p-fixed w-100 h-100 d-flex align-items-center justify-content-center";
+
   if (ConfigurationStores.getFullPageLoaderValue()) {
-    wrapperClass += " show d-flex align-items-center justify-content-center";
     document.getElementById("tmdbAppWrapper").classList.add("loader-active");
   } else if (document.getElementById("tmdbAppWrapper")) {
     document.getElementById("tmdbAppWrapper").classList.remove("loader-active");
   }
 
-  return (
+  return ConfigurationStores.getFullPageLoaderValue() ? (
     <div className={wrapperClass}>
       <div className="loader-item">
         <div className="loader-image">
@@ -33,6 +34,8 @@ function FullPageLoader(props) {
         </div>
       </div>
     </div>
+  ) : (
+    <></>
   );
 }
 
