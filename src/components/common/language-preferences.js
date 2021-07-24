@@ -22,6 +22,10 @@ function LanguagePreferences() {
       configurationAction.loadLanguagesWithPrimaryTranslations();
       updateSearchResults(configurationStores.getLanguageWithTranslations());
       setDefaultLanguage(configurationStores.getDefaultLanguage());
+      sessionStorage.setItem(
+        "defaultLanguage",
+        configurationStores.getDefaultLanguage()
+      );
     }
 
     return () =>
@@ -34,6 +38,10 @@ function LanguagePreferences() {
     );
     updateSearchResults(configurationStores.getLanguageWithTranslations());
     setDefaultLanguage(configurationStores.getDefaultLanguage());
+    sessionStorage.setItem(
+      "defaultLanguage",
+      configurationStores.getDefaultLanguage()
+    );
   };
 
   const getLanguageName = (language) => {
@@ -52,6 +60,10 @@ function LanguagePreferences() {
   };
   const handeChangeDefaultLanguage = (event) => {
     setDefaultLanguage(event.target.getAttribute("data-lang"));
+    sessionStorage.setItem(
+      "defaultLanguage",
+      event.target.getAttribute("data-lang")
+    );
   };
 
   return (
