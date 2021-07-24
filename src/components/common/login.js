@@ -4,6 +4,7 @@ import InputText from "./inputText";
 import * as authenticationAction from "../../actions/authenticationAction";
 import * as configurationAction from "../../actions/configurationAction";
 import AuthenticationStores from "../../stores/authenticationStores";
+import { toast } from "react-toastify";
 
 function Login() {
   const history = useHistory();
@@ -39,9 +40,15 @@ function Login() {
       .then(() => {
         configurationAction.fullPageLoaderFlag(false);
         const sessionWithLoginData = AuthenticationStores.getSessionWithLogin();
-        if (sessionWithLoginData?.success) {
-          createSession(sessionWithLoginData.request_token);
-        }
+        sessionWithLoginData?.success
+          ? createSession(sessionWithLoginData.request_token)
+          : toast.success(sessionWithLoginData.status_message, {
+              position: "bottom-right",
+              autoClose: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              type: "error",
+            });
       });
   };
 

@@ -406,3 +406,11 @@ $loaderFadeIn-width-40: 37px !default;
 $loaderFadeIn-width-60: 37px !default;
 $loaderFadeIn-width-80: 37px !default;
 $loaderFadeIn-width-100: $full-page-loader-img-width !default;
+
+//Toastify
+$toastify-toast-error-bg-color: $danger-color !default;
+$toastify-toast-error-text-color: $white-color !default;
+$toastify-toast-warning-bg-color: $warning-color !default;
+$toastify-toast-warning-text-color: $white-color !default;
+$toastify-toast-success-bg-color: $secondary-color !default;
+$toastify-toast-success-text-color: $white-color !default;
