@@ -36,8 +36,12 @@ function Header() {
 
   useEffect(() => {
     ConfigurationStores.addChangeListener(onApiConfigurationsChange);
-    if (apiConfigurations.length === 0)
-      configurationAction.loadAPIConfiguration();
+    if (apiConfigurations.length === 0) {
+      configurationAction.fullPageLoaderFlag(true);
+      configurationAction.loadAPIConfiguration().then(() => {
+        configurationAction.fullPageLoaderFlag(false);
+      });
+    }
     return () =>
       ConfigurationStores.removeChangeListner(onApiConfigurationsChange);
   }, [apiConfigurations.length]);

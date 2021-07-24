@@ -63,7 +63,6 @@ export const loadLanguagesWithPrimaryTranslations = () => {
   const pArray = [languages, primaryTranslations];
   let _languagesWithPrimaryTranslations = [];
   let _lang = [];
-
   return forkJoin(pArray).subscribe((languagesWithPrimaryTranslations) => {
     _lang = languagesWithPrimaryTranslations[0];
 
@@ -83,11 +82,17 @@ export const loadLanguagesWithPrimaryTranslations = () => {
         };
       })
     );
-
     dispatcher.dispatch({
       actionType:
         ConfigurationActionTypes.LOAD_LANGUAGES_WITH_PRIMARY_TRANSLATIONS,
       languagesWithPrimaryTranslations: _languagesWithPrimaryTranslations[0],
     });
+  });
+};
+
+export const fullPageLoaderFlag = (isFullPageLoaderFlag) => {
+  return dispatcher.dispatch({
+    actionType: ConfigurationActionTypes.LOAD_FULL_PAGE_LOADER,
+    isFullPageLoaderFlag,
   });
 };

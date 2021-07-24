@@ -10,17 +10,15 @@ let _jobs = [];
 let _primary_translations = [];
 let _timezones = [];
 let _languages_primary_translations = [];
-
 let _defaultLanguage = "";
-
 let _base_url = "";
 let _backdrop_sizes = [];
 let _logo_sizes = [];
 let _poster_sizes = [];
 let _profile_sizes = [];
 let _still_sizes = [];
-
 let _change_keys = [];
+let _fullPageLoaderFlag = false;
 
 class ConfigurationStores extends EventEmitter {
   addChangeListener(callback) {
@@ -98,6 +96,10 @@ class ConfigurationStores extends EventEmitter {
   getChangeKeys() {
     return _change_keys;
   }
+
+  getFullPageLoaderValue() {
+    return _fullPageLoaderFlag;
+  }
 }
 
 const configurationStores = new ConfigurationStores();
@@ -141,6 +143,10 @@ Dispatcher.register((action) => {
       break;
     case actionTypes.LOAD_DEFAULT_LANGUAGE:
       _defaultLanguage = action.defaultLanguage;
+      configurationStores.emitChange();
+      break;
+    case actionTypes.LOAD_FULL_PAGE_LOADER:
+      _fullPageLoaderFlag = action.isFullPageLoaderFlag;
       configurationStores.emitChange();
       break;
     default:

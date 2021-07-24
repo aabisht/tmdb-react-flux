@@ -395,3 +395,14 @@ $login-wrapper-border-radius: $border-radius-lg !default;
 $login-wrapper-border: 1px solid $black-lighten-15-color !default;
 $login-wrapper-padding-x: 60px !default;
 $login-wrapper-padding-y: 40px !default;
+
+// Full Page Loader
+$full-page-loader-bg-color: $black-color !default;
+$full-page-loader-opacity: 0.5 !default;
+$full-page-loader-img-width: 350px !default;
+$full-page-loader-img-height: 46px !default;
+$loaderFadeIn-width-20: 37px !default;
+$loaderFadeIn-width-40: 37px !default;
+$loaderFadeIn-width-60: 37px !default;
+$loaderFadeIn-width-80: 37px !default;
+$loaderFadeIn-width-100: $full-page-loader-img-width !default;

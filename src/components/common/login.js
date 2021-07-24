@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import InputText from "./inputText";
 import * as authenticationAction from "../../actions/authenticationAction";
+import * as configurationAction from "../../actions/configurationAction";
 import AuthenticationStores from "../../stores/authenticationStores";
 
 function Login() {
@@ -21,7 +22,9 @@ function Login() {
   };
 
   const createRequestToken = () => {
+    configurationAction.fullPageLoaderFlag(true);
     authenticationAction.createRequestToken().then(() => {
+      configurationAction.fullPageLoaderFlag(false);
       const requestTokenData = AuthenticationStores.getRequestTokenData();
       if (requestTokenData?.success) {
         createSessionWithLogin(requestTokenData.request_token);
@@ -30,9 +33,11 @@ function Login() {
   };
 
   const createSessionWithLogin = (request_token) => {
+    configurationAction.fullPageLoaderFlag(true);
     authenticationAction
       .createSessionWithLogin(username, password, request_token)
       .then(() => {
+        configurationAction.fullPageLoaderFlag(false);
         const sessionWithLoginData = AuthenticationStores.getSessionWithLogin();
         if (sessionWithLoginData?.success) {
           createSession(sessionWithLoginData.request_token);
@@ -41,7 +46,9 @@ function Login() {
   };
 
   const createSession = (request_token) => {
+    configurationAction.fullPageLoaderFlag(true);
     authenticationAction.createSession(request_token).then(() => {
+      configurationAction.fullPageLoaderFlag(false);
       const sessionData = AuthenticationStores.getSessionData();
       if (sessionData.success) {
         sessionStorage.setItem("sessionData", JSON.stringify(sessionData));

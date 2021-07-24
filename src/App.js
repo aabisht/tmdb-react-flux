@@ -1,6 +1,7 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
 import Header from "./components/common/header";
+import FullPageLoader from "./components/common/_full-page-loader";
 
 import HomePage from "./components/pages/home-page";
 import TVShowsPage from "./components/pages/tv-shows-page";
@@ -12,7 +13,7 @@ import LoginPage from "./components/pages/login-page";
 
 function App() {
   return (
-    <>
+    <div id="tmdbAppWrapper">
       <Header />
       <div className="body-container">
         <div className="body-container-wrapper">
@@ -27,7 +28,8 @@ function App() {
           </Switch>
         </div>
       </div>
-    </>
+      <FullPageLoader />
+    </div>
   );
 }
 

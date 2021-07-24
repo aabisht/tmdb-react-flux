@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { loadLanguagesWithPrimaryTranslations } from "../../actions/configurationAction";
+import * as configurationAction from "../../actions/configurationAction";
 import configurationStores from "../../stores/configurationStores";
 import InputText from "./inputText";
 
@@ -19,7 +19,7 @@ function LanguagePreferences() {
   useEffect(() => {
     configurationStores.addChangeListener(onLanguagePreferencesChange);
     if (languagesWithPrimaryTranslations.length === 0) {
-      loadLanguagesWithPrimaryTranslations();
+      configurationAction.loadLanguagesWithPrimaryTranslations();
       updateSearchResults(configurationStores.getLanguageWithTranslations());
       setDefaultLanguage(configurationStores.getDefaultLanguage());
     }
