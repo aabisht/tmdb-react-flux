@@ -5,7 +5,7 @@ const baseURL = apiConstants.API_URL + "/account";
 const apiParam = new ApiParameters();
 
 // Get your account details.
-export function getAccount(session_id) {
+export function getAccountDetail(session_id) {
   const url =
     baseURL +
     apiParam.setApiKey(apiConstants.API_KEY) +

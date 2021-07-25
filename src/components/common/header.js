@@ -77,7 +77,6 @@ function Header() {
                     <NavLink
                       className="nav-link"
                       to="/tv-shows"
-                      exact
                       activeClassName="active"
                     >
                       TV Shows
@@ -87,7 +86,6 @@ function Header() {
                     <NavLink
                       className="nav-link"
                       to="/movies"
-                      exact
                       activeClassName="active"
                     >
                       Movies
@@ -97,7 +95,6 @@ function Header() {
                     <NavLink
                       className="nav-link"
                       to="/popular"
-                      exact
                       activeClassName="active"
                     >
                       Popular
@@ -107,24 +104,11 @@ function Header() {
                     <NavLink
                       className="nav-link"
                       to="/my-list"
-                      exact
                       activeClassName="active"
                     >
                       My List
                     </NavLink>
                   </li>
-                  {!isUserLoggedInFlag ? (
-                    <li className="nav-item list-inline-item">
-                      <NavLink
-                        className="nav-link"
-                        to="/login"
-                        exact
-                        activeClassName="active"
-                      >
-                        Login
-                      </NavLink>
-                    </li>
-                  ) : null}
                 </ul>
               </div>
             </div>

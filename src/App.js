@@ -26,7 +26,7 @@ function App() {
             <Route path="/popular" component={PopularPage} />
             <Route path="/my-list" component={MyListPage} />
             <Route path="/search/:slug" component={SearchPage} />
-            <Route path="/login" exact component={LoginPage} />
+            <Route path="/login" component={LoginPage} />
           </Switch>
         </div>
       </div>
