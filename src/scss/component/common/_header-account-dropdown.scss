@@ -1,0 +1,13 @@
+.account-dropdown-wrapper {
+  min-width: calculateRem($account-dropdown-width);
+  .user-name-wrapper {
+    @include padding($dropdown-list-btn-y-padding $dropdown-list-btn-x-padding);
+    .account-img-wrapper {
+      width: calculateRem($account-dropdown-account-img-width);
+
+      img {
+        @include border-radius($account-dropdown-account-img-border-radius);
+      }
+    }
+  }
+}

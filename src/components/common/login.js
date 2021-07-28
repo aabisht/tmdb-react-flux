@@ -3,7 +3,9 @@ import { useHistory, useLocation } from "react-router-dom";
 import InputText from "./inputText";
 import * as authenticationAction from "../../actions/authenticationAction";
 import * as configurationAction from "../../actions/configurationAction";
+import * as accountAction from "../../actions/accountAction";
 import AuthenticationStores from "../../stores/authenticationStores";
+import AccountStores from "../../stores/accountStores";
 import { toast } from "react-toastify";
 
 function Login() {
@@ -64,8 +66,18 @@ function Login() {
       if (sessionData.success) {
         sessionStorage.setItem("sessionData", JSON.stringify(sessionData));
         authenticationAction.isUserLoggedIn(true);
-        history.push(routeTo);
+        getAccountInfo(sessionData.session_id);
       }
+    });
+  };
+
+  const getAccountInfo = (session_id) => {
+    configurationAction.fullPageLoaderFlag(true);
+    accountAction.createAccountDetail(session_id).then(() => {
+      const accountInfoData = AccountStores.getAccountInfo();
+      sessionStorage.setItem("accountData", JSON.stringify(accountInfoData));
+      configurationAction.fullPageLoaderFlag(false);
+      history.push(routeTo);
     });
   };
 

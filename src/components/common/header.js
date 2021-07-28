@@ -18,9 +18,8 @@ function Header() {
     return location.pathname.toLowerCase() === url.toLowerCase();
   };
 
-  const [isUserLoggedInFlag, updateIsUserLoggedInFlag] = useState(
-    AuthenticationStores.getIsUserLoggedIn()
-  );
+  const isUserLoggedInFlag = AuthenticationStores.getIsUserLoggedIn();
+
   const sessionStorageSession = JSON.parse(
     sessionStorage.getItem("sessionData")
   );
@@ -29,7 +28,6 @@ function Header() {
   );
 
   if (!isUserLoggedInFlag && sessionStorageSession?.success) {
-    updateIsUserLoggedInFlag(true);
     authenticationAction.isUserLoggedIn(true);
     authenticationAction.createSessionWithSavedSession(sessionStorageSession);
   }
@@ -142,7 +140,7 @@ function Header() {
                   />
                 </li> */}
                 {!isCurrentURL("/login") && !isUserLoggedInFlag ? (
-                  <li className="nav-item list-inline-item">
+                  <li className="nav-item list-inline-item logout">
                     <DropDown
                       dropdownText={[
                         <span className="material-icons" key="headerAccount">
@@ -156,7 +154,7 @@ function Header() {
                   </li>
                 ) : null}
                 {isUserLoggedInFlag ? (
-                  <li className="nav-item list-inline-item">
+                  <li className="nav-item list-inline-item login">
                     <DropDown
                       dropdownText={[
                         <span

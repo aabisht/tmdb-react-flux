@@ -62,10 +62,9 @@ class ConfigurationStores extends EventEmitter {
   }
 
   getDefaultLanguage() {
-    _defaultLanguage =
-      _defaultLanguage.length === 0
-        ? navigator.language || navigator.userLanguage
-        : _defaultLanguage;
+    _defaultLanguage = !_defaultLanguage
+      ? navigator.language || navigator.userLanguage
+      : _defaultLanguage;
     return _defaultLanguage;
   }
 

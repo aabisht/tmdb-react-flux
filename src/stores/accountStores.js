@@ -3,7 +3,7 @@ import Dispatcher from "../appDispatcher";
 import actionType from "../actions/actionTypes/accountActionTypes";
 
 const CHANGE_EVENT = "change";
-let _accountInfoData = [];
+let _accountInfoData = JSON.parse(sessionStorage.getItem("accountData"));
 
 class AccountStores extends EventEmitter {
   addChangeListener(callback) {
@@ -17,6 +17,10 @@ class AccountStores extends EventEmitter {
   emitChange() {
     this.emit(CHANGE_EVENT);
   }
+
+  getAccountInfo() {
+    return _accountInfoData;
+  }
 }
 
 const accountStores = new AccountStores();
@@ -25,7 +29,7 @@ Dispatcher.register((action) => {
   switch (action.actionType) {
     case actionType.CREATE_ACCOUNT_INFO:
       _accountInfoData = action.accountInfoData;
-      authenticationStores.emitChange();
+      accountStores.emitChange();
       break;
     default:
       break;

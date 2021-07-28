@@ -10,6 +10,7 @@ import PopularPage from "./components/pages/popular-page";
 import MyListPage from "./components/pages/my-list-page";
 import SearchPage from "./components/pages/search-page";
 import LoginPage from "./components/pages/login-page";
+import ProfilePage from "./components/pages/profile-page";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -26,6 +27,7 @@ function App() {
             <Route path="/popular" component={PopularPage} />
             <Route path="/my-list" component={MyListPage} />
             <Route path="/search/:slug" component={SearchPage} />
+            <Route path="/profile/:slug" component={ProfilePage} />
             <Route path="/login" component={LoginPage} />
           </Switch>
         </div>

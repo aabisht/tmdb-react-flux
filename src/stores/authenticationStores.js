@@ -59,16 +59,11 @@ Dispatcher.register((action) => {
       authenticationStores.emitChange();
       break;
     case actionType.DELETE_SESSION:
-      if (action.delete_session_data) {
-        _sessionWithLoginData = [];
-        _requestTokenData = [];
-        _sessionData = [];
-        _isUserLoggedInFlag = false;
-        authenticationStores.emitChange();
-        break;
-      } else {
-        break;
-      }
+      _sessionWithLoginData = [];
+      _requestTokenData = [];
+      _sessionData = [];
+      authenticationStores.emitChange();
+      break;
     default:
       break;
   }
