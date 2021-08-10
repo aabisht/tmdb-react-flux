@@ -48,9 +48,18 @@ function Header() {
     setApiConfigurations(ConfigurationStores.getAPIConfiguration());
   };
 
+  window.addEventListener("scroll", () => {
+    const headerElement = document.getElementById("headerContainer");
+    if (headerElement && window.scrollY > headerElement.offsetHeight) {
+      headerElement.classList.add("header-scrolled");
+    } else {
+      headerElement.classList.remove("header-scrolled");
+    }
+  });
+
   return (
     <div className="header-container">
-      <div className="header-container-wrapper">
+      <div className="header-container-wrapper" id="headerContainer">
         <div className="container">
           <div className="align-items-center d-flex header-menu-item-wrapper justify-content-between">
             <div className="header-logo-menu-wrapper d-flex align-items-center">

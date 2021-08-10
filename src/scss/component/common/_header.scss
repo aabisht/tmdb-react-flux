@@ -7,6 +7,11 @@
   z-index: 4;
   width: 100%;
   height: calculateRem($header-height);
+  @include transition(background-color 0.25s ease-in-out);
+
+  &.header-scrolled {
+    @include backgroundColor($header-scrolled-background-color);
+  }
 
   &:before {
     content: "";
@@ -32,7 +37,10 @@
 
   .dropdown-wrapper {
     .dropdown-list-wrapper {
-      @include backgroundColor($dropdown-background-color, $header-dropdown-opacity);
+      @include backgroundColor(
+        $dropdown-background-color,
+        $header-dropdown-opacity
+      );
     }
   }
 }
