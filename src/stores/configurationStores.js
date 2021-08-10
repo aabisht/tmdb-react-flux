@@ -10,7 +10,7 @@ let _jobs = [];
 let _primary_translations = [];
 let _timezones = [];
 let _languages_primary_translations = [];
-let _defaultLanguage = sessionStorage.getItem("defaultLanguage");
+let _defaultLanguage = "";
 let _base_url = "";
 let _backdrop_sizes = [];
 let _logo_sizes = [];
@@ -23,6 +23,8 @@ let _mediaCardPopupData = {
   show: false,
   mediaCardData: {},
 };
+let _genres = [];
+
 class ConfigurationStores extends EventEmitter {
   addChangeListener(callback) {
     this.on(CHANGE_EVENT, callback);
@@ -65,9 +67,6 @@ class ConfigurationStores extends EventEmitter {
   }
 
   getDefaultLanguage() {
-    _defaultLanguage = !_defaultLanguage
-      ? navigator.language || navigator.userLanguage
-      : _defaultLanguage;
     return _defaultLanguage;
   }
 
@@ -105,6 +104,10 @@ class ConfigurationStores extends EventEmitter {
 
   getMediaCardPopupData() {
     return _mediaCardPopupData;
+  }
+
+  getGenres() {
+    return _genres;
   }
 }
 
@@ -149,6 +152,7 @@ Dispatcher.register((action) => {
       break;
     case actionTypes.LOAD_DEFAULT_LANGUAGE:
       _defaultLanguage = action.defaultLanguage;
+      sessionStorage.setItem("defaultLanguage", action.defaultLanguage);
       configurationStores.emitChange();
       break;
     case actionTypes.LOAD_FULL_PAGE_LOADER:
@@ -157,6 +161,10 @@ Dispatcher.register((action) => {
       break;
     case actionTypes.MEDIA_CARD_POPUP_TOGGLE:
       _mediaCardPopupData = action.mediaCardPopupData;
+      configurationStores.emitChange();
+      break;
+    case actionTypes.LOAD_GENRES:
+      _genres = action.genres;
       configurationStores.emitChange();
       break;
     default:

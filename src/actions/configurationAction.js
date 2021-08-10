@@ -1,6 +1,7 @@
 import dispatcher from "../appDispatcher";
 import ConfigurationActionTypes from "./actionTypes/configurationActionTypes";
 import * as configurationApi from "../api/configuration";
+import * as genresApi from "../api/genres";
 import { forkJoin } from "rxjs";
 
 export const loadAPIConfiguration = () => {
@@ -107,5 +108,35 @@ export const mediaCardPopupToggle = (
       show: mediaCardPopupToggleFlag,
       mediaCardData,
     },
+  });
+};
+
+export const loadDefaultLanguage = (defaultLanguage) => {
+  return dispatcher.dispatch({
+    actionType: ConfigurationActionTypes.LOAD_DEFAULT_LANGUAGE,
+    defaultLanguage,
+  });
+};
+
+export const loadGenres = (defaultLang) => {
+  const movieGenres = genresApi.getGenres("movie", defaultLang);
+  const tvGenres = genresApi.getGenres("tv", defaultLang);
+  const pArray = [movieGenres, tvGenres];
+  let _genres = [];
+
+  return forkJoin(pArray).subscribe((genres) => {
+    _genres.push({
+      type: "movie",
+      data: genres[0],
+    });
+    _genres.push({
+      type: "tv",
+      data: genres[1],
+    });
+
+    dispatcher.dispatch({
+      actionType: ConfigurationActionTypes.LOAD_GENRES,
+      genres: _genres,
+    });
   });
 };

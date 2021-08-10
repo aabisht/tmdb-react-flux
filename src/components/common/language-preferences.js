@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
-import * as configurationAction from "../../actions/configurationAction";
+import {
+  loadLanguagesWithPrimaryTranslations,
+  loadDefaultLanguage,
+} from "../../actions/configurationAction";
 import configurationStores from "../../stores/configurationStores";
 import InputText from "./inputText";
 
@@ -14,34 +17,42 @@ function LanguagePreferences() {
     configurationStores.getLanguageWithTranslations()
   );
 
-  const [defaultLanguage, setDefaultLanguage] = useState("");
+  const [defaultLanguage, setDefaultLanguage] = useState(
+    configurationStores.getDefaultLanguage()
+  );
 
   useEffect(() => {
     configurationStores.addChangeListener(onLanguagePreferencesChange);
     if (languagesWithPrimaryTranslations.length === 0) {
-      configurationAction.loadLanguagesWithPrimaryTranslations();
+      loadLanguagesWithPrimaryTranslations();
       updateSearchResults(configurationStores.getLanguageWithTranslations());
-      setDefaultLanguage(configurationStores.getDefaultLanguage());
-      sessionStorage.setItem(
-        "defaultLanguage",
-        configurationStores.getDefaultLanguage()
-      );
     }
-
     return () =>
       configurationStores.removeChangeListner(onLanguagePreferencesChange);
   }, [languagesWithPrimaryTranslations.length]);
+
+  useEffect(() => {
+    configurationStores.addChangeListener(onDefaultLanguageChange);
+    if (!defaultLanguage) {
+      loadDefaultLanguage(
+        sessionStorage.defaultLanguage
+          ? sessionStorage.defaultLanguage
+          : navigator.language || navigator.userLanguage
+      );
+    }
+    return () =>
+      configurationStores.removeChangeListner(onDefaultLanguageChange);
+  }, [defaultLanguage]);
 
   const onLanguagePreferencesChange = () => {
     setLanguagesWithPrimaryTranslations(
       configurationStores.getLanguageWithTranslations()
     );
     updateSearchResults(configurationStores.getLanguageWithTranslations());
+  };
+
+  const onDefaultLanguageChange = () => {
     setDefaultLanguage(configurationStores.getDefaultLanguage());
-    sessionStorage.setItem(
-      "defaultLanguage",
-      configurationStores.getDefaultLanguage()
-    );
   };
 
   const getLanguageName = (language) => {
@@ -59,11 +70,7 @@ function LanguagePreferences() {
     );
   };
   const handeChangeDefaultLanguage = (event) => {
-    setDefaultLanguage(event.target.getAttribute("data-lang"));
-    sessionStorage.setItem(
-      "defaultLanguage",
-      event.target.getAttribute("data-lang")
-    );
+    loadDefaultLanguage(event.target.getAttribute("data-lang"));
   };
 
   return (

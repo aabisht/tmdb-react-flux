@@ -23,6 +23,11 @@ function Header() {
   const sessionStorageSession = JSON.parse(
     sessionStorage.getItem("sessionData")
   );
+
+  const [defaultLanguage, setDefaultLanguage] = useState(
+    ConfigurationStores.getDefaultLanguage()
+  );
+
   const [apiConfigurations, setApiConfigurations] = useState(
     ConfigurationStores.getAPIConfiguration()
   );
@@ -46,6 +51,17 @@ function Header() {
 
   const onApiConfigurationsChange = () => {
     setApiConfigurations(ConfigurationStores.getAPIConfiguration());
+  };
+
+  useEffect(() => {
+    ConfigurationStores.addChangeListener(onDefaultLanguageChange);
+    if (defaultLanguage) configurationAction.loadGenres(defaultLanguage);
+    return () =>
+      ConfigurationStores.removeChangeListner(onDefaultLanguageChange);
+  }, [defaultLanguage]);
+
+  const onDefaultLanguageChange = () => {
+    setDefaultLanguage(ConfigurationStores.getDefaultLanguage());
   };
 
   window.addEventListener("scroll", () => {
