@@ -96,3 +96,16 @@ export const fullPageLoaderFlag = (isFullPageLoaderFlag) => {
     isFullPageLoaderFlag,
   });
 };
+
+export const mediaCardPopupToggle = (
+  mediaCardPopupToggleFlag,
+  mediaCardData
+) => {
+  return dispatcher.dispatch({
+    actionType: ConfigurationActionTypes.MEDIA_CARD_POPUP_TOGGLE,
+    mediaCardPopupData: {
+      show: mediaCardPopupToggleFlag,
+      mediaCardData,
+    },
+  });
+};

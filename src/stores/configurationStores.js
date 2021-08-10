@@ -19,7 +19,10 @@ let _profile_sizes = [];
 let _still_sizes = [];
 let _change_keys = [];
 let _fullPageLoaderFlag = false;
-
+let _mediaCardPopupData = {
+  show: false,
+  mediaCardData: {},
+};
 class ConfigurationStores extends EventEmitter {
   addChangeListener(callback) {
     this.on(CHANGE_EVENT, callback);
@@ -99,6 +102,10 @@ class ConfigurationStores extends EventEmitter {
   getFullPageLoaderValue() {
     return _fullPageLoaderFlag;
   }
+
+  getMediaCardPopupData() {
+    return _mediaCardPopupData;
+  }
 }
 
 const configurationStores = new ConfigurationStores();
@@ -146,6 +153,10 @@ Dispatcher.register((action) => {
       break;
     case actionTypes.LOAD_FULL_PAGE_LOADER:
       _fullPageLoaderFlag = action.isFullPageLoaderFlag;
+      configurationStores.emitChange();
+      break;
+    case actionTypes.MEDIA_CARD_POPUP_TOGGLE:
+      _mediaCardPopupData = action.mediaCardPopupData;
       configurationStores.emitChange();
       break;
     default:

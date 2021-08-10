@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import ConfigurationStores from "../../stores/configurationStores";
 import logo from "../../assets/logo.svg";
 
-function FullPageLoader(props) {
+function FullPageLoader() {
   const [showLoaderFlag, setShowLoaderFlag] = useState(
     ConfigurationStores.getFullPageLoaderValue()
   );

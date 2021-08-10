@@ -1,0 +1,46 @@
+.media-popup-card {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -moz-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  will-change: scroll-position;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.media-popup-card {
+  will-change: transform;
+  position: absolute;
+  color: #fff;
+  background-color: transparent;
+  font-size: 16px;
+  z-index: 2;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  border-radius: 6px;
+  overflow: hidden;
+
+  width: 443px;
+  top: 748px;
+  left: -14px;
+  transform-origin: center center;
+  transform: translateX(74px) translateY(0px) scaleX(1) scaleY(1)
+    translateZ(0px);
+  z-index: 3;
+  opacity: 1;
+  box-shadow: RGB(0 0 0 / 75%) 0px 3px 10px;
+
+  .media-content-wrapper {
+    background-color: #181818;
+    position: relative;
+  }
+}
