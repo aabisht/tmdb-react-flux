@@ -23,7 +23,7 @@ function HomePage() {
 
   return (
     <>
-      <PageBanner></PageBanner>
+      <PageBanner bannerData={trendingMedia[0]}></PageBanner>
       <MediaCard></MediaCard>
     </>
   );

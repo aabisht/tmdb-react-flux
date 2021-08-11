@@ -1,13 +1,28 @@
 import React from "react";
+import PropTypes from "prop-types";
+import ConfigurationStores from "../../stores/configurationStores";
+import apiConstants from "../../api/apiConstants";
 
-function PageBanner() {
+function PageBanner(props) {
+  let bannername, releaseYear;
+  if (props.bannerData?.media_type === apiConstants.MEDIA_TV) {
+    bannername = props.bannerData?.name;
+    releaseYear = props.bannerData?.first_air_date.split("-")[0];
+  } else {
+    bannername = props.bannerData?.title;
+    releaseYear = props.bannerData?.release_date.split("-")[0];
+  }
   return (
     <div className="page-banner">
       <div className="page-banner-wrapper">
         <div className="page-banner-bg-wrapper">
           <img
-            src="https://www.themoviedb.org/t/p/w1920_and_h800_multi_faces/ykElAtsOBoArgI1A8ATVH0MNve0.jpg"
-            alt="Loki"
+            src={
+              ConfigurationStores.getBaseURL() +
+              ConfigurationStores.getBackdropSizes()[3] +
+              props.bannerData?.backdrop_path
+            }
+            alt={bannername}
             className="page-banner-img-bg"
           />
           <div className="page-banner-overlay-bg"></div>
@@ -17,17 +32,16 @@ function PageBanner() {
             <div className="page-banner-info-wrapper">
               <div className="page-banner-info-container">
                 <h2 className="title">
-                  <strong>Loki (2021)</strong>
+                  {props.bannerData?.media_type === apiConstants.MEDIA_TV ? (
+                    <span className="material-icons-outlined">tv</span>
+                  ) : (
+                    <span className="material-icons-outlined">movie</span>
+                  )}
+                  <strong className="ms-3">
+                    {bannername} ({releaseYear})
+                  </strong>
                 </h2>
-                <p className="description">
-                  After stealing the Tesseract during the events of “Avengers:
-                  Endgame,” an alternate version of Loki is brought to the
-                  mysterious Time Variance Authority, a bureaucratic
-                  organization that exists outside of time and space and
-                  monitors the timeline. They give Loki a choice: face being
-                  erased from existence due to being a “time variant”or help fix
-                  the timeline and stop a greater threat.
-                </p>
+                <p className="description">{props.bannerData?.overview}</p>
                 <a
                   href="/"
                   className="btn outline white d-inline-flex align-items-center"
@@ -40,7 +54,9 @@ function PageBanner() {
             <div className="page-banner-meta-wrapper">
               <div className="rating-wrapper d-flex align-items-center justify-content-center">
                 <span className="material-icons-outlined me-2">grade</span>
-                <span className="rating-value">7.1</span>
+                <span className="rating-value">
+                  {props.bannerData?.vote_average}
+                </span>
               </div>
             </div>
           </div>
@@ -49,5 +65,9 @@ function PageBanner() {
     </div>
   );
 }
+
+PageBanner.prototype = {
+  bannerData: PropTypes.object.required,
+};
 
 export default PageBanner;
