@@ -7,6 +7,7 @@ let _trendingAll = [];
 let _trendingMovie = [];
 let _trendingTV = [];
 let _trendingPerson = [];
+let _trendingMedia = [];
 
 class TrendingStores extends EventEmitter {
   addChangeListener(callback) {
@@ -36,6 +37,10 @@ class TrendingStores extends EventEmitter {
   getTrendingPerson() {
     return _trendingPerson;
   }
+
+  getTrendingMedia() {
+    return _trendingMedia;
+  }
 }
 
 const trendingStores = new TrendingStores();
@@ -56,6 +61,10 @@ Dispatcher.register((action) => {
       break;
     case actionType.LOAD_TRENDING_PERSON_DATA:
       _trendingPerson = action.trendingPersonData;
+      trendingStores.emitChange();
+      break;
+    case actionType.LOAD_TRENDING_MOVIE_TV_DATA:
+      _trendingMedia = action.trendingMedia;
       trendingStores.emitChange();
       break;
     default:
