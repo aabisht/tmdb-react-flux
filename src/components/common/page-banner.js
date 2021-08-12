@@ -1,10 +1,32 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import ConfigurationStores from "../../stores/configurationStores";
+import * as configurationAction from "../../actions/configurationAction";
 import apiConstants from "../../api/apiConstants";
 
 function PageBanner(props) {
+  const [apiConfigurations, setApiConfigurations] = useState(
+    ConfigurationStores.getAPIConfiguration()
+  );
+
+  useEffect(() => {
+    ConfigurationStores.addChangeListener(onApiConfigurationsChange);
+    if (apiConfigurations.length === 0) {
+      configurationAction.fullPageLoaderFlag(true);
+      configurationAction.loadAPIConfiguration().then(() => {
+        configurationAction.fullPageLoaderFlag(false);
+      });
+    }
+    return () =>
+      ConfigurationStores.removeChangeListner(onApiConfigurationsChange);
+  }, [apiConfigurations.length]);
+
+  const onApiConfigurationsChange = () => {
+    setApiConfigurations(ConfigurationStores.getAPIConfiguration());
+  };
+
   let bannername, releaseYear;
+
   if (props.bannerData?.media_type === apiConstants.MEDIA_TV) {
     bannername = props.bannerData?.name;
     releaseYear = props.bannerData?.first_air_date.split("-")[0];

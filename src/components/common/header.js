@@ -28,30 +28,10 @@ function Header() {
     ConfigurationStores.getDefaultLanguage()
   );
 
-  const [apiConfigurations, setApiConfigurations] = useState(
-    ConfigurationStores.getAPIConfiguration()
-  );
-
   if (!isUserLoggedInFlag && sessionStorageSession?.success) {
     authenticationAction.isUserLoggedIn(true);
     authenticationAction.createSessionWithSavedSession(sessionStorageSession);
   }
-
-  useEffect(() => {
-    ConfigurationStores.addChangeListener(onApiConfigurationsChange);
-    if (apiConfigurations.length === 0) {
-      configurationAction.fullPageLoaderFlag(true);
-      configurationAction.loadAPIConfiguration().then(() => {
-        configurationAction.fullPageLoaderFlag(false);
-      });
-    }
-    return () =>
-      ConfigurationStores.removeChangeListner(onApiConfigurationsChange);
-  }, [apiConfigurations.length]);
-
-  const onApiConfigurationsChange = () => {
-    setApiConfigurations(ConfigurationStores.getAPIConfiguration());
-  };
 
   useEffect(() => {
     ConfigurationStores.addChangeListener(onDefaultLanguageChange);
