@@ -9,11 +9,19 @@ function CardSlider(props) {
     nav: true,
     controls: false,
     mouseDrag: false,
-    items: 6,
+    items: 2,
     startIndex: 0,
     loop: true,
     autoplay: false,
     slideBy: "page",
+    responsive: {
+      768: {
+        items: 4,
+      },
+      1200: {
+        items: 6,
+      },
+    },
   };
 
   const [sliderRef, setSliderRef] = useState();

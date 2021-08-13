@@ -1,0 +1,12 @@
+@mixin multi-line-text-truncate($font-size, $line-height, $lines-to-show) {
+  display: block;
+  display: -webkit-box;
+  height: auto;
+  max-height: calculateRem($line-height * $lines-to-show * $font-size);
+  line-height: $line-height;
+  @include fontSize($font-size);
+  -webkit-line-clamp: $lines-to-show;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

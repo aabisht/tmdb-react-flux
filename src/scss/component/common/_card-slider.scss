@@ -36,7 +36,6 @@
 
 .card-slider-wrapper {
   position: relative;
-  overflow: hidden;
 
   .tns-nav {
     position: absolute;
@@ -81,6 +80,7 @@
     align-items: center;
     justify-content: center;
     flex-wrap: nowrap;
+    overflow: hidden;
     @include backgroundColor(
       $slider-nav-btn-background-color,
       $slider-nav-btn-background-opacity

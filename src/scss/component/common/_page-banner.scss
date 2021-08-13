@@ -56,4 +56,8 @@
 .page-banner-info-container {
   width: 100%;
   max-width: calculateRem($page-banner-info-container-width);
+
+  .description {
+    @include multi-line-text-truncate(16px, 1.5, 3);
+  }
 }
