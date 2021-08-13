@@ -12,9 +12,11 @@ function PageBanner(props) {
   useEffect(() => {
     ConfigurationStores.addChangeListener(onApiConfigurationsChange);
     if (apiConfigurations.length === 0) {
-      configurationAction.fullPageLoaderFlag(true);
+      if (!ConfigurationStores.getFullPageLoaderValue())
+        configurationAction.fullPageLoaderFlag(true);
       configurationAction.loadAPIConfiguration().then(() => {
-        configurationAction.fullPageLoaderFlag(false);
+        if (ConfigurationStores.getFullPageLoaderValue())
+          configurationAction.fullPageLoaderFlag(false);
       });
     }
     return () =>

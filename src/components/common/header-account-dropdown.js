@@ -14,13 +14,15 @@ function HeaderAccountDropdown() {
     location.pathname.toLowerCase() === "/login" ? "/" : location.pathname;
 
   const userLogout = () => {
-    configurationAction.fullPageLoaderFlag(true);
+    if (!ConfigurationStores.getFullPageLoaderValue())
+      configurationAction.fullPageLoaderFlag(true);
     const session_id = AuthenticationStores.getSessionData().session_id;
     authenticationAction.deleteSession(session_id).then(() => {
       sessionStorage.removeItem("accountData");
       sessionStorage.removeItem("sessionData");
       authenticationAction.isUserLoggedIn(false);
-      configurationAction.fullPageLoaderFlag(false);
+      if (ConfigurationStores.getFullPageLoaderValue())
+        configurationAction.fullPageLoaderFlag(false);
       history.push(routeTo);
     });
   };

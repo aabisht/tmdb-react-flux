@@ -6,6 +6,7 @@ import * as configurationAction from "../../actions/configurationAction";
 import * as accountAction from "../../actions/accountAction";
 import AuthenticationStores from "../../stores/authenticationStores";
 import AccountStores from "../../stores/accountStores";
+import ConfigurationStores from "../../stores/configurationStores";
 import { toast } from "react-toastify";
 
 function Login() {
@@ -29,9 +30,11 @@ function Login() {
   };
 
   const createRequestToken = () => {
-    configurationAction.fullPageLoaderFlag(true);
+    if (!ConfigurationStores.getFullPageLoaderValue())
+      configurationAction.fullPageLoaderFlag(true);
     authenticationAction.createRequestToken().then(() => {
-      configurationAction.fullPageLoaderFlag(false);
+      if (ConfigurationStores.getFullPageLoaderValue())
+        configurationAction.fullPageLoaderFlag(false);
       const requestTokenData = AuthenticationStores.getRequestTokenData();
       if (requestTokenData?.success) {
         createSessionWithLogin(requestTokenData.request_token);
@@ -40,11 +43,13 @@ function Login() {
   };
 
   const createSessionWithLogin = (request_token) => {
-    configurationAction.fullPageLoaderFlag(true);
+    if (!ConfigurationStores.getFullPageLoaderValue())
+      configurationAction.fullPageLoaderFlag(true);
     authenticationAction
       .createSessionWithLogin(username, password, request_token)
       .then(() => {
-        configurationAction.fullPageLoaderFlag(false);
+        if (ConfigurationStores.getFullPageLoaderValue())
+          configurationAction.fullPageLoaderFlag(false);
         const sessionWithLoginData = AuthenticationStores.getSessionWithLogin();
         sessionWithLoginData?.success
           ? createSession(sessionWithLoginData.request_token)
@@ -59,9 +64,11 @@ function Login() {
   };
 
   const createSession = (request_token) => {
-    configurationAction.fullPageLoaderFlag(true);
+    if (!ConfigurationStores.getFullPageLoaderValue())
+      configurationAction.fullPageLoaderFlag(true);
     authenticationAction.createSession(request_token).then(() => {
-      configurationAction.fullPageLoaderFlag(false);
+      if (ConfigurationStores.getFullPageLoaderValue())
+        configurationAction.fullPageLoaderFlag(false);
       const sessionData = AuthenticationStores.getSessionData();
       if (sessionData.success) {
         sessionStorage.setItem("sessionData", JSON.stringify(sessionData));
@@ -72,11 +79,13 @@ function Login() {
   };
 
   const getAccountInfo = (session_id) => {
-    configurationAction.fullPageLoaderFlag(true);
+    if (!ConfigurationStores.getFullPageLoaderValue())
+      configurationAction.fullPageLoaderFlag(true);
     accountAction.createAccountDetail(session_id).then(() => {
       const accountInfoData = AccountStores.getAccountInfo();
       sessionStorage.setItem("accountData", JSON.stringify(accountInfoData));
-      configurationAction.fullPageLoaderFlag(false);
+      if (ConfigurationStores.getFullPageLoaderValue())
+        configurationAction.fullPageLoaderFlag(false);
       history.push(routeTo);
     });
   };
