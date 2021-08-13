@@ -1,50 +1,83 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import PropTypes from "prop-types";
 import ConfigurationStores from "../../stores/configurationStores";
 import * as configurationAction from "../../actions/configurationAction";
+import apiConstants from "../../api/apiConstants";
 
-function MediaCard() {
-  const toggleMediaCardPopup = () => {
-    ConfigurationStores.getMediaCardPopupData().show
-      ? configurationAction.mediaCardPopupToggle(false, {})
-      : configurationAction.mediaCardPopupToggle(
-          true,
-          mediaCardPopUpData(
-            "/dq18nCTTLpy9PmtzZI6Y2yAgdw5.jpg",
-            "Loki",
-            "After stealing the Tesseract during the events of “Avengers: Endgame,” an alternate version of Loki is brought to the mysterious Time Variance Authority, a bureaucratic organization that exists outside of time and space and monitors the timeline. They give Loki a choice: face being erased from existence due to being a “time variant” or help fix the timeline and stop a greater threat.",
-            "TV",
-            "8.1",
-            [28, 12, 53, 878]
-          )
-        );
+function MediaCard(props) {
+  const [apiConfigurations, setApiConfigurations] = useState(
+    ConfigurationStores.getAPIConfiguration()
+  );
+
+  useEffect(() => {
+    ConfigurationStores.addChangeListener(onApiConfigurationsChange);
+    if (apiConfigurations.length === 0) {
+      configurationAction.fullPageLoaderFlag(true);
+      configurationAction.loadAPIConfiguration().then(() => {
+        configurationAction.fullPageLoaderFlag(false);
+      });
+    }
+    return () =>
+      ConfigurationStores.removeChangeListner(onApiConfigurationsChange);
+  }, [apiConfigurations.length]);
+
+  const onApiConfigurationsChange = () => {
+    setApiConfigurations(ConfigurationStores.getAPIConfiguration());
   };
 
-  const mediaCardPopUpData = (
-    mediaCardPopupBanner,
-    mediaCardPopupTitle,
-    mediaCardPopupDescription,
-    mediaCardPopupType,
-    mediaCardVoteAvg,
-    mediaCardPopupGenres
-  ) => {
-    return {
-      banner: mediaCardPopupBanner,
-      title: mediaCardPopupTitle,
-      description: mediaCardPopupDescription,
-      type: mediaCardPopupType,
-      voteAvg: mediaCardVoteAvg,
-      genres: mediaCardPopupGenres,
-    };
-  };
+  let cardName;
+  if (props.mediaCardData?.media_type === apiConstants.MEDIA_TV) {
+    cardName = props.mediaCardData?.name;
+  } else {
+    cardName = props.mediaCardData?.title;
+  }
+
+  // const toggleMediaCardPopup = () => {
+  //   ConfigurationStores.getMediaCardPopupData().show
+  //     ? configurationAction.mediaCardPopupToggle(false, {})
+  //     : configurationAction.mediaCardPopupToggle(
+  //         true,
+  //         mediaCardPopUpData(
+  //           props.mediaCardData?.backdrop_path,
+  //           cardName,
+  //           props.mediaCardData?.overview,
+  //           props.mediaCardData?.media_type,
+  //           props.mediaCardData?.vote_average,
+  //           props.mediaCardData?.genre_ids
+  //         )
+  //       );
+  // };
+
+  // const mediaCardPopUpData = (
+  //   mediaCardPopupBanner,
+  //   mediaCardPopupTitle,
+  //   mediaCardPopupDescription,
+  //   mediaCardPopupType,
+  //   mediaCardVoteAvg,
+  //   mediaCardPopupGenres
+  // ) => {
+  //   return {
+  //     banner: mediaCardPopupBanner,
+  //     title: mediaCardPopupTitle,
+  //     description: mediaCardPopupDescription,
+  //     type: mediaCardPopupType,
+  //     voteAvg: mediaCardVoteAvg,
+  //     genres: mediaCardPopupGenres,
+  //   };
+  // };
 
   return (
-    <div className="media-card-wrapper" onClick={toggleMediaCardPopup}>
+    <div className="media-card-wrapper">
       <div className="media-card-container">
         <div className="media-card">
           <div className="media-img-wrapper">
             <img
-              src="https://www.themoviedb.org/t/p/w300_and_h450_bestv2/kEl2t3OhXc3Zb9FBh1AuYzRTgZp.jpg"
-              alt="Loki"
+              src={
+                ConfigurationStores.getBaseURL() +
+                ConfigurationStores.getPosterSizes()[3] +
+                props.mediaCardData?.poster_path
+              }
+              alt={cardName}
             />
           </div>
         </div>
@@ -52,4 +85,9 @@ function MediaCard() {
     </div>
   );
 }
+
+MediaCard.prototype = {
+  mediaCardData: PropTypes.object.required,
+};
+
 export default MediaCard;

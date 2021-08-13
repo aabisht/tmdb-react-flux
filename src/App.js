@@ -1,7 +1,7 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
 import Header from "./components/common/header";
-import FullPageLoader from "./components/common/_full-page-loader";
+import FullPageLoader from "./components/common/full-page-loader";
 
 import HomePage from "./components/pages/home-page";
 import TVShowsPage from "./components/pages/tv-shows-page";

@@ -426,3 +426,23 @@ $toastify-toast-success-text-color: $white-color !default;
 $account-dropdown-width: 200px !default;
 $account-dropdown-account-img-width: 60px !default;
 $account-dropdown-account-img-border-radius: $border-radius !default;
+
+// Card Slider
+$card-slider-y-margin: $base-size * 2 !default;
+$card-slider-title-color: $body-color !default;
+$card-slider-title-arrow-transition: all 0.25s linear !default;
+$card-slider-title-arrow-translateX: 10px !default;
+$card-slider-title-x-padding: $base-size * 2 !default;
+$card-slider-control-top-space: -12px !default;
+$card-slider-control-background-color: $body-color !default;
+$card-slider-control-width: 12px !default;
+$card-slider-control-height: 2px !default;
+$card-slider-control-opacity: 0.4 !default;
+$card-slider-control-transition: all 0.25s linear !default;
+$slider-nav-btn-background-color: $black-color !default;
+$slider-nav-btn-background-opacity: 0.3 !default;
+$slider-nav-btn-color: $body-color !default;
+$slider-nav-btn-width: 40px !default;
+$slider-nav-btn-icon-width: 12px !default;
+
+$media-card-container-x-padding: $base-size / 2 !default;

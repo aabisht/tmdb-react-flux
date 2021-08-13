@@ -28,10 +28,12 @@ let _genres = [];
 class ConfigurationStores extends EventEmitter {
   addChangeListener(callback) {
     this.on(CHANGE_EVENT, callback);
+    this.setMaxListeners(0);
   }
 
   removeChangeListner(callback) {
     this.removeListener(CHANGE_EVENT, callback);
+    this.setMaxListeners(0);
   }
 
   emitChange() {

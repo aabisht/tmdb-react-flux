@@ -12,10 +12,12 @@ let _trendingMedia = [];
 class TrendingStores extends EventEmitter {
   addChangeListener(callback) {
     this.on(CHANGE_EVENT, callback);
+    this.setMaxListeners(0);
   }
 
   removeChangeListner(callback) {
     this.removeListener(CHANGE_EVENT, callback);
+    this.setMaxListeners(0);
   }
 
   emitChange() {

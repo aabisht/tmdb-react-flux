@@ -1,0 +1,9 @@
+@mixin hide-element() {
+  opacity: 0;
+  visibility: hidden;
+}
+
+@mixin show-element() {
+  opacity: 1;
+  visibility: visible;
+}

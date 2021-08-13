@@ -1,0 +1,119 @@
+.card-slider-title-arrow {
+  @include hide-element();
+  @include transition($card-slider-title-arrow-transition);
+}
+
+.card-slider-container {
+  @include margin($card-slider-y-margin 0);
+
+  &:hover {
+    .card-slider-title-arrow {
+      @include show-element();
+    }
+
+    .card-slider-wrapper {
+      .tns-nav,
+      .slider-nav-btn {
+        @include show-element();
+      }
+    }
+  }
+}
+
+.card-slider-title-wrapper {
+  @include padding(0 $card-slider-title-x-padding);
+
+  a {
+    @include color($card-slider-title-color);
+
+    &:hover {
+      .card-slider-title-arrow {
+        @include translateX($card-slider-title-arrow-translateX);
+      }
+    }
+  }
+}
+
+.card-slider-wrapper {
+  position: relative;
+  overflow: hidden;
+
+  .tns-nav {
+    position: absolute;
+    right: $card-slider-title-x-padding;
+    top: calculateRem($card-slider-control-top-space);
+    display: flex;
+    align-items: center;
+    @include hide-element();
+    @include transition($card-slider-control-transition);
+
+    button {
+      @include backgroundColor($card-slider-control-background-color);
+      border: none;
+      width: calculateRem($card-slider-control-width);
+      height: calculateRem($card-slider-control-height);
+      padding: 0;
+      opacity: $card-slider-control-opacity;
+      @include transition($card-slider-control-transition);
+      cursor: default;
+      pointer-events: none;
+
+      & + button {
+        margin-left: 2px;
+      }
+
+      &.tns-nav-active {
+        opacity: 1;
+      }
+    }
+  }
+
+  .slider-nav-btn {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    height: 100%;
+    width: calculateRem($slider-nav-btn-width);
+    border: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: nowrap;
+    @include backgroundColor(
+      $slider-nav-btn-background-color,
+      $slider-nav-btn-background-opacity
+    );
+    @include hide-element();
+    @include transition($card-slider-title-arrow-transition);
+
+    &-pre {
+      left: 0;
+    }
+    &-next {
+      right: 0;
+    }
+
+    .material-icons {
+      @include color($slider-nav-btn-color);
+      width: calculateRem($slider-nav-btn-icon-width);
+      @include transition($card-slider-title-arrow-transition);
+      @include transform-origin(center);
+    }
+
+    &:hover {
+      .material-icons {
+        @include scale(1.3);
+      }
+    }
+  }
+
+  .tns-inner {
+    @include padding(0 $card-slider-title-x-padding);
+    .media-card-container {
+      @include padding-left($media-card-container-x-padding);
+      @include padding-right($media-card-container-x-padding);
+    }
+  }
+}

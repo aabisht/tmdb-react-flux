@@ -25,7 +25,7 @@ function MediaCardPopup() {
               <div className="media-hover-img-wrapper">
                 <img
                   src="https://www.themoviedb.org/t/p/w533_and_h300_bestv2/ykElAtsOBoArgI1A8ATVH0MNve0.jpg"
-                  alt="Loki"
+                  alt={mediaCard.mediaCardData.title}
                 />
               </div>
               <div className="media-hover-video-wrapper"></div>

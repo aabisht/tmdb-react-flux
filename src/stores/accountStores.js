@@ -8,10 +8,12 @@ let _accountInfoData = JSON.parse(sessionStorage.getItem("accountData"));
 class AccountStores extends EventEmitter {
   addChangeListener(callback) {
     this.on(CHANGE_EVENT, callback);
+    this.setMaxListeners(0);
   }
 
   removeChangeListner(callback) {
     this.removeListener(CHANGE_EVENT, callback);
+    this.setMaxListeners(0);
   }
 
   emitChange() {

@@ -34,7 +34,8 @@ function PageBanner(props) {
     bannername = props.bannerData?.title;
     releaseYear = props.bannerData?.release_date.split("-")[0];
   }
-  return (
+
+  return props.bannerData?.backdrop_path ? (
     <div className="page-banner">
       <div className="page-banner-wrapper">
         <div className="page-banner-bg-wrapper">
@@ -85,6 +86,8 @@ function PageBanner(props) {
         </div>
       </div>
     </div>
+  ) : (
+    <></>
   );
 }
 

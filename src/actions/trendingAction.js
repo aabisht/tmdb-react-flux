@@ -62,12 +62,12 @@ export const loadMovieTVTrendingData = () => {
 
   return forkJoin(pArray).subscribe((trendingMediaData) => {
     trendingMediaData[0].results.every((value, index) => {
-      if (index >= 10) return false;
+      if (index >= 15) return false;
       return _trendingMedia.push(value);
     });
 
     trendingMediaData[1].results.every((value, index) => {
-      if (index >= 10) return false;
+      if (index >= 15) return false;
       return _trendingMedia.push(value);
     });
 

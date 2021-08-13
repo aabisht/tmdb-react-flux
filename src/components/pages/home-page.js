@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import PageBanner from "../common/page-banner";
-import MediaCard from "../common/media-card";
+import CardSlider from "../common/card-slider";
 import TrendingStores from "../../stores/trendingStores";
 import { loadMovieTVTrendingData } from "../../actions/trendingAction";
 
@@ -24,7 +24,11 @@ function HomePage() {
   return (
     <>
       <PageBanner bannerData={trendingMedia[0]}></PageBanner>
-      <MediaCard></MediaCard>
+      <CardSlider
+        sliderData={trendingMedia}
+        sliderTitle="Trending Now"
+      ></CardSlider>
+      {/* <MediaCard></MediaCard> */}
     </>
   );
 }
