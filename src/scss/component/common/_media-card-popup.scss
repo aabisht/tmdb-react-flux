@@ -1,12 +1,6 @@
 .media-popup-card {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -moz-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -moz-box-pack: center;
   -ms-flex-pack: center;
   justify-content: center;
   position: absolute;
@@ -17,30 +11,85 @@
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
-.media-popup-card {
+
+.media-hover-wrapper {
   will-change: transform;
   position: absolute;
-  color: #fff;
-  background-color: transparent;
-  font-size: 16px;
-  z-index: 2;
-  -webkit-border-radius: 6px;
-  -moz-border-radius: 6px;
-  border-radius: 6px;
   overflow: hidden;
-
-  width: 443px;
-  top: 748px;
-  left: -14px;
-  transform-origin: center center;
-  transform: translateX(74px) translateY(0px) scaleX(1) scaleY(1)
-    translateZ(0px);
   z-index: 3;
-  opacity: 1;
-  box-shadow: RGB(0 0 0 / 75%) 0px 3px 10px;
+  @include scale(0.9);
+  @include backgroundColor($media-card-popup-body-color);
+  @include border-radius($media-card-popup-border-radius);
+  @include transform-origin(center center);
+  @include color($media-card-popup-color);
+  @include box-shadow(0px 3px 10px 0 rgba($black-color, 0.75));
+  @include transition($card-slider-control-transition);
+  opacity: 0;
+
+  &,
+  * {
+    cursor: pointer;
+  }
+
+  &.show {
+    opacity: 1;
+  }
+
+  &:hover {
+    @include scale(1);
+  }
 
   .media-content-wrapper {
-    background-color: #181818;
     position: relative;
+    @include padding(
+      $media-card-popup-content-y-padding $media-card-popup-content-x-padding
+    );
+
+    .media-description {
+      @include multi-line-text-truncate($font-size-base, 1.5, 3);
+    }
+  }
+
+  .media-media-wrapper {
+    position: relative;
+  }
+
+  .media-meta {
+    @include padding(0 $media-card-popup-content-x-padding);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    z-index: 2;
+
+    .media-type,
+    .star-rating {
+      @include backgroundColor(
+        $media-card-popup-media-meta-background-color,
+        $media-card-popup-media-meta-opacity
+      );
+      @include padding(
+        $media-card-popup-media-meta-y-padding
+          $media-card-popup-media-meta-x-padding
+          ($media-card-popup-media-meta-y-padding - 2)
+      );
+      @include border-top-radius($media-card-popup-media-meta-border-radius);
+    }
+  }
+
+  .media-genres {
+    .media-genre-item {
+      &:not(:last-child) {
+        &:after {
+          content: "\2022";
+          margin-left: 0.5rem;
+        }
+      }
+    }
+    a {
+      color: $media-genres-link-color;
+      font-weight: $media-genres-font-weight;
+    }
   }
 }

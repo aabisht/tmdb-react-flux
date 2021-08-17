@@ -444,5 +444,18 @@ $slider-nav-btn-background-opacity: 0.3 !default;
 $slider-nav-btn-color: $body-color !default;
 $slider-nav-btn-width: 40px !default;
 $slider-nav-btn-icon-width: 12px !default;
-
 $media-card-container-x-padding: $base-size / 2 !default;
+
+//Media Card Popup
+$media-card-popup-color: $body-color !default;
+$media-card-popup-body-color: $black-lighten-5-color !default;
+$media-card-popup-border-radius: $border-radius-lg !default;
+$media-card-popup-content-x-padding: $base-size !default;
+$media-card-popup-content-y-padding: $base-size + $base-size/2 !default;
+$media-card-popup-media-meta-background-color: $black-color !default;
+$media-card-popup-media-meta-opacity: 0.6 !default;
+$media-card-popup-media-meta-x-padding: 8px !default;
+$media-card-popup-media-meta-y-padding: 6px !default;
+$media-card-popup-media-meta-border-radius: $border-radius !default;
+$media-genres-link-color: $body-color !default;
+$media-genres-font-weight: 700 !default;

@@ -4,7 +4,8 @@
 }
 
 .card-slider-container {
-  @include margin($card-slider-y-margin 0);
+  @include margin-top($card-slider-y-margin);
+  @include padding-bottom($card-slider-y-margin);
 
   &:hover {
     .card-slider-title-arrow {
@@ -14,7 +15,7 @@
     .card-slider-wrapper {
       .tns-nav,
       .slider-nav-btn {
-        @include show-element();
+        opacity: 1;
       }
     }
   }
@@ -43,7 +44,7 @@
     top: calculateRem($card-slider-control-top-space);
     display: flex;
     align-items: center;
-    @include hide-element();
+    opacity: 0;
     @include transition($card-slider-control-transition);
 
     button {
@@ -85,7 +86,7 @@
       $slider-nav-btn-background-color,
       $slider-nav-btn-background-opacity
     );
-    @include hide-element();
+    opacity: 0;
     @include transition($card-slider-title-arrow-transition);
 
     &-pre {
@@ -116,4 +117,9 @@
       @include padding-right($media-card-container-x-padding);
     }
   }
+}
+
+.media-card-container {
+  position: relative;
+  cursor: pointer;
 }

@@ -66,7 +66,7 @@ function Header() {
               </div>
               <div className="header-logo-menu">
                 <ul className="navbar-nav list-inline mb-0">
-                  <li className="nav-item list-inline-item">
+                  <li className="nav-item list-inline-item" id="navHome">
                     <NavLink
                       className="nav-link"
                       to="/"
@@ -76,7 +76,7 @@ function Header() {
                       Home
                     </NavLink>
                   </li>
-                  <li className="nav-item list-inline-item">
+                  <li className="nav-item list-inline-item" id="navTvShows">
                     <NavLink
                       className="nav-link"
                       to="/tv-shows"
@@ -85,7 +85,7 @@ function Header() {
                       TV Shows
                     </NavLink>
                   </li>
-                  <li className="nav-item list-inline-item">
+                  <li className="nav-item list-inline-item" id="navMovies">
                     <NavLink
                       className="nav-link"
                       to="/movies"
@@ -94,7 +94,7 @@ function Header() {
                       Movies
                     </NavLink>
                   </li>
-                  <li className="nav-item list-inline-item">
+                  <li className="nav-item list-inline-item" id="navPopular">
                     <NavLink
                       className="nav-link"
                       to="/popular"
@@ -103,7 +103,7 @@ function Header() {
                       Popular
                     </NavLink>
                   </li>
-                  <li className="nav-item list-inline-item">
+                  <li className="nav-item list-inline-item" id="navMyList">
                     <NavLink
                       className="nav-link"
                       to="/my-list"

@@ -9,6 +9,8 @@ function MediaCard(props) {
     ConfigurationStores.getAPIConfiguration()
   );
 
+  const [cardRef, setCardRef] = useState();
+
   useEffect(() => {
     ConfigurationStores.addChangeListener(onApiConfigurationsChange);
     if (apiConfigurations.length === 0) {
@@ -34,50 +36,56 @@ function MediaCard(props) {
     cardName = props.mediaCardData?.title;
   }
 
-  // const toggleMediaCardPopup = () => {
-  //   ConfigurationStores.getMediaCardPopupData().show
-  //     ? configurationAction.mediaCardPopupToggle(false, {})
-  //     : configurationAction.mediaCardPopupToggle(
-  //         true,
-  //         mediaCardPopUpData(
-  //           props.mediaCardData?.backdrop_path,
-  //           cardName,
-  //           props.mediaCardData?.overview,
-  //           props.mediaCardData?.media_type,
-  //           props.mediaCardData?.vote_average,
-  //           props.mediaCardData?.genre_ids
-  //         )
-  //       );
-  // };
+  const handleMediaCardPopupMouseEnter = () => {
+    let cardRefRect = cardRef.getBoundingClientRect();
+    const addedGutterSpace = 30;
 
-  // const mediaCardPopUpData = (
-  //   mediaCardPopupBanner,
-  //   mediaCardPopupTitle,
-  //   mediaCardPopupDescription,
-  //   mediaCardPopupType,
-  //   mediaCardVoteAvg,
-  //   mediaCardPopupGenres
-  // ) => {
-  //   return {
-  //     banner: mediaCardPopupBanner,
-  //     title: mediaCardPopupTitle,
-  //     description: mediaCardPopupDescription,
-  //     type: mediaCardPopupType,
-  //     voteAvg: mediaCardVoteAvg,
-  //     genres: mediaCardPopupGenres,
-  //   };
-  // };
+    let data = {
+      banner: props.mediaCardData?.backdrop_path,
+      title: cardName,
+      description: props.mediaCardData?.overview,
+      type: props.mediaCardData?.media_type,
+      voteAvg: props.mediaCardData?.vote_average,
+      genres: props.mediaCardData?.genre_ids,
+      style: {
+        width: cardRefRect.width + addedGutterSpace * 2,
+        minHeight: cardRefRect.height + addedGutterSpace * 2,
+        top:
+          cardRefRect.top -
+          document.body.getBoundingClientRect().top -
+          addedGutterSpace,
+      },
+    };
 
-  return (
+    if (
+      document.body.getBoundingClientRect().right - cardRefRect.right <
+      addedGutterSpace * 2
+    ) {
+      data.style.right = -cardRefRect.right;
+    } else {
+      data.style.left =
+        cardRefRect.left < addedGutterSpace * 2
+          ? cardRefRect.left
+          : cardRefRect.left - addedGutterSpace;
+    }
+
+    configurationAction.mediaCardPopupToggle(true, data);
+  };
+
+  return ConfigurationStores.getBaseURL() && props.mediaCardData.poster_path ? (
     <div className="media-card-wrapper">
       <div className="media-card-container">
-        <div className="media-card">
+        <div
+          className="media-card"
+          onMouseOver={handleMediaCardPopupMouseEnter}
+          ref={(mc) => setCardRef(mc)}
+        >
           <div className="media-img-wrapper">
             <img
               src={
                 ConfigurationStores.getBaseURL() +
                 ConfigurationStores.getPosterSizes()[3] +
-                props.mediaCardData?.poster_path
+                props.mediaCardData.poster_path
               }
               alt={cardName}
             />
@@ -85,6 +93,8 @@ function MediaCard(props) {
         </div>
       </div>
     </div>
+  ) : (
+    <></>
   );
 }
 

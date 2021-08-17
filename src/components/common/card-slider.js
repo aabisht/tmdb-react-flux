@@ -5,7 +5,7 @@ import MediaCard from "./media-card";
 
 function CardSlider(props) {
   const settings = {
-    lazyload: true,
+    lazyload: false,
     nav: true,
     controls: false,
     mouseDrag: false,
