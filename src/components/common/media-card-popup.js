@@ -5,52 +5,57 @@ import apiConstants from "../../api/apiConstants";
 import * as configurationAction from "../../actions/configurationAction";
 
 function MediaCardPopup() {
+  const [genres, setGenres] = useState(ConfigurationStores.getGenres());
   const [mediaCard, setMediaCard] = useState(
     ConfigurationStores.getMediaCardPopupData()
   );
-
-  const genres = ConfigurationStores.getGenres();
-  let genresWithName;
-
-  useEffect(() => {
-    ConfigurationStores.addChangeListener(onMediaCard);
-    return () => ConfigurationStores.removeChangeListner(onMediaCard);
-  }, [mediaCard]);
+  const [genresWithName, setGenresWithName] = useState([]);
+  const [mediaCardHoverWrapper, setMediaCardHoverWrapper] = useState(
+    "media-hover-wrapper"
+  );
 
   const onMediaCard = () => {
     setMediaCard(ConfigurationStores.getMediaCardPopupData());
   };
 
-  const getGenresWithId = (genresWithType) => {
-    genresWithName = genresWithType.filter((_genres1) =>
-      mediaCard.mediaCardData.genres.some(
-        (_genres2) => _genres1.id === _genres2
-      )
-    );
+  const onGenresChange = () => {
+    setGenres(ConfigurationStores.getGenres());
   };
 
   const handleMediaCardPopupMouseLeave = () => {
-    configurationAction.mediaCardPopupToggle(false, {});
     setMediaCardHoverWrapper("media-hover-wrapper");
+    configurationAction.mediaCardPopupToggle(false, {});
   };
 
-  if (genres && genres.length > 0 && mediaCard.mediaCardData.length > 0) {
-    if (mediaCard.mediaCardData.type === apiConstants.MEDIA_TV) {
-      getGenresWithId(genres[1].data.genres);
-    } else {
-      getGenresWithId(genres[0].data.genres);
+  useEffect(() => {
+    ConfigurationStores.addChangeListener(onMediaCard);
+    ConfigurationStores.addChangeListener(onGenresChange);
+    if (genres && genres.length > 0 && mediaCard.mediaCardData.genres) {
+      const genresWithTypeData =
+        mediaCard.mediaCardData.type === apiConstants.MEDIA_TV
+          ? genres[1].data.genres
+          : genres[0].data.genres;
+
+      setGenresWithName(
+        genresWithTypeData.filter((_genres1) =>
+          mediaCard.mediaCardData.genres.some(
+            (_genres2) => _genres1.id === _genres2
+          )
+        )
+      );
     }
-  }
 
-  const [mediaCardHoverWrapper, setMediaCardHoverWrapper] = useState(
-    "media-hover-wrapper"
-  );
+    if (mediaCard.show) {
+      setTimeout(() => {
+        setMediaCardHoverWrapper("media-hover-wrapper show");
+      }, 500);
+    }
 
-  if (mediaCard.show) {
-    setTimeout(() => {
-      setMediaCardHoverWrapper("media-hover-wrapper show");
-    }, 1000);
-  }
+    return () => {
+      ConfigurationStores.removeChangeListner(onMediaCard);
+      ConfigurationStores.removeChangeListner(onGenresChange);
+    };
+  }, [mediaCard, genres]);
 
   return mediaCard.show ? (
     <div
@@ -123,8 +128,7 @@ function MediaCardPopup() {
                   </button>
                 </div>
               </div>
-              {mediaCard.mediaCardData.length > 0 &&
-              mediaCard.mediaCardData.genres.length > 0 ? (
+              {genresWithName.length > 0 ? (
                 <div className="media-genres">
                   <ul className="list-inline list-unstyled mt-3 mb-0">
                     {genresWithName.map((_genres) => {

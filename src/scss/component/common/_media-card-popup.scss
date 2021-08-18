@@ -33,10 +33,9 @@
 
   &.show {
     opacity: 1;
-  }
-
-  &:hover {
-    @include scale(1);
+    &:hover {
+      @include scale(1);
+    }
   }
 
   .media-content-wrapper {
