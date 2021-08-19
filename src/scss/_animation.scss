@@ -18,6 +18,54 @@
   }
 }
 
+/* Fade out scale  */
+@-webkit-keyframes fadeOutScale {
+  from {
+    opacity: 1;
+    @include scale(1);
+  }
+
+  to {
+    opacity: 0;
+    @include scale(0.9);
+  }
+}
+@keyframes fadeOutScale {
+  from {
+    opacity: 1;
+    @include scale(1);
+  }
+
+  to {
+    opacity: 0;
+    @include scale(0.9);
+  }
+}
+
+/* Fade in scale  */
+@-webkit-keyframes fadeInScale {
+  from {
+    opacity: 0;
+    @include scale(0.9);
+  }
+
+  to {
+    opacity: 1;
+    @include scale(1);
+  }
+}
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    @include scale(0.9);
+  }
+
+  to {
+    opacity: 1;
+    @include scale(1);
+  }
+}
+
 /* Loader Fading entrances  */
 @-webkit-keyframes loaderFadeIn {
   0% {

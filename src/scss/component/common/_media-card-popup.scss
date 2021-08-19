@@ -17,25 +17,25 @@
   position: absolute;
   overflow: hidden;
   z-index: 3;
-  @include scale(0.9);
+  opacity: 0;
+  animation-timing-function: linear;
+  animation-iteration-count: 1;
+  animation-duration: 3s;
   @include backgroundColor($media-card-popup-body-color);
   @include border-radius($media-card-popup-border-radius);
   @include transform-origin(center center);
   @include color($media-card-popup-color);
   @include box-shadow(0px 3px 10px 0 rgba($black-color, 0.75));
-  @include transition($card-slider-control-transition);
-  opacity: 0;
+  @include transition(all 0.3s linear);
 
   &,
   * {
     cursor: pointer;
   }
 
-  &.show {
+  &.active {
     opacity: 1;
-    &:hover {
-      @include scale(1);
-    }
+    animation-name: slidein;
   }
 
   .media-content-wrapper {

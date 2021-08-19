@@ -47,8 +47,9 @@ function MediaCardPopup() {
 
     if (mediaCard.show) {
       setTimeout(() => {
-        setMediaCardHoverWrapper("media-hover-wrapper show");
-      }, 500);
+        setMediaCardHoverWrapper("media-hover-wrapper active");
+        console.log("media-hover-wrapper active");
+      }, 300);
     }
 
     return () => {
