@@ -108,9 +108,11 @@ export function getWatchlist(
 }
 
 // This method allows you to mark a movie or TV show as a favorite item.
-export function addToWatchlist(session_id, mediaData) {
+export function addToWatchlist(account_id, session_id, mediaData) {
   const url =
     baseURL +
+    "/" +
+    account_id +
     "/watchlist" +
     apiParam.setApiKey(apiConstants.API_KEY) +
     apiParam.setSessionID(session_id);

@@ -1,16 +1,25 @@
 .Toastify {
   .Toastify__toast--error {
     @include color($toastify-toast-error-text-color);
-    @include backgroundColor($toastify-toast-error-bg-color);
+    @include backgroundColor(
+      $toastify-toast-error-bg-color,
+      $toastify-toast-bg-opacity
+    );
   }
 
   .Toastify__toast--success {
     @include color($toastify-toast-success-text-color);
-    @include backgroundColor($toastify-toast-success-bg-color);
+    @include backgroundColor(
+      $toastify-toast-success-bg-color,
+      $toastify-toast-bg-opacity
+    );
   }
 
   .Toastify__toast--warning {
     @include color($toastify-toast-warning-text-color);
-    @include backgroundColor($toastify-toast-warning-bg-color);
+    @include backgroundColor(
+      $toastify-toast-warning-bg-color,
+      $toastify-toast-bg-opacity
+    );
   }
 }

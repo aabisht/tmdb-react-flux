@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import ConfigurationStores from "../../stores/configurationStores";
+import AuthenticationStores from "../../stores/authenticationStores";
+import AccountStores from "../../stores/accountStores";
 import apiConstants from "../../api/apiConstants";
 import * as configurationAction from "../../actions/configurationAction";
+import * as accountAction from "../../actions/accountAction";
+import { toast } from "react-toastify";
 
 function MediaCardPopup() {
   const [genres, setGenres] = useState(ConfigurationStores.getGenres());
@@ -27,6 +31,42 @@ function MediaCardPopup() {
     configurationAction.mediaCardPopupToggle(false, {});
   };
 
+  const toggleToWatchlist = () => {
+    const mediaData = {
+      media_type: mediaCard.mediaCardData.type,
+      media_id: mediaCard.mediaCardData.id,
+      watchlist: true,
+    };
+    accountAction
+      .addToWatchlist(
+        AccountStores.getAccountInfo().id,
+        AuthenticationStores.getSessionData().session_id,
+        mediaData
+      )
+      .then((res) => {
+        if (res.success) {
+          toast(<AddToWatchListToast />, {
+            position: "bottom-right",
+            autoClose: 2000,
+            closeOnClick: true,
+            pauseOnHover: true,
+            type: "success",
+          });
+        }
+      });
+  };
+
+  const AddToWatchListToast = () => {
+    return (
+      <div className="d-flex align-items-start">
+        <span className="material-icons">thumb_up</span>
+        <span className="ms-2">
+          <strong>{mediaCard.mediaCardData.title}</strong> added to watchlist.
+        </span>
+      </div>
+    );
+  };
+
   useEffect(() => {
     ConfigurationStores.addChangeListener(onMediaCard);
     ConfigurationStores.addChangeListener(onGenresChange);
@@ -48,7 +88,6 @@ function MediaCardPopup() {
     if (mediaCard.show) {
       setTimeout(() => {
         setMediaCardHoverWrapper("media-hover-wrapper active");
-        console.log("media-hover-wrapper active");
       }, 300);
     }
 
@@ -100,53 +139,64 @@ function MediaCardPopup() {
                 </div>
               </div>
             </div>
-            <div className="media-content-wrapper">
-              <div className="media-title h3">
-                {mediaCard.mediaCardData.title}
-              </div>
-              <div className="media-description mb-3">
-                {mediaCard.mediaCardData.description}
-              </div>
-              <div className="media-actions d-flex align-content-center">
-                <div>
-                  <button
-                    type="button"
-                    className="btn link-text p-0"
-                    title="Add to Watchlist"
-                  >
-                    <span className="material-icons-outlined">
-                      control_point
-                    </span>
-                  </button>
+            <div className="d-flex flex-column justify-content-between media-content-wrapper">
+              <div className="media-content-name-desc-wrapper">
+                <div className="media-title h3">
+                  {mediaCard.mediaCardData.title}
                 </div>
-                <div className="ms-3">
-                  <button
-                    type="button"
-                    className="btn link-text p-0"
-                    title="Rate"
-                  >
-                    <span className="material-icons-outlined">star_rate</span>
-                  </button>
+                <div className="media-description mb-3">
+                  {mediaCard.mediaCardData.description}
                 </div>
               </div>
-              {genresWithName.length > 0 ? (
-                <div className="media-genres">
-                  <ul className="list-inline list-unstyled mt-3 mb-0">
-                    {genresWithName.map((_genres) => {
-                      return (
-                        <li
-                          className="media-genre-item list-inline-item"
-                          key={_genres.id}
-                        >
-                          <NavLink to={"/tv-shows"}>{_genres.name}</NavLink>
-                        </li>
-                      );
-                    })}
-                  </ul>
-                </div>
-              ) : (
-                <></>
-              )}
+              <div className="media-content-meta-wrapper">
+                {AuthenticationStores.getIsUserLoggedIn() ? (
+                  <div className="media-actions d-flex align-content-center">
+                    <div className="add-to-watchlist-btn-wrapper">
+                      <button
+                        type="button"
+                        className="btn link-text p-0"
+                        title="Add to Watchlist"
+                        onClick={toggleToWatchlist}
+                      >
+                        <span className="material-icons-outlined">
+                          control_point
+                        </span>
+                      </button>
+                    </div>
+                    <div className="ms-3 star-rate-btn-wrapper">
+                      <button
+                        type="button"
+                        className="btn link-text p-0"
+                        title="Rate"
+                      >
+                        <span className="material-icons-outlined">
+                          star_rate
+                        </span>
+                      </button>
+                    </div>
+                  </div>
+                ) : (
+                  <></>
+                )}
+                {genresWithName.length > 0 ? (
+                  <div className="media-genres">
+                    <ul className="list-inline list-unstyled mt-3 mb-0">
+                      {genresWithName.map((_genres) => {
+                        return (
+                          <li
+                            className="media-genre-item list-inline-item"
+                            key={_genres.id}
+                          >
+                            <NavLink to={"/tv-shows"}>{_genres.name}</NavLink>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  </div>
+                ) : (
+                  <></>
+                )}
+              </div>
             </div>
           </div>
         </div>

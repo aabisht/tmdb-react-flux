@@ -10,3 +10,7 @@ export const createAccountDetail = (session_id) => {
     });
   });
 };
+
+export const addToWatchlist = (account_id, session_id, mediaData) => {
+  return accountApi.addToWatchlist(account_id, session_id, mediaData).then();
+};

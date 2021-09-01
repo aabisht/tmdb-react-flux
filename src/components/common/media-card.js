@@ -47,6 +47,7 @@ function MediaCard(props) {
       type: props.mediaCardData?.media_type,
       voteAvg: props.mediaCardData?.vote_average,
       genres: props.mediaCardData?.genre_ids,
+      id: props.mediaCardData?.id,
       style: {
         width: cardRefRect.width + addedGutterSpace * 2,
         minHeight: cardRefRect.height + addedGutterSpace * 2,
