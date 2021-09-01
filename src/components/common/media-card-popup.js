@@ -6,7 +6,10 @@ import AccountStores from "../../stores/accountStores";
 import apiConstants from "../../api/apiConstants";
 import * as configurationAction from "../../actions/configurationAction";
 import * as accountAction from "../../actions/accountAction";
+import * as movieApi from "../../api/movies";
+import * as tvApi from "../../api/tv";
 import { toast } from "react-toastify";
+import StarRatings from "react-star-ratings";
 
 function MediaCardPopup() {
   const [genres, setGenres] = useState(ConfigurationStores.getGenres());
@@ -47,7 +50,7 @@ function MediaCardPopup() {
         if (res.success) {
           toast(<AddToWatchListToast />, {
             position: "bottom-right",
-            autoClose: 2000,
+            autoClose: 3000,
             closeOnClick: true,
             pauseOnHover: true,
             type: "success",
@@ -62,6 +65,53 @@ function MediaCardPopup() {
         <span className="material-icons">thumb_up</span>
         <span className="ms-2">
           <strong>{mediaCard.mediaCardData.title}</strong> added to watchlist.
+        </span>
+      </div>
+    );
+  };
+
+  const handleRating = (newRating) => {
+    if (mediaCard.mediaCardData.type === apiConstants.MEDIA_TV) {
+      tvApi
+        .rateTVShow(
+          mediaCard.mediaCardData.id,
+          AuthenticationStores.getSessionData().session_id,
+          newRating * 2
+        )
+        .then((res) => {
+          successRatingToast(res);
+        });
+    } else {
+      movieApi
+        .rateMovie(
+          mediaCard.mediaCardData.id,
+          AuthenticationStores.getSessionData().session_id,
+          newRating * 2
+        )
+        .then((res) => {
+          successRatingToast(res);
+        });
+    }
+  };
+
+  const successRatingToast = (res) => {
+    if (res.success) {
+      toast(<RatingToast />, {
+        position: "bottom-right",
+        autoClose: 3000,
+        closeOnClick: true,
+        pauseOnHover: true,
+        type: "success",
+      });
+    }
+  };
+
+  const RatingToast = () => {
+    return (
+      <div className="d-flex align-items-start">
+        <span className="material-icons">thumb_up</span>
+        <span className="ms-2">
+          You rated the <strong>{mediaCard.mediaCardData.title}</strong>.
         </span>
       </div>
     );
@@ -164,15 +214,17 @@ function MediaCardPopup() {
                       </button>
                     </div>
                     <div className="ms-3 star-rate-btn-wrapper">
-                      <button
-                        type="button"
-                        className="btn link-text p-0"
-                        title="Rate"
-                      >
-                        <span className="material-icons-outlined">
-                          star_rate
-                        </span>
-                      </button>
+                      <StarRatings
+                        rating={mediaCard.mediaCardData.voteAvg / 2}
+                        changeRating={handleRating}
+                        numberOfStars={5}
+                        svgIconPath={
+                          "M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+                        }
+                        svgIconViewBox={"0 0 24 24"}
+                        starHoverColor={"#1ed5a9"}
+                        starRatedColor={"#1ed5a9"}
+                      />
                     </div>
                   </div>
                 ) : (
