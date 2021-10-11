@@ -11,10 +11,13 @@ import * as tvApi from "../../api/tv";
 import { toast } from "react-toastify";
 import StarRatings from "react-star-ratings";
 
-function MediaCardPopup() {
+const MediaCardPopup = () => {
   const [genres, setGenres] = useState(ConfigurationStores.getGenres());
   const [mediaCard, setMediaCard] = useState(
     ConfigurationStores.getMediaCardPopupData()
+  );
+  const [mediaCardRating, setMediaCardRating] = useState(
+    ConfigurationStores.getMediaCardPopupData().mediaCardData.voteAvg
   );
   const [genresWithName, setGenresWithName] = useState([]);
   const [mediaCardHoverWrapper, setMediaCardHoverWrapper] = useState(
@@ -23,6 +26,9 @@ function MediaCardPopup() {
 
   const onMediaCard = () => {
     setMediaCard(ConfigurationStores.getMediaCardPopupData());
+    setMediaCardRating(
+      ConfigurationStores.getMediaCardPopupData().mediaCardData.voteAvg
+    );
   };
 
   const onGenresChange = () => {
@@ -79,6 +85,7 @@ function MediaCardPopup() {
           newRating * 2
         )
         .then((res) => {
+          // setMediaCardRating(newRating * 2);
           successRatingToast(res);
         });
     } else {
@@ -89,6 +96,7 @@ function MediaCardPopup() {
           newRating * 2
         )
         .then((res) => {
+          // setMediaCardRating(newRating * 2);
           successRatingToast(res);
         });
     }
@@ -215,7 +223,7 @@ function MediaCardPopup() {
                     </div>
                     <div className="ms-3 star-rate-btn-wrapper">
                       <StarRatings
-                        rating={mediaCard.mediaCardData.voteAvg / 2}
+                        rating={mediaCardRating / 2}
                         changeRating={handleRating}
                         numberOfStars={5}
                         svgIconPath={
@@ -257,6 +265,6 @@ function MediaCardPopup() {
   ) : (
     <></>
   );
-}
+};
 
 export default MediaCardPopup;

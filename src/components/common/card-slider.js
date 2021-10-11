@@ -1,33 +1,34 @@
-import React, { useState } from "react";
+import React from "react";
+import Carousel from "react-multi-carousel";
 import PropTypes from "prop-types";
-import TinySlider from "tiny-slider-react";
 import MediaCard from "./media-card";
+import "react-multi-carousel/lib/styles.css";
 
-function CardSlider(props) {
+const CardSlider = (props) => {
   const settings = {
-    lazyload: false,
-    nav: true,
-    controls: false,
-    mouseDrag: false,
-    items: 2,
-    startIndex: 0,
-    loop: true,
-    autoplay: false,
-    slideBy: "page",
     responsive: {
-      768: {
-        items: 4,
-      },
-      1200: {
+      superLargeDesktop: {
+        breakpoint: { max: 4000, min: 1200 },
         items: 6,
+        slidesToSlide: 6,
+        partialVisibilityGutter: 11,
+      },
+      desktop: {
+        breakpoint: { max: 1199, min: 768 },
+        items: 4,
+        slidesToSlide: 4,
+        partialVisibilityGutter: 16,
+      },
+      mobile: {
+        breakpoint: { max: 767, min: 0 },
+        items: 2,
+        slidesToSlide: 2,
+        partialVisibilityGutter: 32,
       },
     },
-  };
-
-  const [sliderRef, setSliderRef] = useState();
-
-  const onGoTo = (dir) => {
-    sliderRef.slider.goTo(dir);
+    showDots: true,
+    centerMode: false,
+    partialVisible: true,
   };
 
   return props.sliderData.length > 0 ? (
@@ -50,33 +51,23 @@ function CardSlider(props) {
         <></>
       )}
       <div className="card-slider-wrapper">
-        <TinySlider settings={settings} ref={(ts) => setSliderRef(ts)}>
+        <Carousel
+          responsive={settings.responsive}
+          showDots={settings.showDots}
+          centerMode={settings.centerMode}
+          partialVisible
+          infinite
+        >
           {props.sliderData.map((cardData, index) => {
             return <MediaCard key={index} mediaCardData={cardData}></MediaCard>;
           })}
-        </TinySlider>
-        <div className="slider-nav">
-          <button
-            type="button"
-            className="slider-nav-btn slider-nav-btn-pre"
-            onClick={() => onGoTo("prev")}
-          >
-            <span className="material-icons">arrow_back_ios</span>
-          </button>
-          <button
-            type="button"
-            className="slider-nav-btn slider-nav-btn-next"
-            onClick={() => onGoTo("next")}
-          >
-            <span className="material-icons">arrow_forward_ios</span>
-          </button>
-        </div>
+        </Carousel>
       </div>
     </div>
   ) : (
     <></>
   );
-}
+};
 
 CardSlider.prototype = {
   sliderData: PropTypes.object.required,

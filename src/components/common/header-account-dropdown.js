@@ -78,6 +78,31 @@ function HeaderAccountDropdown() {
           </div>
         </li>
         <li>
+          <button type="button" className="btn d-block text-nowrap w-100">
+            Rated Movies
+          </button>
+        </li>
+        <li>
+          <button type="button" className="btn d-block text-nowrap w-100">
+            Rated TV Shows
+          </button>
+        </li>
+        <li>
+          <button type="button" className="btn d-block text-nowrap w-100">
+            Rated TV Episodes
+          </button>
+        </li>
+        <li>
+          <button type="button" className="btn d-block text-nowrap w-100">
+            Movie Watchlist
+          </button>
+        </li>
+        <li>
+          <button type="button" className="btn d-block text-nowrap w-100">
+            TV Show Watchlist
+          </button>
+        </li>
+        <li>
           <button
             type="button"
             className="btn d-block text-nowrap w-100"

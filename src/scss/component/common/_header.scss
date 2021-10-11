@@ -46,9 +46,9 @@
 }
 
 .header-logo-link {
+  @include margin-right($header-logo-right-space);
   img {
     width: calculateRem($header-logo-img-width);
-    @include margin-right($header-logo-right-space);
   }
 }
 
