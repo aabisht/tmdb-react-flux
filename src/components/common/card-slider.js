@@ -28,7 +28,6 @@ const CardSlider = (props) => {
     },
     showDots: true,
     centerMode: false,
-    partialVisible: true,
   };
 
   return props.sliderData.length > 0 ? (
