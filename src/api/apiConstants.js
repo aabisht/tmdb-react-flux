@@ -45,6 +45,8 @@ const apiConstants = {
   EXTERNAL_SOURCE_FACEBOOK: "facebook_id",
   EXTERNAL_SOURCE_TWITTER: "twitter_id",
   EXTERNAL_SOURCE_INSTAGRAM: "instagram_id",
+
+  TOTAL_SLIDER_ITEMS: 30,
 };
 
 export default apiConstants;

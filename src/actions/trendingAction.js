@@ -48,7 +48,7 @@ export const loadPersonTrendingData = () => {
     });
 };
 
-export const loadMovieTVTrendingData = () => {
+export const loadMovieTVTrendingData = (itemToLoad) => {
   const trendingMovie = trendingApi.getDetails(
     apiConstants.MEDIA_MOVIE,
     apiConstants.TIME_WINDOW_DAY
@@ -62,12 +62,12 @@ export const loadMovieTVTrendingData = () => {
 
   return forkJoin(pArray).subscribe((trendingMediaData) => {
     trendingMediaData[0].results.every((value, index) => {
-      if (index >= 15) return false;
+      if (index >= itemToLoad / 2) return false;
       return _trendingMedia.push(value);
     });
 
     trendingMediaData[1].results.every((value, index) => {
-      if (index >= 15) return false;
+      if (index >= itemToLoad / 2) return false;
       return _trendingMedia.push(value);
     });
 

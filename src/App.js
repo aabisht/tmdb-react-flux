@@ -12,6 +12,7 @@ import SearchPage from "./components/pages/search-page";
 import LoginPage from "./components/pages/login-page";
 import ProfilePage from "./components/pages/profile-page";
 import MediaCardPopup from "./components/common/media-card-popup";
+import GenreListAllPage from "./components/pages/genre-list-all-page";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -30,6 +31,10 @@ function App() {
             <Route path="/search/:slug" component={SearchPage} />
             <Route path="/profile/:slug" component={ProfilePage} />
             <Route path="/login" component={LoginPage} />
+            <Route
+              path="/browse/:type/:genre/:genreId"
+              component={GenreListAllPage}
+            />
           </Switch>
         </div>
       </div>

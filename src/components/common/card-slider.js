@@ -35,15 +35,19 @@ const CardSlider = (props) => {
       {props.sliderTitle ? (
         <div className="card-slider-title-wrapper">
           <div className="h3 mb-3">
-            <a
-              href="https://www.google.com/"
-              className="d-inline-flex align-items-center "
-            >
+            {props.sliderLink ? (
+              <a
+                href={props.sliderLink}
+                className="d-inline-flex align-items-center "
+              >
+                <strong>{props.sliderTitle}</strong>
+                <span className="material-icons ms-2 card-slider-title-arrow">
+                  arrow_forward_ios
+                </span>
+              </a>
+            ) : (
               <strong>{props.sliderTitle}</strong>
-              <span className="material-icons ms-2 card-slider-title-arrow">
-                arrow_forward_ios
-              </span>
-            </a>
+            )}
           </div>
         </div>
       ) : (
@@ -71,6 +75,7 @@ const CardSlider = (props) => {
 CardSlider.prototype = {
   sliderData: PropTypes.object.required,
   sliderTitle: PropTypes.string,
+  sliderLink: PropTypes.string,
 };
 
 export default CardSlider;
