@@ -40,13 +40,13 @@ const CardSlider = (props) => {
                 href={props.sliderLink}
                 className="d-inline-flex align-items-center "
               >
-                <strong>{props.sliderTitle}</strong>
+                <strong className="text-capitalize">{props.sliderTitle}</strong>
                 <span className="material-icons ms-2 card-slider-title-arrow">
                   arrow_forward_ios
                 </span>
               </a>
             ) : (
-              <strong>{props.sliderTitle}</strong>
+              <strong className="text-capitalize">{props.sliderTitle}</strong>
             )}
           </div>
         </div>
@@ -62,7 +62,13 @@ const CardSlider = (props) => {
           infinite
         >
           {props.sliderData.map((cardData, index) => {
-            return <MediaCard key={index} mediaCardData={cardData}></MediaCard>;
+            return (
+              <MediaCard
+                key={index}
+                mediaCardData={cardData}
+                mediaCardDataType={props.sliderMediaType}
+              ></MediaCard>
+            );
           })}
         </Carousel>
       </div>
@@ -76,6 +82,7 @@ CardSlider.prototype = {
   sliderData: PropTypes.object.required,
   sliderTitle: PropTypes.string,
   sliderLink: PropTypes.string,
+  sliderMediaType: PropTypes.string,
 };
 
 export default CardSlider;

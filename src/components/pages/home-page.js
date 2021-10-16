@@ -5,19 +5,25 @@ import TrendingStores from "../../stores/trendingStores";
 import { loadMovieTVTrendingData } from "../../actions/trendingAction";
 import apiConstants from "../../api/apiConstants";
 import ConfigurationStores from "../../stores/configurationStores";
+import HomePageStores from "../../stores/homePageStore";
 import * as configurationAction from "../../actions/configurationAction";
+import { loadGenresHomeData } from "../../actions/homePageAction";
 
 function HomePage() {
   const [trendingMedia, setTrendingMedia] = useState(
     TrendingStores.getTrendingMedia()
   );
 
-  const [genres, setGenres] = useState(ConfigurationStores.getGenres());
   const [defaultLanguage, setDefaultLanguage] = useState(
     ConfigurationStores.getDefaultLanguage()
   );
+  const [genres, setGenres] = useState(
+    ConfigurationStores.getGenres(defaultLanguage)
+  );
 
-  const [randomGenres, setRandomGenres] = useState();
+  const [homePageData, setHomePageData] = useState(
+    HomePageStores.getHomePageData()
+  );
 
   useEffect(() => {
     TrendingStores.addChangeListener(onTrendingMediaChange);
@@ -34,6 +40,7 @@ function HomePage() {
   useEffect(() => {
     ConfigurationStores.addChangeListener(onGenresChange);
     ConfigurationStores.addChangeListener(onDefaultLanguageChange);
+    HomePageStores.addChangeListener(onHomePageData);
     if (defaultLanguage && genres.length === 0)
       configurationAction.loadGenres(defaultLanguage);
 
@@ -45,18 +52,19 @@ function HomePage() {
           name: value.name,
           type: item.type,
         };
+
         return _genres.push(_genre);
       });
     });
 
-    const _randomGenres = _genres.sort(() => Math.random() - 0.5);
-    setRandomGenres(_randomGenres);
+    if (homePageData.length === 0) loadGenresHomeData(_genres);
 
     return () => {
       ConfigurationStores.removeChangeListner(onGenresChange);
       ConfigurationStores.removeChangeListner(onDefaultLanguageChange);
+      HomePageStores.removeChangeListner(onHomePageData);
     };
-  }, [genres, defaultLanguage]);
+  }, [genres, defaultLanguage, homePageData]);
 
   const onTrendingMediaChange = () => {
     setTrendingMedia(TrendingStores.getTrendingMedia());
@@ -70,6 +78,10 @@ function HomePage() {
     setDefaultLanguage(ConfigurationStores.getDefaultLanguage());
   };
 
+  const onHomePageData = () => {
+    setHomePageData(HomePageStores.getHomePageData());
+  };
+
   return (
     <>
       <PageBanner bannerData={trendingMedia[0]}></PageBanner>
@@ -78,17 +90,17 @@ function HomePage() {
         sliderTitle="Trending Now"
         sliderLink="/browse/all/trending/now"
       ></CardSlider>
-
-      {randomGenres?.length > 0 ? (
-        randomGenres.map((genre, index) => {
+      {homePageData?.length > 0 ? (
+        homePageData.map((data, index) => {
           return (
             <CardSlider
               key={index}
-              sliderData={trendingMedia}
-              sliderTitle={genre.name + " " + genre.type}
+              sliderData={data.sliderData}
+              sliderTitle={data.name + " " + data.type}
               sliderLink={
-                "/browse/" + genre.type + "/" + genre.name + "/" + genre.id
+                "/browse/" + data.type + "/" + data.name + "/" + data.id
               }
+              sliderMediaType={data.type}
             ></CardSlider>
           );
         })

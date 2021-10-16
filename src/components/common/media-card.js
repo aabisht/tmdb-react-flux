@@ -30,7 +30,10 @@ function MediaCard(props) {
   };
 
   let cardName;
-  if (props.mediaCardData?.media_type === apiConstants.MEDIA_TV) {
+  if (
+    props.mediaCardData?.media_type === apiConstants.MEDIA_TV ||
+    props.mediaCardDataType === apiConstants.MEDIA_TV
+  ) {
     cardName = props.mediaCardData?.name;
   } else {
     cardName = props.mediaCardData?.title;
@@ -44,7 +47,7 @@ function MediaCard(props) {
       banner: props.mediaCardData?.backdrop_path,
       title: cardName,
       description: props.mediaCardData?.overview,
-      type: props.mediaCardData?.media_type,
+      type: props.mediaCardData?.media_type || props.mediaCardDataType,
       voteAvg: props.mediaCardData?.vote_average,
       genres: props.mediaCardData?.genre_ids,
       id: props.mediaCardData?.id,
@@ -101,6 +104,7 @@ function MediaCard(props) {
 
 MediaCard.prototype = {
   mediaCardData: PropTypes.object.required,
+  mediaCardDataType: PropTypes.string,
 };
 
 export default MediaCard;
