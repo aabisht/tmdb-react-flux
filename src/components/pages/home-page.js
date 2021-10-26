@@ -6,7 +6,6 @@ import { loadMovieTVTrendingData } from "../../actions/trendingAction";
 import apiConstants from "../../api/apiConstants";
 import ConfigurationStores from "../../stores/configurationStores";
 import HomePageStores from "../../stores/homePageStore";
-import * as configurationAction from "../../actions/configurationAction";
 import { loadGenresHomeData } from "../../actions/homePageAction";
 
 function HomePage() {
@@ -14,12 +13,7 @@ function HomePage() {
     TrendingStores.getTrendingMedia()
   );
 
-  const [defaultLanguage, setDefaultLanguage] = useState(
-    ConfigurationStores.getDefaultLanguage()
-  );
-  const [genres, setGenres] = useState(
-    ConfigurationStores.getGenres(defaultLanguage)
-  );
+  const [genres, setGenres] = useState(ConfigurationStores.getGenres());
 
   const [homePageData, setHomePageData] = useState(
     HomePageStores.getHomePageData()
@@ -39,10 +33,7 @@ function HomePage() {
 
   useEffect(() => {
     ConfigurationStores.addChangeListener(onGenresChange);
-    ConfigurationStores.addChangeListener(onDefaultLanguageChange);
     HomePageStores.addChangeListener(onHomePageData);
-    if (defaultLanguage && genres.length === 0)
-      configurationAction.loadGenres(defaultLanguage);
 
     let _genres = [];
     genres.forEach((item) => {
@@ -61,10 +52,9 @@ function HomePage() {
 
     return () => {
       ConfigurationStores.removeChangeListner(onGenresChange);
-      ConfigurationStores.removeChangeListner(onDefaultLanguageChange);
       HomePageStores.removeChangeListner(onHomePageData);
     };
-  }, [genres, defaultLanguage, homePageData]);
+  }, [genres, homePageData]);
 
   const onTrendingMediaChange = () => {
     setTrendingMedia(TrendingStores.getTrendingMedia());
@@ -72,10 +62,6 @@ function HomePage() {
 
   const onGenresChange = () => {
     setGenres(ConfigurationStores.getGenres());
-  };
-
-  const onDefaultLanguageChange = () => {
-    setDefaultLanguage(ConfigurationStores.getDefaultLanguage());
   };
 
   const onHomePageData = () => {
