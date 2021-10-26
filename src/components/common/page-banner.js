@@ -29,7 +29,10 @@ function PageBanner(props) {
 
   let bannername, releaseYear;
 
-  if (props.bannerData?.media_type === apiConstants.MEDIA_TV) {
+  if (
+    props.bannerData?.media_type === apiConstants.MEDIA_TV ||
+    props.bannerType === apiConstants.MEDIA_TV
+  ) {
     bannername = props.bannerData?.name;
     releaseYear = props.bannerData?.first_air_date.split("-")[0];
   } else {
@@ -95,6 +98,7 @@ function PageBanner(props) {
 
 PageBanner.prototype = {
   bannerData: PropTypes.object.required,
+  bannerType: PropTypes.string,
 };
 
 export default PageBanner;

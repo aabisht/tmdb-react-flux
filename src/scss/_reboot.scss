@@ -654,3 +654,13 @@ progress {
   padding-top: calculateRem($header-height);
   min-height: 100vh;
 }
+
+.cards-row-wrapper {
+  @include padding-left($card-slider-title-x-padding);
+  @include padding-right($card-slider-title-x-padding);
+
+  .media-card-wrapper {
+    @include margin-bottom($card-slider-title-x-padding);
+    @include margin-top($card-slider-title-x-padding);
+  }
+}
