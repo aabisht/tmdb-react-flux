@@ -660,7 +660,6 @@ progress {
   @include padding-right($card-slider-title-x-padding);
 
   .media-card-wrapper {
-    @include margin-bottom($card-slider-title-x-padding);
-    @include margin-top($card-slider-title-x-padding);
+    @include margin-bottom($media-card-bottom-margin);
   }
 }

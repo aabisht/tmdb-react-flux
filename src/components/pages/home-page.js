@@ -9,6 +9,8 @@ import HomePageStores from "../../stores/homePageStore";
 import { loadGenresHomeData } from "../../actions/homePageAction";
 
 function HomePage() {
+  window.scrollTo(0, 0);
+
   const [trendingMedia, setTrendingMedia] = useState(
     TrendingStores.getTrendingMedia()
   );

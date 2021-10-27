@@ -5,16 +5,15 @@ import apiConstants from "../../api/apiConstants";
 
 function PageBanner(props) {
   let bannername, releaseYear;
-
   if (
     props.bannerData?.media_type === apiConstants.MEDIA_TV ||
     props.bannerType === apiConstants.MEDIA_TV
   ) {
     bannername = props.bannerData?.name;
-    releaseYear = props.bannerData?.first_air_date.split("-")[0];
+    releaseYear = new Date(props.bannerData?.first_air_date).getFullYear();
   } else {
     bannername = props.bannerData?.title;
-    releaseYear = props.bannerData?.release_date.split("-")[0];
+    releaseYear = new Date(props.bannerData?.release_date).getFullYear();
   }
 
   return props.bannerData?.backdrop_path ? (
