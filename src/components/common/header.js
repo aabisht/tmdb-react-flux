@@ -44,6 +44,28 @@ function Header() {
     setDefaultLanguage(ConfigurationStores.getDefaultLanguage());
   };
 
+  const [apiConfigurations, setApiConfigurations] = useState(
+    ConfigurationStores.getAPIConfiguration()
+  );
+
+  useEffect(() => {
+    ConfigurationStores.addChangeListener(onApiConfigurationsChange);
+    if (apiConfigurations.length === 0) {
+      if (!ConfigurationStores.getFullPageLoaderValue())
+        configurationAction.fullPageLoaderFlag(true);
+      configurationAction.loadAPIConfiguration().then(() => {
+        if (ConfigurationStores.getFullPageLoaderValue())
+          configurationAction.fullPageLoaderFlag(false);
+      });
+    }
+    return () =>
+      ConfigurationStores.removeChangeListner(onApiConfigurationsChange);
+  }, [apiConfigurations.length]);
+
+  const onApiConfigurationsChange = () => {
+    setApiConfigurations(ConfigurationStores.getAPIConfiguration());
+  };
+
   window.addEventListener("scroll", () => {
     const headerElement = document.getElementById("headerContainer");
     if (headerElement && window.scrollY > headerElement.offsetHeight) {

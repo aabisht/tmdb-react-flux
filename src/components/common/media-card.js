@@ -1,33 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import ConfigurationStores from "../../stores/configurationStores";
 import * as configurationAction from "../../actions/configurationAction";
 import apiConstants from "../../api/apiConstants";
 
 function MediaCard(props) {
-  const [apiConfigurations, setApiConfigurations] = useState(
-    ConfigurationStores.getAPIConfiguration()
-  );
-
   const [cardRef, setCardRef] = useState();
-
-  useEffect(() => {
-    ConfigurationStores.addChangeListener(onApiConfigurationsChange);
-    if (apiConfigurations.length === 0) {
-      if (!ConfigurationStores.getFullPageLoaderValue())
-        configurationAction.fullPageLoaderFlag(true);
-      configurationAction.loadAPIConfiguration().then(() => {
-        if (ConfigurationStores.getFullPageLoaderValue())
-          configurationAction.fullPageLoaderFlag(false);
-      });
-    }
-    return () =>
-      ConfigurationStores.removeChangeListner(onApiConfigurationsChange);
-  }, [apiConfigurations.length]);
-
-  const onApiConfigurationsChange = () => {
-    setApiConfigurations(ConfigurationStores.getAPIConfiguration());
-  };
 
   let cardName;
   if (

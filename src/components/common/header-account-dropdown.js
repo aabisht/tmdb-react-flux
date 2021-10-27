@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { NavLink, useHistory, useLocation } from "react-router-dom";
 import AuthenticationStores from "../../stores/authenticationStores";
 import AccountStores from "../../stores/accountStores";
@@ -25,28 +25,6 @@ function HeaderAccountDropdown() {
         configurationAction.fullPageLoaderFlag(false);
       history.push(routeTo);
     });
-  };
-
-  const [apiConfigurations, setApiConfigurations] = useState(
-    ConfigurationStores.getAPIConfiguration()
-  );
-
-  useEffect(() => {
-    ConfigurationStores.addChangeListener(onApiConfigurationsChange);
-    if (apiConfigurations.length === 0) {
-      if (!ConfigurationStores.getFullPageLoaderValue())
-        configurationAction.fullPageLoaderFlag(true);
-      configurationAction.loadAPIConfiguration().then(() => {
-        if (ConfigurationStores.getFullPageLoaderValue())
-          configurationAction.fullPageLoaderFlag(false);
-      });
-    }
-    return () =>
-      ConfigurationStores.removeChangeListner(onApiConfigurationsChange);
-  }, [apiConfigurations.length]);
-
-  const onApiConfigurationsChange = () => {
-    setApiConfigurations(ConfigurationStores.getAPIConfiguration());
   };
 
   return (

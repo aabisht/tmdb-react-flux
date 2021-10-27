@@ -118,7 +118,7 @@ const configurationStores = new ConfigurationStores();
 Dispatcher.register((action) => {
   switch (action.actionType) {
     case actionTypes.LOAD_API_CONFIGURATIONS:
-      _api_configurations = action.api_configurations;
+      _api_configurations.push(action.api_configurations);
       _base_url = action.api_configurations.images.secure_base_url;
       _backdrop_sizes = action.api_configurations.images.backdrop_sizes;
       _logo_sizes = action.api_configurations.images.logo_sizes;

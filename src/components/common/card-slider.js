@@ -1,4 +1,5 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 import Carousel from "react-multi-carousel";
 import PropTypes from "prop-types";
 import MediaCard from "./media-card";
@@ -36,15 +37,15 @@ const CardSlider = (props) => {
         <div className="card-slider-title-wrapper">
           <div className="h3 mb-3">
             {props.sliderLink ? (
-              <a
-                href={props.sliderLink}
+              <NavLink
+                to={props.sliderLink}
                 className="d-inline-flex align-items-center "
               >
                 <strong className="text-capitalize">{props.sliderTitle}</strong>
                 <span className="material-icons ms-2 card-slider-title-arrow">
                   arrow_forward_ios
                 </span>
-              </a>
+              </NavLink>
             ) : (
               <strong className="text-capitalize">{props.sliderTitle}</strong>
             )}
