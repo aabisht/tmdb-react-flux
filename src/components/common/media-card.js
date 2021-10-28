@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import ConfigurationStores from "../../stores/configurationStores";
 import * as configurationAction from "../../actions/configurationAction";
 import apiConstants from "../../api/apiConstants";
+import poster_path from "../../assets/poster-path-not-found.jpg";
 
 function MediaCard(props) {
   const [cardRef, setCardRef] = useState();
@@ -54,29 +55,33 @@ function MediaCard(props) {
     configurationAction.mediaCardPopupToggle(true, data);
   };
 
-  return ConfigurationStores.getBaseURL() && props.mediaCardData.poster_path ? (
-    <div className="media-card-wrapper">
-      <div className="media-card-container">
+  return (
+    <div className="media-card-wrapper h-100">
+      <div className="media-card-container h-100">
         <div
-          className="media-card"
+          className="media-card h-100"
           onMouseOver={handleMediaCardPopupMouseEnter}
           ref={(mc) => setCardRef(mc)}
         >
-          <div className="media-img-wrapper">
-            <img
-              src={
-                ConfigurationStores.getBaseURL() +
-                ConfigurationStores.getPosterSizes()[3] +
-                props.mediaCardData.poster_path
-              }
-              alt={cardName}
-            />
+          <div className="media-img-wrapper h-100">
+            {ConfigurationStores.getBaseURL() &&
+            props.mediaCardData.poster_path ? (
+              <img
+                src={
+                  ConfigurationStores.getBaseURL() +
+                  ConfigurationStores.getPosterSizes()[3] +
+                  props.mediaCardData.poster_path
+                }
+                alt={cardName}
+                className="h-100"
+              />
+            ) : (
+              <img src={poster_path} alt={cardName} className="h-100" />
+            )}
           </div>
         </div>
       </div>
     </div>
-  ) : (
-    <></>
   );
 }
 

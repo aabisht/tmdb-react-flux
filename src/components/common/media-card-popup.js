@@ -10,6 +10,7 @@ import * as movieApi from "../../api/movies";
 import * as tvApi from "../../api/tv";
 import { toast } from "react-toastify";
 import StarRatings from "react-star-ratings";
+import banner_path from "../../assets/banner-path-not-found.jpg";
 
 const MediaCardPopup = () => {
   const [genres, setGenres] = useState(ConfigurationStores.getGenres());
@@ -168,14 +169,18 @@ const MediaCardPopup = () => {
           >
             <div className="media-media-wrapper">
               <div className="media-hover-img-wrapper">
-                <img
-                  src={
-                    ConfigurationStores.getBaseURL() +
-                    ConfigurationStores.getBackdropSizes()[1] +
-                    mediaCard.mediaCardData.banner
-                  }
-                  alt={mediaCard.mediaCardData.title}
-                />
+                {mediaCard.mediaCardData.banner ? (
+                  <img
+                    src={
+                      ConfigurationStores.getBaseURL() +
+                      ConfigurationStores.getBackdropSizes()[1] +
+                      mediaCard.mediaCardData.banner
+                    }
+                    alt={mediaCard.mediaCardData.title}
+                  />
+                ) : (
+                  <img src={banner_path} alt={mediaCard.mediaCardData.title} />
+                )}
               </div>
               <div className="media-hover-video-wrapper"></div>
               <div className="d-flex align-items-baseline justify-content-between media-meta">

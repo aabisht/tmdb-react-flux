@@ -83,7 +83,7 @@ function BrowsePage(props) {
               <div className="col-xl-2" key={index}>
                 <MediaCard
                   mediaCardData={cardData}
-                  mediaCardDataType={props.sliderMediaType}
+                  mediaCardDataType={mediaType}
                 ></MediaCard>
               </div>
             );
