@@ -51,6 +51,13 @@ Dispatcher.register((action) => {
       _total_results = action.browsePageData.total_results;
       browsePageStores.emitChange();
       break;
+    case actionType.LOAD_BROWSE_PAGE_TRENDING_MOVIE_TV_DATA:
+      _browsePageData = action.browseTrendingPageData.results;
+      _pageNumber = action.browseTrendingPageData.page;
+      _total_pages = action.browseTrendingPageData.total_pages;
+      _total_results = action.browseTrendingPageData.total_results;
+      browsePageStores.emitChange();
+      break;
     default:
       break;
   }

@@ -1,5 +1,7 @@
 const BrowsePageActionTypes = {
   LOAD_BROWSE_PAGE_DATA: "LOAD_BROWSE_PAGE_DATA",
+  LOAD_BROWSE_PAGE_TRENDING_MOVIE_TV_DATA:
+    "LOAD_BROWSE_PAGE_TRENDING_MOVIE_TV_DATA",
 };
 
 export default BrowsePageActionTypes;

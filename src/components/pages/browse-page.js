@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
 import PageBanner from "../common/page-banner";
 import BrowsePageStores from "../../stores/browsePageStores";
-import { loadBrowsePageData } from "../../actions/browsePageAction";
+import {
+  loadBrowsePageData,
+  loadBrowsePageTrendingData,
+} from "../../actions/browsePageAction";
 import MediaCard from "../common/media-card";
 import ConfigurationStores from "../../stores/configurationStores";
 
@@ -10,6 +13,9 @@ function BrowsePage(props) {
   const [btnClass, updateBtnClass] = useState("btn outline primary mb-4 lg");
   const mediaType = props.match.params.type,
     genreID = props.match.params.genreId;
+
+  const pageType =
+    props.match.params.genre === "trending" ? "trending" : "genre";
 
   const [browsePageData, setBrowsePageData] = useState([]);
   const [defaultLanguage, setDefaultLanguage] = useState(
@@ -27,44 +33,63 @@ function BrowsePage(props) {
   useEffect(() => {
     BrowsePageStores.addChangeListener(onBrowsePageData);
     ConfigurationStores.addChangeListener(onDefaultLanguageChange);
+
     const filterParameter = {
       with_genres: genreID,
     };
+
     if (browsePageData.length === 0 && defaultLanguage.length !== 0)
-      loadBrowsePageData(
-        filterParameter,
-        mediaType,
-        defaultLanguage,
-        pageNumber
-      );
+      pageType === "trending"
+        ? loadBrowsePageTrendingData(pageNumber)
+        : loadBrowsePageData(
+            filterParameter,
+            mediaType,
+            defaultLanguage,
+            pageNumber
+          );
 
     return () => {
       BrowsePageStores.removeChangeListner(onBrowsePageData);
       ConfigurationStores.addChangeListener(onDefaultLanguageChange);
     };
-  }, [browsePageData, genreID, mediaType, defaultLanguage, pageNumber]);
+  }, [
+    browsePageData,
+    genreID,
+    mediaType,
+    defaultLanguage,
+    pageNumber,
+    pageType,
+  ]);
+
+  const loadMoreCallback = () => {
+    let _browsePageData = browsePageData;
+
+    BrowsePageStores.getBrowsePageData().every((item) => {
+      return _browsePageData.push(item);
+    });
+    setBrowsePageData(_browsePageData);
+    updateBtnClass("btn outline primary mb-4 lg");
+  };
 
   const handleLoadMore = () => {
     const _pageNumber = pageNumber + 1;
     setPageNumber(_pageNumber);
+    updateBtnClass("btn outline primary mb-4 lg disabled");
     const filterParameter = {
       with_genres: genreID,
     };
-    updateBtnClass("btn outline primary mb-4 lg disabled");
+
     if (_pageNumber !== 1 && _pageNumber <= BrowsePageStores.getTotalPages()) {
-      let _browsePageData = browsePageData;
-      loadBrowsePageData(
-        filterParameter,
-        mediaType,
-        defaultLanguage,
-        _pageNumber
-      ).then(() => {
-        BrowsePageStores.getBrowsePageData().forEach((item) => {
-          _browsePageData.push(item);
-        });
-        setBrowsePageData(_browsePageData);
-        updateBtnClass("btn outline primary mb-4 lg");
-      });
+      pageType === "trending"
+        ? loadBrowsePageTrendingData(_pageNumber, loadMoreCallback)
+        : loadBrowsePageData(
+            filterParameter,
+            mediaType,
+            defaultLanguage,
+            _pageNumber
+          ).then(() => {
+            loadMoreCallback();
+          });
     }
   };
 
