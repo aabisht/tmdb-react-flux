@@ -119,7 +119,7 @@ function Header() {
                   <li className="nav-item list-inline-item" id="navPopular">
                     <NavLink
                       className="nav-link"
-                      to="/popular"
+                      to="/browse/all/trending/now"
                       activeClassName="active"
                     >
                       Popular

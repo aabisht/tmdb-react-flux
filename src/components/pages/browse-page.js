@@ -40,7 +40,7 @@ function BrowsePage(props) {
 
     if (browsePageData.length === 0 && defaultLanguage.length !== 0)
       pageType === "trending"
-        ? loadBrowsePageTrendingData(pageNumber)
+        ? loadBrowsePageTrendingData(pageNumber, mediaType)
         : loadBrowsePageData(
             filterParameter,
             mediaType,
@@ -81,7 +81,7 @@ function BrowsePage(props) {
 
     if (_pageNumber !== 1 && _pageNumber <= BrowsePageStores.getTotalPages()) {
       pageType === "trending"
-        ? loadBrowsePageTrendingData(_pageNumber, loadMoreCallback)
+        ? loadBrowsePageTrendingData(_pageNumber, mediaType, loadMoreCallback)
         : loadBrowsePageData(
             filterParameter,
             mediaType,
