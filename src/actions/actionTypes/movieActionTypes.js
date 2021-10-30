@@ -1,5 +1,7 @@
 const MoviewActionTypes = {
   RATE_MOVIE: "RATE_MOVIE",
+  LOAD_MOVIE_PAGE_DATA: "LOAD_MOVIE_PAGE_DATA",
+  LOAD_MOVIE_PAGE_TRENDING_DATA: "LOAD_MOVIE_PAGE_TRENDING_DATA",
 };
 
 export default MoviewActionTypes;
