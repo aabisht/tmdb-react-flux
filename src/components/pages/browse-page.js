@@ -101,11 +101,11 @@ function BrowsePage(props) {
           bannerType={mediaType}
         ></PageBanner>
       </div>
-      <div className="cards-row-wrapper">
+      <div className="container listing-page">
         <div className="row">
           {browsePageData?.map((cardData, index) => {
             return (
-              <div className="col-xl-2" key={index}>
+              <div className="col-xl-2 col-md-3 col-6" key={index}>
                 <MediaCard
                   mediaCardData={cardData}
                   mediaCardDataType={mediaType}

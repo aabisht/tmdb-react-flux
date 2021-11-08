@@ -125,15 +125,19 @@ function Header() {
                       Popular
                     </NavLink>
                   </li>
-                  <li className="nav-item list-inline-item" id="navMyList">
-                    <NavLink
-                      className="nav-link"
-                      to="/my-list"
-                      activeClassName="active"
-                    >
-                      My List
-                    </NavLink>
-                  </li>
+                  {isUserLoggedInFlag ? (
+                    <li className="nav-item list-inline-item" id="navMyList">
+                      <NavLink
+                        className="nav-link"
+                        to="/my-list"
+                        activeClassName="active"
+                      >
+                        My List
+                      </NavLink>
+                    </li>
+                  ) : (
+                    <></>
+                  )}
                 </ul>
               </div>
             </div>

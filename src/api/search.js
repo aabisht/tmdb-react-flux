@@ -51,7 +51,7 @@ export function getSearchMovies(
   primary_release_year,
   language = "en-US",
   page = 1,
-  include_adult = false
+  include_adult = true
 ) {
   let urlPara = "";
   if (query) urlPara = urlPara + apiParam.setQuery(query);
@@ -121,7 +121,7 @@ export function getSearchTVShows(
   first_air_date_year,
   language = "en-US",
   page = 1,
-  include_adult = false
+  include_adult = true
 ) {
   let urlPara = "";
   if (query) urlPara = urlPara + apiParam.setQuery(query);
@@ -130,7 +130,7 @@ export function getSearchTVShows(
 
   const url =
     baseURL +
-    "/person" +
+    "/tv" +
     apiParam.setApiKey(apiConstants.API_KEY) +
     urlPara +
     apiParam.setLanguage(language) +

@@ -1,5 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useHistory, useLocation } from "react-router-dom";
+import * as searchPageAction from "../../actions/searchPageAction";
+import SearchPageStores from "../../stores/searchPageStore";
 
 function HeaderSearch() {
   const history = useHistory();
@@ -7,13 +9,38 @@ function HeaderSearch() {
   const textInput = useRef(null);
   const routeTo = location.pathname.indexOf("/search") === -1 ? location : "/";
 
-  const [headerSearchValue, updateHeaderSearchValue] = useState("");
-  const [headerSearchClear, updateHeaderSearchClear] = useState(false);
+  const [headerSearchValue, updateHeaderSearchValue] = useState(
+    SearchPageStores.getSearchQuery()
+  );
+  const [headerSearchClear, updateHeaderSearchClear] = useState(
+    headerSearchValue?.length > 0
+  );
+  const [searchFormGroupClass, setSearchFormGroupClass] = useState(
+    "search-form-group-wrapper"
+  );
+  const [searchBtnClass, setSearchBtnClass] = useState(
+    "btn search-btn link-text"
+  );
 
   let closeIconClass = "form-group";
   if (headerSearchClear) {
     closeIconClass += " has-icons icon-right";
   }
+
+  const onHeaderSearchValueChange = () => {
+    updateHeaderSearchValue(SearchPageStores.getSearchQuery());
+    updateHeaderSearchClear(SearchPageStores.getSearchQuery().length > 0);
+    setSearchFormGroupClass(
+      SearchPageStores.getSearchQuery().length > 0
+        ? "search-form-group-wrapper show"
+        : "search-form-group-wrapper"
+    );
+    setSearchBtnClass(
+      SearchPageStores.getSearchQuery().length > 0
+        ? "btn search-btn link-text show"
+        : "btn search-btn link-text"
+    );
+  };
 
   useEffect(() => {
     document.body.addEventListener("click", handleSearchCloseOnBodyClick);
@@ -27,6 +54,13 @@ function HeaderSearch() {
         .removeEventListener("click", handleSearchCloseOnMenuClick);
     };
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
+    SearchPageStores.addChangeListener(onHeaderSearchValueChange);
+
+    return () =>
+      SearchPageStores.removeChangeListner(onHeaderSearchValueChange);
+  }, [headerSearchValue]);
 
   const focusSearchInput = (_this) => {
     for (let sibling of _this.parentNode.children) {
@@ -104,6 +138,8 @@ function HeaderSearch() {
   const handleSearchSubmit = (event) => {
     const inputValue = event.target.value;
     updateHeaderSearchValue(inputValue);
+    searchPageAction.setSearchQuery(inputValue);
+    searchPageAction.setOldSearchQuery(event.target.defaultValue);
     inputValue.length > 0 ? goToSearch(inputValue) : clearSearch();
   };
 
@@ -116,12 +152,12 @@ function HeaderSearch() {
     <div className="header-search-wrapper">
       <button
         type="button"
-        className="btn search-btn link-text"
+        className={searchBtnClass}
         onClick={handleSearchToggle}
       >
         <span className="material-icons-outlined">search</span>
       </button>
-      <div className="search-form-group-wrapper">
+      <div className={searchFormGroupClass}>
         <div className={closeIconClass} onClick={handleSearchInputClick}>
           <input
             type="text"

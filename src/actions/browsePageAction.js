@@ -61,10 +61,11 @@ export const loadBrowsePageTrendingData = (
     );
   }
 
-  let _trendingMedia = [];
   let browseTrendingPageData;
 
   return forkJoin(pArray).subscribe((trendingMediaData) => {
+    let _trendingMedia = [];
+
     if (mediaType === apiConstants.MEDIA_ALL) {
       trendingMediaData[0].results.every((value) => {
         return _trendingMedia.push(value);

@@ -656,9 +656,16 @@ progress {
 }
 
 .cards-row-wrapper {
-  @include padding-left($card-slider-title-x-padding);
-  @include padding-right($card-slider-title-x-padding);
+  @include padding-left($card-slider-title-x-padding/2);
+  @include padding-right($card-slider-title-x-padding/2);
 
+  @media screen and (min-width: breakpoint-min(md)) {
+    @include padding-left($card-slider-title-x-padding);
+    @include padding-right($card-slider-title-x-padding);
+  }
+}
+
+.listing-page {
   .media-card-wrapper {
     @include padding-bottom($media-card-bottom-margin);
   }

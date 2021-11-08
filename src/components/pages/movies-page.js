@@ -61,7 +61,6 @@ function MoviesPage() {
     };
   }, [genres, moviesPageData.length]);
 
-  console.log(moviesPageData);
   return (
     <>
       <PageBanner bannerData={moviesPageTrendingData[0]}></PageBanner>
