@@ -70,6 +70,11 @@ function HomePage() {
     setHomePageData(HomePageStores.getHomePageData());
   };
 
+  const getSilderTitle = (name, type) => {
+    let show = type === apiConstants.MEDIA_TV ? " Show" : "";
+    return name + " " + type + " " + show;
+  };
+
   return (
     <>
       <PageBanner bannerData={trendingMedia[0]}></PageBanner>
@@ -84,7 +89,7 @@ function HomePage() {
             <CardSlider
               key={index}
               sliderData={data.sliderData}
-              sliderTitle={data.name + " " + data.type}
+              sliderTitle={getSilderTitle(data.name, data.type)}
               sliderLink={
                 "/browse/" + data.type + "/" + data.name + "/" + data.id
               }

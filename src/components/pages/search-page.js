@@ -40,6 +40,7 @@ function SearchPage(props) {
     SearchPageStores.addChangeListener(onSearchQueryChange);
     SearchPageStores.addChangeListener(onOldSearchQueryChange);
     ConfigurationStores.addChangeListener(onDefaultLanguageChange);
+
     if (searchQuery?.length === 0) {
       searchPageAction.setSearchQuery(defaultSearchQuery);
     }
@@ -70,6 +71,8 @@ function SearchPage(props) {
     searchQueryOld,
     defaultSearchQuery,
   ]);
+
+  console.log(searchQuery, searchQueryOld, defaultSearchQuery);
 
   return (
     <div className="page-no-banner">
