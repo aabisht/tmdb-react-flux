@@ -132,7 +132,7 @@ export function getRecommendations(tv_id, language = "en-US", page = 1) {
     baseURL +
     "/" +
     tv_id +
-    "/images" +
+    "/recommendations" +
     apiParam.setApiKey(apiConstants.API_KEY) +
     apiParam.setLanguage(language) +
     apiParam.setPageNumber(page);

@@ -5,6 +5,18 @@
 }
 
 .page-banner-bg-wrapper {
+  &:not(.hide-image) {
+    .page-banner-video-bg {
+      display: none !important;
+    }
+  }
+
+  &.hide-image {
+    .page-banner-img-bg {
+      display: none !important;
+    }
+  }
+
   .page-banner-img-bg,
   .page-banner-overlay-bg {
     position: absolute;
@@ -18,6 +30,47 @@
     min-width: 100%;
     min-height: 100%;
     z-index: 1;
+  }
+
+  .page-banner-video-bg {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 1;
+
+    .page-banner-video-foreground,
+    iframe {
+      position: absolute;
+      pointer-events: none;
+      width: 100vw;
+      height: 100vh;
+    }
+
+    .page-banner-video-foreground {
+      left: 0;
+      top: 0;
+      right: 0;
+      bottom: 0;
+    }
+
+    iframe {
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+
+      @media (min-aspect-ratio: 16/9) {
+        height: 76.25vw;
+        width: 340vh;
+      }
+
+      @media (max-aspect-ratio: 16/9) {
+        width: 247.78vh;
+        height: 140vh;
+      }
+    }
   }
 
   .page-banner-overlay-bg {
@@ -40,6 +93,17 @@
 
 .page-banner-info-wrapper {
   @include padding-right($page-banner-info-wrapper-right-padding);
+
+  &.full-width {
+    padding-right: 0;
+  }
+}
+
+.page-banner-poster-img-wrapper {
+  @include backgroundColor($page-banner-poster-img-bg-color);
+  @include padding($page-banner-poster-img-padding);
+  @include border-radius($page-banner-poster-img-border-radius);
+  @include box-shadow($page-banner-poster-img-box-shadow);
 }
 
 .rating-wrapper {
@@ -57,7 +121,64 @@
   width: 100%;
   max-width: calculateRem($page-banner-info-container-width);
 
-  .description {
-    @include multi-line-text-truncate($font-size-base, 1.5, 3);
+  &:not(.page-banner-detail-info-container) {
+    .description {
+      @include multi-line-text-truncate($font-size-base, 1.5, 3);
+    }
   }
+
+  &.page-banner-detail-info-container {
+    flex: 0 0 auto;
+    width: calc(100% - #{calculateRem($page-banner-poster-img-width)});
+    max-width: 100%;
+  }
+
+  .border-icon,
+  .border-text {
+    @include border(1px solid $border-icon-color);
+    @include border-radius($border-icon-border-radius);
+    width: calculateRem($border-icon-dimensions);
+    height: calculateRem($border-icon-dimensions);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
+  }
+
+  .border-text {
+    @include fontSize($border-text-font-size);
+    font-weight: bold;
+  }
+
+  .media-meta {
+    > span {
+      @include margin-right($media-meta-space);
+
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+    .seperator {
+      &:after {
+        content: "\2022";
+      }
+    }
+
+    .media-meta-type {
+      .media-meta-child {
+        &:not(:last-child) {
+          @include margin-right($media-meta-child-space);
+          &:after {
+            content: "/";
+            @include margin-left($media-meta-child-space);
+          }
+        }
+      }
+    }
+  }
+}
+
+.page-banner-poster-wrapper {
+  flex: 0 0 auto;
+  width: calculateRem($page-banner-poster-img-width);
 }

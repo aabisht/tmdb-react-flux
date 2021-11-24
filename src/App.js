@@ -12,6 +12,7 @@ import LoginPage from "./components/pages/login-page";
 import ProfilePage from "./components/pages/profile-page";
 import MediaCardPopup from "./components/common/media-card-popup";
 import BrowsePage from "./components/pages/browse-page";
+import MediaDetailPage from "./components/pages/media-detail-page";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -33,6 +34,7 @@ function App() {
               path="/browse/:type/:genre/:genreId"
               component={BrowsePage}
             />
+            <Route path="/detail/:type/:mediaId" component={MediaDetailPage} />
           </Switch>
         </div>
       </div>

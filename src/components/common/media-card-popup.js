@@ -167,7 +167,15 @@ const MediaCardPopup = () => {
             className={mediaCardHoverWrapper}
             style={mediaCard.mediaCardData.style}
           >
-            <div className="media-media-wrapper">
+            <NavLink
+              to={
+                "/detail/" +
+                mediaCard.mediaCardData.type +
+                "/" +
+                mediaCard.mediaCardData.id
+              }
+              className="media-media-wrapper"
+            >
               <div className="media-hover-img-wrapper">
                 {mediaCard.mediaCardData.banner ? (
                   <img
@@ -201,16 +209,24 @@ const MediaCardPopup = () => {
                   </small>
                 </div>
               </div>
-            </div>
+            </NavLink>
             <div className="d-flex flex-column justify-content-between media-content-wrapper">
-              <div className="media-content-name-desc-wrapper">
+              <NavLink
+                to={
+                  "/detail/" +
+                  mediaCard.mediaCardData.type +
+                  "/" +
+                  mediaCard.mediaCardData.id
+                }
+                className="media-content-name-desc-wrapper"
+              >
                 <div className="media-title h3">
                   {mediaCard.mediaCardData.title}
                 </div>
                 <div className="media-description mb-3">
                   {mediaCard.mediaCardData.description}
                 </div>
-              </div>
+              </NavLink>
               <div className="media-content-meta-wrapper">
                 {AuthenticationStores.getIsUserLoggedIn() ? (
                   <div className="media-actions d-flex align-content-center">

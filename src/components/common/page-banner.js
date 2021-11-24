@@ -23,7 +23,7 @@ function PageBanner(props) {
           <img
             src={
               ConfigurationStores.getBaseURL() +
-              ConfigurationStores.getBackdropSizes()[3] +
+              ConfigurationStores.getBackdropSizes()[2] +
               props.bannerData?.backdrop_path
             }
             alt={bannername}

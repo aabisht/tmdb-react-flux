@@ -46,6 +46,10 @@
       $media-card-popup-content-y-padding $media-card-popup-content-x-padding
     );
 
+    .media-content-name-desc-wrapper {
+      @include color($media-card-popup-color);
+    }
+
     .media-description {
       @include multi-line-text-truncate($font-size-base, 1.5, 3);
     }
@@ -54,6 +58,7 @@
   .media-media-wrapper {
     position: relative;
     flex: 0 0 auto;
+    @include color($media-card-popup-color);
   }
 
   .media-content-wrapper {
