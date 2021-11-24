@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import StarRatings from "react-star-ratings";
 import YouTube from "react-youtube";
+import Moment from "react-moment";
+import moment from "moment";
 import apiConstants from "../../api/apiConstants";
 import ConfigurationStores from "../../stores/configurationStores";
 import MediaDetailPageStore from "../../stores/mediaDetailPageStore";
@@ -55,15 +57,6 @@ function MediaDetailsPageBanner(props) {
     };
   }, [mediaType, mediaId]);
 
-  const getYear = (date) => {
-    return new Date(date).getFullYear();
-  };
-
-  const formatDate = (date) => {
-    const _date = new Date(date);
-    return _date.getDate() + "-" + _date.getMonth() + "-" + _date.getFullYear();
-  };
-
   const onVideoReady = (event) => {
     event.target.playVideo();
     setImageClass("page-banner-bg-wrapper hide-image");
@@ -73,6 +66,18 @@ function MediaDetailsPageBanner(props) {
     event.target.playVideo();
     setImageClass("page-banner-bg-wrapper");
   };
+
+  const oldDate = moment().add(-30, "d");
+  const releaseDate = moment(
+    mediaType === apiConstants.MEDIA_TV
+      ? mediaDetails?.first_air_date
+      : mediaDetails?.release_date
+  ).add(-7, "d");
+  const currentDate = moment();
+
+  const isNew = releaseDate >= oldDate && releaseDate <= currentDate;
+
+  console.log(mediaDetails);
 
   return mediaDetails && Object.keys(mediaDetails).length > 0 ? (
     <div className="page-banner">
@@ -142,6 +147,15 @@ function MediaDetailsPageBanner(props) {
                     <span className="original-language ms-3 text-uppercase border-text">
                       {mediaDetails?.original_language}
                     </span>
+                    {isNew ? (
+                      <>
+                        <span className="original-language ms-3 text-uppercase border-text">
+                          NEW
+                        </span>
+                      </>
+                    ) : (
+                      <></>
+                    )}
                     <strong className="ms-3">
                       {mediaType === apiConstants.MEDIA_TV
                         ? mediaDetails?.name
@@ -156,53 +170,41 @@ function MediaDetailsPageBanner(props) {
                     )}
                     <span className="ms-2">
                       (
-                      {mediaType === apiConstants.MEDIA_TV
-                        ? getYear(mediaDetails?.first_air_date)
-                        : getYear(mediaDetails?.release_date)}
+                      <Moment format="YYYY">
+                        {mediaType === apiConstants.MEDIA_TV
+                          ? mediaDetails?.first_air_date
+                          : mediaDetails?.release_date}
+                      </Moment>
                       )
                     </span>
                   </h2>
                   <div className="media-meta mb-2">
                     <span className="media-meta-type">
-                      {mediaType === apiConstants.MEDIA_TV
-                        ? formatDate(mediaDetails?.first_air_date)
-                        : formatDate(mediaDetails?.release_date)}
+                      <Moment format="DD-MM-YYYY">
+                        {mediaType === apiConstants.MEDIA_TV
+                          ? mediaDetails?.first_air_date
+                          : mediaDetails?.release_date}
+                      </Moment>
                     </span>
                     <span className="seperator"></span>
-                    {mediaType === apiConstants.MEDIA_TV &&
-                    mediaDetails?.spoken_languages.length > 0 ? (
-                      <span className="media-meta-type">
-                        {mediaDetails?.spoken_languages.map((data, index) => {
-                          return (
-                            <span
-                              key={index}
-                              className="media-meta-child text-uppercase"
-                            >
-                              {data.iso_639_1}
-                            </span>
-                          );
-                        })}
-                      </span>
+                    {mediaDetails?.production_countries.length > 0 ? (
+                      <>
+                        <span className="media-meta-type">
+                          {mediaDetails?.production_countries.map(
+                            (data, index) => {
+                              return (
+                                <span key={index} className="media-meta-child">
+                                  {data?.iso_3166_1}
+                                </span>
+                              );
+                            }
+                          )}
+                        </span>
+                        <span className="seperator"></span>
+                      </>
                     ) : (
                       <></>
                     )}
-                    {mediaType === apiConstants.MEDIA_MOVIE &&
-                    mediaDetails?.production_countries.length > 0 ? (
-                      <span className="media-meta-type">
-                        {mediaDetails?.production_countries.map(
-                          (data, index) => {
-                            return (
-                              <span key={index} className="media-meta-child">
-                                {data?.iso_3166_1}
-                              </span>
-                            );
-                          }
-                        )}
-                      </span>
-                    ) : (
-                      <></>
-                    )}
-                    <span className="seperator"></span>
                     {mediaDetails?.genres.length > 0 ? (
                       <span className="media-meta-type">
                         {mediaDetails?.genres.map((data, index) => {

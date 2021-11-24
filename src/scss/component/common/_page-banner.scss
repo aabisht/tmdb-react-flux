@@ -147,7 +147,9 @@
 
   .border-text {
     @include fontSize($border-text-font-size);
+    @include padding(0 $border-text-x-padding);
     font-weight: bold;
+    width: auto;
   }
 
   .media-meta {
