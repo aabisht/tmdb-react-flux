@@ -73,8 +73,6 @@ function MediaDetailsPageBanner(props) {
 
   const isNew = releaseDate >= oldDate && releaseDate <= currentDate;
 
-  console.log(mediaDetails);
-
   return mediaDetails && Object.keys(mediaDetails).length > 0 ? (
     <div className="page-banner">
       <div className="page-banner-wrapper">

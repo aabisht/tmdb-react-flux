@@ -72,8 +72,6 @@ function SearchPage(props) {
     defaultSearchQuery,
   ]);
 
-  console.log(searchQuery, searchQueryOld, defaultSearchQuery);
-
   return (
     <div className="page-no-banner">
       <div className="container listing-page">

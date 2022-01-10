@@ -8,6 +8,7 @@ import * as configurationAction from "../../actions/configurationAction";
 import * as accountAction from "../../actions/accountAction";
 import * as movieApi from "../../api/movies";
 import * as tvApi from "../../api/tv";
+import * as searchPageAction from "../../actions/searchPageAction";
 import { toast } from "react-toastify";
 import StarRatings from "react-star-ratings";
 import banner_path from "../../assets/banner-path-not-found.jpg";
@@ -39,6 +40,23 @@ const MediaCardPopup = () => {
   const handleMediaCardPopupMouseLeave = () => {
     setMediaCardHoverWrapper("media-hover-wrapper");
     configurationAction.mediaCardPopupToggle(false, {});
+  };
+
+  const handleNavigateToMediaDetail = () => {
+    handleMediaCardPopupMouseLeave();
+    if (document.body.classList.contains("search-active")) {
+      searchPageAction.setSearchQuery("");
+      searchPageAction.setOldSearchQuery("");
+      for (let element of document.querySelectorAll(".search-btn.show")) {
+        element.classList.remove("show");
+      }
+      for (let element of document.querySelectorAll(
+        ".search-form-group-wrapper.show"
+      )) {
+        element.classList.remove("show");
+      }
+      document.body.classList.remove("search-active");
+    }
   };
 
   const toggleToWatchlist = () => {
@@ -175,7 +193,7 @@ const MediaCardPopup = () => {
                 mediaCard.mediaCardData.id
               }
               className="media-media-wrapper"
-              onClick={handleMediaCardPopupMouseLeave}
+              onClick={handleNavigateToMediaDetail}
             >
               <div className="media-hover-img-wrapper">
                 {mediaCard.mediaCardData.banner ? (
@@ -220,7 +238,7 @@ const MediaCardPopup = () => {
                   "/" +
                   mediaCard.mediaCardData.id
                 }
-                onClick={handleMediaCardPopupMouseLeave}
+                onClick={handleNavigateToMediaDetail}
               >
                 <div className="media-title h3">
                   {mediaCard.mediaCardData.title}
