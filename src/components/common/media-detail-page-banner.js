@@ -10,20 +10,16 @@ import MediaDetailPageStore from "../../stores/mediaDetailPageStore";
 import * as mediaDetailPageAction from "../../actions/mediaDetailPageAction";
 
 function MediaDetailsPageBanner(props) {
-  const [mediaDetails, setMediaDetails] = useState(
-    MediaDetailPageStore.getMediaDetails()
-  );
-  const [mediaVideo, setMediaVideo] = useState(
-    MediaDetailPageStore.getMediaVideos()
-  );
+  const [mediaDetails, setMediaDetails] = useState([]);
+  const [mediaVideo, setMediaVideo] = useState([]);
 
   const [imageClass, setImageClass] = useState("page-banner-bg-wrapper");
 
   const mediaType = props.mediaType;
   const mediaId = props.mediaId;
   const opts = {
-    height: "315",
-    width: "560",
+    height: "630",
+    width: "1120",
     playerVars: {
       autoplay: 1,
       mute: 1,

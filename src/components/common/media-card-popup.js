@@ -175,6 +175,7 @@ const MediaCardPopup = () => {
                 mediaCard.mediaCardData.id
               }
               className="media-media-wrapper"
+              onClick={handleMediaCardPopupMouseLeave}
             >
               <div className="media-hover-img-wrapper">
                 {mediaCard.mediaCardData.banner ? (
@@ -212,18 +213,19 @@ const MediaCardPopup = () => {
             </NavLink>
             <div className="d-flex flex-column justify-content-between media-content-wrapper">
               <NavLink
+                className="media-content-name-desc-wrapper mb-3"
                 to={
                   "/detail/" +
                   mediaCard.mediaCardData.type +
                   "/" +
                   mediaCard.mediaCardData.id
                 }
-                className="media-content-name-desc-wrapper"
+                onClick={handleMediaCardPopupMouseLeave}
               >
                 <div className="media-title h3">
                   {mediaCard.mediaCardData.title}
                 </div>
-                <div className="media-description mb-3">
+                <div className="media-description">
                   {mediaCard.mediaCardData.description}
                 </div>
               </NavLink>

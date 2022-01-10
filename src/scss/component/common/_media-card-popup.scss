@@ -30,10 +30,10 @@
   @include box-shadow(0px 3px 10px 0 rgba($black-color, 0.75));
   @include transition(all 0.3s linear);
 
-  &,
-  * {
-    cursor: pointer;
-  }
+  // &,
+  // * {
+  //   cursor: pointer;
+  // }
 
   &.active {
     opacity: 1;
