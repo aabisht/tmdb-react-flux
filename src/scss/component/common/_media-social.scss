@@ -1,0 +1,15 @@
+.social-list {
+  li {
+    @include margin-bottom($social-icon-bottom-margin);
+
+    a {
+      width: calculateRem($social-icon-width);
+      height: calculateRem($social-icon-height);
+
+      .social-icon {
+        line-height: 1;
+        @include fontSize($social-icon-font-size);
+      }
+    }
+  }
+}

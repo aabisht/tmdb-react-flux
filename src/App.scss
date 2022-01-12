@@ -5,6 +5,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Material+Icons+Sharp");
 
 @import "./scss/functions/functions";
+@import "./scss/tmdb-icon";
 @import "./scss/variables";
 @import "./scss/mixins/mixins";
 
@@ -17,5 +18,6 @@
 @import "./scss/utilities";
 @import "./scss/animation";
 @import "./scss/toastify";
+@import "./scss/tooltip";
 
 @import "./scss/component/component";

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
+import ReactTooltip from "react-tooltip";
 import StarRatings from "react-star-ratings";
 import YouTube from "react-youtube";
 import Moment from "react-moment";
@@ -69,7 +70,9 @@ function MediaDetailsPageBanner(props) {
       ? mediaDetails?.first_air_date
       : mediaDetails?.release_date
   ).add(-7, "d");
+
   const currentDate = moment();
+  ReactTooltip.rebuild();
 
   const isNew = releaseDate >= oldDate && releaseDate <= currentDate;
 
@@ -215,7 +218,10 @@ function MediaDetailsPageBanner(props) {
                   </div>
                   <p className="description">{mediaDetails?.overview}</p>
                   <div className="d-flex align-item-center">
-                    <div className="star-rate-btn-wrapper">
+                    <div
+                      className="star-rate-btn-wrapper"
+                      data-tip={mediaDetails?.vote_average + " Rating"}
+                    >
                       <StarRatings
                         rating={mediaDetails?.vote_average / 2}
                         numberOfStars={5}

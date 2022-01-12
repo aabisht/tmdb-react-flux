@@ -89,6 +89,15 @@ $colors: (
   "black-lighten-20": rgbValue($black-lighten-20-color),
 ) !default;
 
+// TMDB Icons
+$icomoon-font-family: "tmdb-icon" !default;
+$icomoon-font-path: "../assets/fonts" !default;
+
+$icon-imdb: "\e900";
+$icon-facebook: "\ea91";
+$icon-instagram: "\ea92";
+$icon-twitter: "\ea96";
+
 // Options
 $enable-smooth-scroll: true !default;
 $enable-rounded: true !default;
@@ -339,6 +348,17 @@ $input-error-focus-box-shadow: 0 0 $input-btn-focus-blur $input-btn-focus-width
   $input-error-btn-focus-color !default;
 $invalid-feedback-font-size: $font-size-sm !default;
 
+// Tool Tip
+$tooltip-font-weight: $font-weight-bold !default;
+$tooltip-font-size: $base-size !default;
+$tooltip-line-height: $line-height-base !default;
+$tooltip-background-color: $black-lighten-15-color !default;
+$tooltip-text-color: $body-color !default;
+$tooltip-border-color: $black-color !default;
+$tooltip-border-radius: $border-radius !default;
+$tooltip-x-padding: $base-size / 2 !default;
+$tooltip-y-padding: $base-size / 2 !default;
+
 // Header
 $header-y-padding: $grid-gutter-width/2 !default;
 $header-x-padding: 0 !default;
@@ -475,3 +495,9 @@ $media-card-popup-media-meta-y-padding: 6px !default;
 $media-card-popup-media-meta-border-radius: $border-radius !default;
 $media-genres-link-color: $body-color !default;
 $media-genres-font-weight: 700 !default;
+
+// Media Social
+$social-icon-font-size: ($base-size * 2) - 2 !default;
+$social-icon-bottom-margin: $base-size / 2 !default;
+$social-icon-width: $base-size * 2 !default;
+$social-icon-height: $base-size * 2 !default;

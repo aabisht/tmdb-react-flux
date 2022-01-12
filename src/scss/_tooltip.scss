@@ -1,0 +1,39 @@
+.tool-tip-wrapper {
+  &.type-light {
+    font-weight: $tooltip-font-weight;
+    @include backgroundColor($tooltip-background-color);
+    @include color($tooltip-text-color);
+    @include border-radius($tooltip-border-radius);
+    @include border(1px solid $tooltip-border-color);
+    @include fontSize($tooltip-font-size);
+    @include padding($tooltip-y-padding $tooltip-x-padding);
+
+    &.show {
+      opacity: 1;
+    }
+
+    &.place-top {
+      &::after {
+        @include border-top-color($tooltip-border-color);
+      }
+    }
+
+    &.place-bottom {
+      &::after {
+        @include border-bottom-color($tooltip-border-color);
+      }
+    }
+
+    &.place-right {
+      &::after {
+        @include border-right-color($tooltip-border-color);
+      }
+    }
+
+    &.place-left {
+      &::after {
+        @include border-left-color($tooltip-border-color);
+      }
+    }
+  }
+}

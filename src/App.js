@@ -15,6 +15,7 @@ import BrowsePage from "./components/pages/browse-page";
 import MediaDetailPage from "./components/pages/media-detail-page";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import ReactTooltip from "react-tooltip";
 
 function App() {
   return (
@@ -41,6 +42,12 @@ function App() {
       <MediaCardPopup />
       <FullPageLoader />
       <ToastContainer pauseOnHover draggable hideProgressBar />
+      <ReactTooltip
+        place="top"
+        type="light"
+        effect="solid"
+        className="tool-tip-wrapper"
+      />
     </div>
   );
 }
