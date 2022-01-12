@@ -128,6 +128,21 @@ function MediaDetailsPageBanner(props) {
                       }
                       className="page-poster-img-bg "
                     />
+                    {mediaDetails?.networks?.length > 0 ? (
+                      <div className="network-img-wrapper text-center">
+                        <img
+                          src={
+                            ConfigurationStores.getBaseURL() +
+                            ConfigurationStores.getLogoSizes()[1] +
+                            mediaDetails?.networks[0]?.logo_path
+                          }
+                          alt={mediaDetails?.networks[0]?.name}
+                          className="network-img "
+                        />
+                      </div>
+                    ) : (
+                      <></>
+                    )}
                   </div>
                 </div>
                 <div className="col-12  page-banner-info-container page-banner-detail-info-container">
