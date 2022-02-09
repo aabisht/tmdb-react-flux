@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-// import ReactTooltip from "react-tooltip";
 import MediaDetailPageStore from "../../stores/mediaDetailPageStore";
 import * as mediaDetailPageAction from "../../actions/mediaDetailPageAction";
 
@@ -21,7 +20,7 @@ function MediaWatchProviders(props) {
     setMediaWatchProviders(MediaDetailPageStore.getMediaWatchProviders());
   };
 
-  // console.log(mediaWatchProviders.results);
+  // console.log(mediaWatchProviders);
 
   return <></>;
 }

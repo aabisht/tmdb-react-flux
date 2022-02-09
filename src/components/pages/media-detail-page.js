@@ -1,7 +1,7 @@
 import React from "react";
 import MediaDetailsPageBanner from "../common/media-detail-page-banner";
 import MediaSocial from "../common/media-social";
-import MediaWatchProviders from "../common/media-watch-providers";
+// import MediaWatchProviders from "../common/media-watch-providers";
 import MediaDetailsMeta from "../common/media-detail-meta";
 
 function MediaDetailPage(props) {
