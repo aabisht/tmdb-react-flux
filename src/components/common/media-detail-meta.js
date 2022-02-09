@@ -30,7 +30,7 @@ function MediaDetailsMeta(props) {
 
   return mediaDetails && Object.keys(mediaDetails).length > 0 ? (
     <div className="media-detail-meta-wrapper">
-      {mediaDetails?.networks && mediaDetails?.networks.length > 0 ? (
+      {mediaDetails.networks && mediaDetails.networks.length > 0 ? (
         <div className="media-detail-meta-item">
           <h3 className="title">Networks</h3>
           <ul className="list-unstyled">
@@ -156,6 +156,7 @@ function MediaDetailsMeta(props) {
         <></>
       )}
       {mediaType === apiConstants.MEDIA_TV &&
+      mediaDetails.seasons &&
       mediaDetails.seasons.length > 0 ? (
         <div className="media-detail-meta-item">
           <h3 className="title">Seasons</h3>
@@ -233,7 +234,8 @@ function MediaDetailsMeta(props) {
       ) : (
         <></>
       )}
-      {mediaDetails.production_companies.length > 0 ? (
+      {mediaDetails.production_companies &&
+      mediaDetails.production_companies.length > 0 ? (
         <div className="media-detail-meta-item">
           <h3 className="title">Production Companies</h3>
           <ul className="list-unstyled">
