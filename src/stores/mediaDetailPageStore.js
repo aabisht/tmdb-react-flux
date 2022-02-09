@@ -98,6 +98,10 @@ Dispatcher.register((action) => {
       _mediaExternalIDs = action.mediaExternalIDs;
       mediaDetailPageStore.emitChange();
       break;
+    case actionType.LOAD_MEDIA_WATCH_PROVIDER:
+      _mediaWatchProviders = action.mediaWatchProviders;
+      mediaDetailPageStore.emitChange();
+      break;
     default:
       break;
   }

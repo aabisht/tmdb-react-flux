@@ -1,6 +1,11 @@
 .social-list {
+  @include margin-left(-$social-icon-left-right-space);
+  @include margin-right(-$social-icon-left-right-space);
+
   li {
     @include margin-bottom($social-icon-bottom-margin);
+    @include padding-left($social-icon-left-right-space);
+    @include padding-right($social-icon-left-right-space);
 
     a {
       width: calculateRem($social-icon-width);

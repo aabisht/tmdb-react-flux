@@ -499,5 +499,16 @@ $media-genres-font-weight: 700 !default;
 // Media Social
 $social-icon-font-size: ($base-size * 2) - 2 !default;
 $social-icon-bottom-margin: $base-size / 2 !default;
+$social-icon-left-right-space: $base-size / 2 !default;
 $social-icon-width: $base-size * 2 !default;
 $social-icon-height: $base-size * 2 !default;
+
+// Media Detail Meta
+$media-detail-meta-title-color: $secondary-color !default;
+$media-detail-meta-title-border-color-1: $secondary-color !default;
+$media-detail-meta-title-border-color-2: $primary-color !default;
+$media-detail-meta-title-border-gutter-sapce: $base-size * 2 !default;
+$episode-air-card-gutter-sapce: $base-size !default;
+$episode-air-card-box-shadow: $page-banner-poster-img-box-shadow !default;
+$episode-air-card-background-color: $black-lighten-15-color !default;
+$episode-air-card-border-radius: $border-radius !default;

@@ -47,3 +47,27 @@ export const loadMediaExternalIds = (mediaType, mediaId, callbackFunction) => {
     }
   });
 };
+
+export const loadMediaWatchProvider = (
+  mediaType,
+  mediaId,
+  callbackFunction
+) => {
+  const pArray = [];
+  if (mediaType === apiConstants.MEDIA_TV) {
+    pArray.push(tvApi.getWatchProviders(mediaId));
+  } else {
+    pArray.push(moviesApi.getWatchProviders(mediaId));
+  }
+
+  return forkJoin(pArray).subscribe((mediaData) => {
+    dispatcher.dispatch({
+      actionType: MediaDetailPageActionTypes.LOAD_MEDIA_WATCH_PROVIDER,
+      mediaWatchProviders: mediaData[0],
+    });
+
+    if (callbackFunction) {
+      callbackFunction();
+    }
+  });
+};

@@ -1,0 +1,81 @@
+%media-detail-meta-gradient-border {
+  background: $media-detail-meta-title-border-color-1;
+  background-image: linear-gradient(
+    72deg,
+    RGB($media-detail-meta-title-border-color-1) 0%,
+    RGB($media-detail-meta-title-border-color-2) 100%
+  );
+  background: -moz-linear-gradient(
+    left,
+    $media-detail-meta-title-border-color-1 0%,
+    $media-detail-meta-title-border-color-2 100%
+  );
+  background: -webkit-linear-gradient(
+    left,
+    $media-detail-meta-title-border-color-1 0%,
+    $media-detail-meta-title-border-color-2 100%
+  );
+  background: linear-gradient(
+    to right,
+    $media-detail-meta-title-border-color-1 0%,
+    $media-detail-meta-title-border-color-2 100%
+  );
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='$media-detail-meta-title-border-color-1', endColorstr='$media-detail-meta-title-border-color-2',GradientType=1 );
+}
+
+.media-detail-meta-item {
+  @include margin-top($media-detail-meta-title-border-gutter-sapce);
+
+  .title {
+    @include color($media-detail-meta-title-color);
+    position: relative;
+
+    &::after {
+      content: "";
+      display: block;
+      height: 2px;
+      @include margin-top($media-detail-meta-title-border-gutter-sapce/4);
+      @include margin-bottom($media-detail-meta-title-border-gutter-sapce/2);
+      @extend %media-detail-meta-gradient-border;
+    }
+  }
+
+  .list-unstyled {
+    > li:not(:last-child) {
+      position: relative;
+
+      &::after {
+        content: "";
+        display: block;
+        height: 1px;
+        @include margin-top($media-detail-meta-title-border-gutter-sapce/4);
+        @include margin-bottom($media-detail-meta-title-border-gutter-sapce/4);
+        @extend %media-detail-meta-gradient-border;
+      }
+
+      p:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+}
+
+.episode-air-card-wrapper {
+  @include padding($episode-air-card-gutter-sapce/2);
+  @include margin-bottom($episode-air-card-gutter-sapce);
+  @include backgroundColor($episode-air-card-background-color);
+  @include border-radius($episode-air-card-border-radius);
+  @include box-shadow($episode-air-card-box-shadow);
+  overflow: hidden;
+
+  .img-wrapper {
+    @include margin(
+      (-$episode-air-card-gutter-sapce/2) (-$episode-air-card-gutter-sapce/2)
+        $episode-air-card-gutter-sapce/2
+    );
+
+    img {
+      width: 100%;
+    }
+  }
+}

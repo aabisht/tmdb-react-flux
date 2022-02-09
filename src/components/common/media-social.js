@@ -36,7 +36,7 @@ function MediaSocial(props) {
       (mediaDetails && Object.keys(mediaDetails).length > 0) ? (
         <>
           <div className="external-ids-wrapper">
-            <ul className="social-list list-unstyled d-flex align-content-center justify-content-between">
+            <ul className="social-list list-unstyled d-flex align-content-center justify-content-start">
               {mediaExternalIDs.facebook_id ? (
                 <li>
                   <a
