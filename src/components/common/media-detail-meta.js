@@ -28,6 +28,10 @@ function MediaDetailsMeta(props) {
 
   ReactTooltip.rebuild();
 
+  const numberWithCommas = (number) => {
+    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  };
+
   return mediaDetails && Object.keys(mediaDetails).length > 0 ? (
     <div className="media-detail-meta-wrapper">
       {mediaDetails.networks && mediaDetails.networks.length > 0 ? (
@@ -109,11 +113,7 @@ function MediaDetailsMeta(props) {
       {mediaDetails.budget ? (
         <div className="media-detail-meta-item">
           <h3 className="title">Budget</h3>
-          <p>
-            {"$" +
-              mediaDetails.budget.toString().replace(/.{3}/g, "$&,") +
-              ".00"}
-          </p>
+          <p>{"$" + numberWithCommas(mediaDetails.budget) + ".00"}</p>
         </div>
       ) : (
         <></>
@@ -121,11 +121,7 @@ function MediaDetailsMeta(props) {
       {mediaDetails.revenue ? (
         <div className="media-detail-meta-item">
           <h3 className="title">Revenue</h3>
-          <p>
-            {"$" +
-              mediaDetails.revenue.toString().replace(/.{3}/g, "$&,") +
-              ".00"}
-          </p>
+          <p>{"$" + numberWithCommas(mediaDetails.revenue) + ".00"}</p>
         </div>
       ) : (
         <></>

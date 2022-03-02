@@ -1,5 +1,7 @@
+@import "./common/extend";
 @import "./common/header";
 @import "./common/dropdown";
+@import "./common/tab-view";
 @import "./common/language-preferences";
 @import "./common/header-search";
 @import "./common/page-banner";
@@ -10,5 +12,6 @@
 @import "./common/card-slider";
 @import "./common/media-social";
 @import "./common/media-detail-meta";
+@import "./common/watch-provider";
 
 @import "./pages/login-page";

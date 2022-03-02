@@ -7,6 +7,10 @@ function DropDown(props) {
     wrapperClass += " " + props.dropdownPosition;
   }
 
+  if (props.dropdownListClass) {
+    wrapperClass += " " + props.dropdownListClass;
+  }
+
   let dropdownBtnClass = "btn dropdown-btn";
 
   if (props.dropdownTextClass) {
@@ -77,6 +81,7 @@ DropDown.propType = {
   dropdownList: PropTypes.func.required,
   dropdownPosition: PropTypes.string,
   dropdownTextClass: PropTypes.string,
+  dropdownListClass: PropTypes.string,
 };
 
 export default DropDown;

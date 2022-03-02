@@ -68,9 +68,18 @@
     &.left {
       left: calculateRem(-$container-x-padding/2);
     }
+
+    &.watch-provider-dropdown {
+      right: 0;
+      left: 0;
+      width: 100%;
+      @include margin-top($dropdown-arrow-width + 5);
+    }
   }
 
   .dropdown-list-wrappper {
+    margin-bottom: 0;
+
     > li {
       @include border-bottom(1px solid $dropdown-list-border-color);
 
@@ -84,6 +93,23 @@
       @include padding(
         $dropdown-list-btn-y-padding $dropdown-list-btn-x-padding
       );
+    }
+
+    &.watch-provider-dropdown-list-wrappper {
+      height: 100%;
+      overflow: auto;
+      max-height: calculateRem($dropdown-watch-provider-height);
+
+      li {
+        &.active,
+        .btn:hover,
+        &:focus {
+          @include backgroundColor(
+            $dropdown-watch-provider-hover-background-color
+          );
+          @include color($dropdown-watch-provider-hover-color);
+        }
+      }
     }
   }
 

@@ -359,6 +359,14 @@ $tooltip-border-radius: $border-radius !default;
 $tooltip-x-padding: $base-size / 2 !default;
 $tooltip-y-padding: $base-size / 2 !default;
 
+// Tab
+$tab-view-nav-border-width: 1px !default;
+$tab-view-nav-border-color: $secondary-color !default;
+$tab-view-nav-link-min-width: 100px !default;
+$tab-view-nav-link-active-color: $secondary-color !default;
+$tab-view-panels-x-padding: 0 !default;
+$tab-view-panels-y-padding: $spacer !default;
+
 // Header
 $header-y-padding: $grid-gutter-width/2 !default;
 $header-x-padding: 0 !default;
@@ -384,6 +392,9 @@ $dropdown-box-shadow: 0 2px 2px 0 rgba($body-color, 0.14),
 $dropdown-list-btn-x-padding: $base-size/2 !default;
 $dropdown-list-btn-y-padding: $base-size/2 !default;
 $dropdown-list-border-color: $border-color;
+$dropdown-watch-provider-height: 285px !default;
+$dropdown-watch-provider-hover-background-color: $secondary-color !default;
+$dropdown-watch-provider-hover-color: $dropdown-text-color !default;
 
 // Language Preference
 $language-preferences-x-padding: $base-size/2 !default;
