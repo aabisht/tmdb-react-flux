@@ -6,6 +6,8 @@ import * as mediaDetailPageAction from "../../actions/mediaDetailPageAction";
 import ConfigurationStores from "../../stores/configurationStores";
 import DropDown from "./dropdown";
 import TabView from "./tab-view";
+import apiConstants from "../../api/apiConstants";
+import ConfigurationImage from "./configuration-image";
 
 function MediaWatchProviders(props) {
   const mediaType = props.mediaType,
@@ -64,15 +66,13 @@ function MediaWatchProviders(props) {
                 <div
                   className="page-banner-poster-img-wrapper mb-2 me-2"
                   key={index}
+                  data-tip={item.provider_name}
                 >
-                  <img
-                    src={
-                      ConfigurationStores.getBaseURL() +
-                      ConfigurationStores.getLogoSizes()[0] +
-                      item.logo_path
-                    }
+                  <ConfigurationImage
+                    path={item.logo_path}
                     alt={item.provider_name}
-                    data-tip={item.provider_name}
+                    img_type={apiConstants.IMAGE_TYPE_LOGO}
+                    img_size_index={0}
                   />
                 </div>
               );

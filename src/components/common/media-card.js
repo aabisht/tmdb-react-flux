@@ -4,6 +4,7 @@ import ConfigurationStores from "../../stores/configurationStores";
 import * as configurationAction from "../../actions/configurationAction";
 import apiConstants from "../../api/apiConstants";
 import poster_path from "../../assets/poster-path-not-found.jpg";
+import ConfigurationImage from "./configuration-image";
 
 function MediaCard(props) {
   const [cardRef, setCardRef] = useState();
@@ -66,13 +67,11 @@ function MediaCard(props) {
           <div className="media-img-wrapper h-100">
             {ConfigurationStores.getBaseURL() &&
             props.mediaCardData.poster_path ? (
-              <img
-                src={
-                  ConfigurationStores.getBaseURL() +
-                  ConfigurationStores.getPosterSizes()[3] +
-                  props.mediaCardData.poster_path
-                }
+              <ConfigurationImage
+                path={props.mediaCardData.poster_path}
                 alt={cardName}
+                img_type={apiConstants.IMAGE_TYPE_POSTER}
+                img_size_index={3}
                 className="h-100"
               />
             ) : (

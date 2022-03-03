@@ -4,8 +4,8 @@ import StarRatings from "react-star-ratings";
 import ReactTooltip from "react-tooltip";
 import MediaDetailPageStore from "../../stores/mediaDetailPageStore";
 import * as mediaDetailPageAction from "../../actions/mediaDetailPageAction";
-import ConfigurationStores from "../../stores/configurationStores";
 import apiConstants from "../../api/apiConstants";
+import ConfigurationImage from "./configuration-image";
 
 function MediaDetailsMeta(props) {
   const [mediaDetails, setMediaDetails] = useState([]);
@@ -37,26 +37,24 @@ function MediaDetailsMeta(props) {
       {mediaDetails.networks && mediaDetails.networks.length > 0 ? (
         <div className="media-detail-meta-item">
           <h3 className="title">Networks</h3>
-          <ul className="list-unstyled">
+          <div className="d-flex ">
             {mediaDetails?.networks.map((data, index) => {
               return (
-                <li key={index}>
-                  <div className="d-flex mb-2">
-                    <div className="page-banner-poster-img-wrapper">
-                      <img
-                        src={
-                          ConfigurationStores.getBaseURL() +
-                          ConfigurationStores.getLogoSizes()[0] +
-                          data.logo_path
-                        }
-                        alt={data.name}
-                      />
-                    </div>
-                  </div>
-                </li>
+                <div
+                  className="page-banner-poster-img-wrapper mb-2 me-2"
+                  data-tip={data.name}
+                  key={index}
+                >
+                  <ConfigurationImage
+                    path={data.logo_path}
+                    alt={data.name}
+                    img_type={apiConstants.IMAGE_TYPE_LOGO}
+                    img_size_index={0}
+                  />
+                </div>
               );
             })}
-          </ul>
+          </div>
         </div>
       ) : (
         <></>
@@ -133,13 +131,11 @@ function MediaDetailsMeta(props) {
           {mediaDetails.belongs_to_collection.poster_path ? (
             <div className="d-flex mb-2">
               <div className="page-banner-poster-img-wrapper">
-                <img
-                  src={
-                    ConfigurationStores.getBaseURL() +
-                    ConfigurationStores.getPosterSizes()[1] +
-                    mediaDetails.belongs_to_collection.poster_path
-                  }
+                <ConfigurationImage
+                  path={mediaDetails.belongs_to_collection.poster_path}
                   alt={mediaDetails.belongs_to_collection.name}
+                  img_type={apiConstants.IMAGE_TYPE_POSTER}
+                  img_size_index={1}
                 />
               </div>
             </div>
@@ -162,13 +158,11 @@ function MediaDetailsMeta(props) {
                 <li title={data?.name} key={index}>
                   <div className="d-flex mb-2">
                     <div className="page-banner-poster-img-wrapper">
-                      <img
-                        src={
-                          ConfigurationStores.getBaseURL() +
-                          ConfigurationStores.getPosterSizes()[1] +
-                          data?.poster_path
-                        }
+                      <ConfigurationImage
+                        path={data?.poster_path}
                         alt={data?.name}
+                        img_type={apiConstants.IMAGE_TYPE_POSTER}
+                        img_size_index={1}
                       />
                     </div>
                   </div>
@@ -192,13 +186,11 @@ function MediaDetailsMeta(props) {
           <h3 className="title">Last Episode To Air</h3>
           <div className="episode-air-card-wrapper">
             <div className="img-wrapper">
-              <img
-                src={
-                  ConfigurationStores.getBaseURL() +
-                  ConfigurationStores.getPosterSizes()[3] +
-                  mediaDetails.last_episode_to_air?.still_path
-                }
+              <ConfigurationImage
+                path={mediaDetails.last_episode_to_air?.still_path}
                 alt={mediaDetails.last_episode_to_air?.name}
+                img_type={apiConstants.IMAGE_TYPE_POSTER}
+                img_size_index={3}
               />
             </div>
             <p>{mediaDetails.last_episode_to_air?.name}</p>
@@ -240,22 +232,21 @@ function MediaDetailsMeta(props) {
                 <li title={data?.name} key={index}>
                   {data.logo_path ? (
                     <div className="d-flex mb-2">
-                      <div className="page-banner-poster-img-wrapper">
-                        <img
-                          src={
-                            ConfigurationStores.getBaseURL() +
-                            ConfigurationStores.getLogoSizes()[1] +
-                            data.logo_path
-                          }
+                      <div
+                        className="page-banner-poster-img-wrapper"
+                        data-tip={data?.name}
+                      >
+                        <ConfigurationImage
+                          path={data.logo_path}
                           alt={data?.name}
+                          img_type={apiConstants.IMAGE_TYPE_LOGO}
+                          img_size_index={1}
                         />
                       </div>
                     </div>
                   ) : (
-                    <></>
+                    <p>{data?.name}</p>
                   )}
-
-                  <p>{data?.name}</p>
                 </li>
               );
             })}

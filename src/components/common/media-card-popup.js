@@ -12,6 +12,7 @@ import * as searchPageAction from "../../actions/searchPageAction";
 import { toast } from "react-toastify";
 import StarRatings from "react-star-ratings";
 import banner_path from "../../assets/banner-path-not-found.jpg";
+import ConfigurationImage from "./configuration-image";
 
 const MediaCardPopup = () => {
   const [genres, setGenres] = useState(ConfigurationStores.getGenres());
@@ -197,13 +198,11 @@ const MediaCardPopup = () => {
             >
               <div className="media-hover-img-wrapper">
                 {mediaCard.mediaCardData.banner ? (
-                  <img
-                    src={
-                      ConfigurationStores.getBaseURL() +
-                      ConfigurationStores.getBackdropSizes()[1] +
-                      mediaCard.mediaCardData.banner
-                    }
+                  <ConfigurationImage
+                    path={mediaCard.mediaCardData.banner}
                     alt={mediaCard.mediaCardData.title}
+                    img_type={apiConstants.IMAGE_TYPE_BACKDROP}
+                    img_size_index={1}
                   />
                 ) : (
                   <img src={banner_path} alt={mediaCard.mediaCardData.title} />

@@ -46,6 +46,12 @@ const apiConstants = {
   EXTERNAL_SOURCE_TWITTER: "twitter_id",
   EXTERNAL_SOURCE_INSTAGRAM: "instagram_id",
 
+  IMAGE_TYPE_LOGO: "logo",
+  IMAGE_TYPE_BACKDROP: "backdrop",
+  IMAGE_TYPE_POSTER: "poster",
+  IMAGE_TYPE_PROFILE: "profile",
+  IMAGE_TYPE_STILL: "still",
+
   TOTAL_SLIDER_ITEMS: 30,
 };
 

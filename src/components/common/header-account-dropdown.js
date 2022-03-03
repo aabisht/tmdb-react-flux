@@ -5,6 +5,8 @@ import AccountStores from "../../stores/accountStores";
 import ConfigurationStores from "../../stores/configurationStores";
 import * as configurationAction from "../../actions/configurationAction";
 import * as authenticationAction from "../../actions/authenticationAction";
+import apiConstants from "../../api/apiConstants";
+import ConfigurationImage from "./configuration-image";
 
 function HeaderAccountDropdown() {
   const accountData = AccountStores.getAccountInfo();
@@ -33,13 +35,11 @@ function HeaderAccountDropdown() {
         <li>
           <div className="user-name-wrapper d-flex align-items-center">
             <div className="account-img-wrapper">
-              <img
-                src={
-                  ConfigurationStores.getBaseURL() +
-                  ConfigurationStores.getProfileSizes()[1] +
-                  accountData.avatar?.tmdb.avatar_path
-                }
+              <ConfigurationImage
+                path={accountData.avatar?.tmdb.avatar_path}
                 alt={accountData.name}
+                img_type={apiConstants.IMAGE_TYPE_PROFILE}
+                img_size_index={1}
               />
             </div>
             <div className="account-name-wrapper ms-2">

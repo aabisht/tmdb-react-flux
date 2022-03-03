@@ -6,9 +6,9 @@ import YouTube from "react-youtube";
 import Moment from "react-moment";
 import moment from "moment";
 import apiConstants from "../../api/apiConstants";
-import ConfigurationStores from "../../stores/configurationStores";
 import MediaDetailPageStore from "../../stores/mediaDetailPageStore";
 import * as mediaDetailPageAction from "../../actions/mediaDetailPageAction";
+import ConfigurationImage from "./configuration-image";
 
 function MediaDetailsPageBanner(props) {
   const [mediaDetails, setMediaDetails] = useState([]);
@@ -80,17 +80,15 @@ function MediaDetailsPageBanner(props) {
     <div className="page-banner">
       <div className="page-banner-wrapper">
         <div className={imageClass}>
-          <img
-            src={
-              ConfigurationStores.getBaseURL() +
-              ConfigurationStores.getBackdropSizes()[2] +
-              mediaDetails?.backdrop_path
-            }
+          <ConfigurationImage
+            path={mediaDetails?.backdrop_path}
             alt={
               mediaType === apiConstants.MEDIA_TV
                 ? mediaDetails?.name
                 : mediaDetails?.original_title
             }
+            img_type={apiConstants.IMAGE_TYPE_BACKDROP}
+            img_size_index={2}
             className="page-banner-img-bg"
           />
           {mediaVideo.length > 0 ? (
@@ -115,29 +113,25 @@ function MediaDetailsPageBanner(props) {
               <div className="row align-items-end">
                 <div className="col-12 page-banner-poster-wrapper">
                   <div className="page-banner-poster-img-wrapper">
-                    <img
-                      src={
-                        ConfigurationStores.getBaseURL() +
-                        ConfigurationStores.getPosterSizes()[3] +
-                        mediaDetails?.poster_path
-                      }
+                    <ConfigurationImage
+                      path={mediaDetails?.poster_path}
                       alt={
                         mediaType === apiConstants.MEDIA_TV
                           ? mediaDetails?.name
                           : mediaDetails?.original_title
                       }
-                      className="page-poster-img-bg "
+                      img_type={apiConstants.IMAGE_TYPE_POSTER}
+                      img_size_index={3}
+                      className="page-poster-img-bg"
                     />
                     {mediaDetails?.networks?.length > 0 ? (
                       <div className="network-img-wrapper text-center">
-                        <img
-                          src={
-                            ConfigurationStores.getBaseURL() +
-                            ConfigurationStores.getLogoSizes()[1] +
-                            mediaDetails?.networks[0]?.logo_path
-                          }
+                        <ConfigurationImage
+                          path={mediaDetails?.networks[0]?.logo_path}
                           alt={mediaDetails?.networks[0]?.name}
-                          className="network-img "
+                          img_type={apiConstants.IMAGE_TYPE_LOGO}
+                          img_size_index={1}
+                          className="network-img"
                         />
                       </div>
                     ) : (

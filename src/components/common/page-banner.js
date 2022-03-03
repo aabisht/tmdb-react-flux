@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-import ConfigurationStores from "../../stores/configurationStores";
 import apiConstants from "../../api/apiConstants";
+import ConfigurationImage from "./configuration-image";
 
 function PageBanner(props) {
   let bannername, releaseYear;
@@ -20,13 +20,11 @@ function PageBanner(props) {
     <div className="page-banner">
       <div className="page-banner-wrapper">
         <div className="page-banner-bg-wrapper">
-          <img
-            src={
-              ConfigurationStores.getBaseURL() +
-              ConfigurationStores.getBackdropSizes()[2] +
-              props.bannerData?.backdrop_path
-            }
+          <ConfigurationImage
+            path={props.bannerData?.backdrop_path}
             alt={bannername}
+            img_type={apiConstants.IMAGE_TYPE_BACKDROP}
+            img_size_index={2}
             className="page-banner-img-bg"
           />
           <div className="page-banner-overlay-bg"></div>
