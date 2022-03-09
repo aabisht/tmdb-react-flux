@@ -5,18 +5,6 @@
 }
 
 .page-banner-bg-wrapper {
-  &:not(.hide-image) {
-    .page-banner-video-bg {
-      display: none !important;
-    }
-  }
-
-  &.hide-image {
-    .page-banner-img-bg {
-      display: none !important;
-    }
-  }
-
   .page-banner-img-bg,
   .page-banner-overlay-bg {
     position: absolute;
@@ -39,7 +27,13 @@
     bottom: 0;
     left: 0;
     pointer-events: none;
-    z-index: 1;
+    z-index: 2;
+    display: none;
+    @include backgroundColor($page-banner-poster-video-bg-color);
+
+    &.hide-image {
+      display: block;
+    }
 
     .page-banner-video-foreground,
     iframe {

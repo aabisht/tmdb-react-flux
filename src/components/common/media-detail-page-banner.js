@@ -2,67 +2,39 @@ import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import ReactTooltip from "react-tooltip";
 import StarRatings from "react-star-ratings";
-import YouTube from "react-youtube";
 import Moment from "react-moment";
 import moment from "moment";
 import apiConstants from "../../api/apiConstants";
 import MediaDetailPageStore from "../../stores/mediaDetailPageStore";
 import * as mediaDetailPageAction from "../../actions/mediaDetailPageAction";
 import ConfigurationImage from "./configuration-image";
+import VideoBanner from "./video-banner";
+import banner_path from "../../assets/banner-not-found-detail.png";
+import poster_path from "../../assets/poster-path-not-found.jpg";
 
 function MediaDetailsPageBanner(props) {
-  const [mediaDetails, setMediaDetails] = useState([]);
-  const [mediaVideo, setMediaVideo] = useState([]);
-
-  const [imageClass, setImageClass] = useState("page-banner-bg-wrapper");
+  const [mediaDetails, setMediaDetails] = useState(
+    MediaDetailPageStore.getMediaDetails()
+  );
 
   const mediaType = props.mediaType;
-  const mediaId = props.mediaId;
-  const opts = {
-    height: "630",
-    width: "1120",
-    playerVars: {
-      autoplay: 1,
-      mute: 1,
-      controls: 0,
-      showinfo: 0,
-      modestbranding: 1,
-      loop: 0,
-      fs: 0,
-      cc_load_policy: 0,
-      iv_load_policy: 3,
-      autohide: 1,
-      disablekb: 1,
-    },
-  };
+  const mediaId = parseInt(props.mediaId);
 
   const onMediaDetailsChange = () => {
     setMediaDetails(MediaDetailPageStore.getMediaDetails());
   };
 
-  const onMediaVideoChange = () => {
-    setMediaVideo(MediaDetailPageStore.getMediaVideos());
-  };
-
   useEffect(() => {
     MediaDetailPageStore.addChangeListener(onMediaDetailsChange);
-    MediaDetailPageStore.addChangeListener(onMediaVideoChange);
-    mediaDetailPageAction.loadMediaDataAndVideo(mediaType, mediaId);
+    if (
+      MediaDetailPageStore.getMediaDetails() &&
+      mediaId !== MediaDetailPageStore.getMediaDetails().id
+    )
+      mediaDetailPageAction.loadMediaData(mediaType, mediaId);
     return () => {
       MediaDetailPageStore.removeChangeListner(onMediaDetailsChange);
-      MediaDetailPageStore.removeChangeListner(onMediaVideoChange);
     };
   }, [mediaType, mediaId]);
-
-  const onVideoReady = (event) => {
-    event.target.playVideo();
-    setImageClass("page-banner-bg-wrapper hide-image");
-  };
-
-  const onVideoEnd = (event) => {
-    event.target.playVideo();
-    setImageClass("page-banner-bg-wrapper");
-  };
 
   const oldDate = moment().add(-30, "d");
   const releaseDate = moment(
@@ -79,32 +51,32 @@ function MediaDetailsPageBanner(props) {
   return mediaDetails && Object.keys(mediaDetails).length > 0 ? (
     <div className="page-banner">
       <div className="page-banner-wrapper">
-        <div className={imageClass}>
-          <ConfigurationImage
-            path={mediaDetails?.backdrop_path}
-            alt={
-              mediaType === apiConstants.MEDIA_TV
-                ? mediaDetails?.name
-                : mediaDetails?.original_title
-            }
-            img_type={apiConstants.IMAGE_TYPE_BACKDROP}
-            img_size_index={2}
-            className="page-banner-img-bg"
-          />
-          {mediaVideo.length > 0 ? (
-            <div className="page-banner-video-bg">
-              <div className="page-banner-video-foreground">
-                <YouTube
-                  videoId={mediaVideo[0].key}
-                  opts={opts}
-                  onReady={onVideoReady}
-                  onEnd={onVideoEnd}
-                />
-              </div>
-            </div>
+        <div className="page-banner-bg-wrapper">
+          {mediaDetails?.backdrop_path ? (
+            <ConfigurationImage
+              path={mediaDetails?.backdrop_path}
+              alt={
+                mediaType === apiConstants.MEDIA_TV
+                  ? mediaDetails?.name
+                  : mediaDetails?.original_title
+              }
+              img_type={apiConstants.IMAGE_TYPE_BACKDROP}
+              img_size_index={2}
+              className="page-banner-img-bg"
+            />
           ) : (
-            <></>
+            <img
+              src={banner_path}
+              alt={
+                mediaType === apiConstants.MEDIA_TV
+                  ? mediaDetails?.name
+                  : mediaDetails?.original_title
+              }
+              className="banner-not-found page-banner-img-bg"
+            />
           )}
+
+          <VideoBanner mediaType={mediaType} mediaId={mediaId} />
           <div className="page-banner-overlay-bg"></div>
         </div>
         <div className="page-banner-content-wrapper d-flex align-items-end h-100">
@@ -113,17 +85,30 @@ function MediaDetailsPageBanner(props) {
               <div className="row align-items-end">
                 <div className="col-12 page-banner-poster-wrapper">
                   <div className="page-banner-poster-img-wrapper">
-                    <ConfigurationImage
-                      path={mediaDetails?.poster_path}
-                      alt={
-                        mediaType === apiConstants.MEDIA_TV
-                          ? mediaDetails?.name
-                          : mediaDetails?.original_title
-                      }
-                      img_type={apiConstants.IMAGE_TYPE_POSTER}
-                      img_size_index={3}
-                      className="page-poster-img-bg"
-                    />
+                    {mediaDetails?.poster_path ? (
+                      <ConfigurationImage
+                        path={mediaDetails?.poster_path}
+                        alt={
+                          mediaType === apiConstants.MEDIA_TV
+                            ? mediaDetails?.name
+                            : mediaDetails?.original_title
+                        }
+                        img_type={apiConstants.IMAGE_TYPE_POSTER}
+                        img_size_index={3}
+                        className="page-poster-img-bg"
+                      />
+                    ) : (
+                      <img
+                        src={poster_path}
+                        alt={
+                          mediaType === apiConstants.MEDIA_TV
+                            ? mediaDetails?.name
+                            : mediaDetails?.original_title
+                        }
+                        className="poster-not-found"
+                      />
+                    )}
+
                     {mediaDetails?.networks?.length > 0 ? (
                       <div className="network-img-wrapper text-center">
                         <ConfigurationImage

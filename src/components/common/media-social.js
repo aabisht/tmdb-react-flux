@@ -5,15 +5,23 @@ import MediaDetailPageStore from "../../stores/mediaDetailPageStore";
 import * as mediaDetailPageAction from "../../actions/mediaDetailPageAction";
 
 function MediaSocial(props) {
-  const [mediaExternalIDs, setMediaExternalIDs] = useState([]),
-    [mediaDetails, setMediaDetails] = useState([]),
+  const [mediaExternalIDs, setMediaExternalIDs] = useState(
+      MediaDetailPageStore.getMediaExternalIDs()
+    ),
+    [mediaDetails, setMediaDetails] = useState(
+      MediaDetailPageStore.getMediaDetails()
+    ),
     mediaType = props.mediaType,
     mediaId = props.mediaId;
 
   useEffect(() => {
     MediaDetailPageStore.addChangeListener(onMediaExternalIDsChange);
     MediaDetailPageStore.addChangeListener(onMediaDetailsChange);
-    mediaDetailPageAction.loadMediaExternalIds(mediaType, mediaId);
+    if (
+      MediaDetailPageStore.getMediaExternalIDs() &&
+      mediaId !== MediaDetailPageStore.getMediaExternalIDs().id
+    )
+      mediaDetailPageAction.loadMediaExternalIds(mediaType, mediaId);
     return () => {
       MediaDetailPageStore.removeChangeListner(onMediaDetailsChange);
       MediaDetailPageStore.removeChangeListner(onMediaExternalIDsChange);

@@ -89,6 +89,14 @@ const mediaDetailPageStore = new MediaDetailPageStore();
 
 Dispatcher.register((action) => {
   switch (action.actionType) {
+    case actionType.LOAD_MEDIA_DETAIL:
+      _mediaDetails = action.mediaDetails;
+      mediaDetailPageStore.emitChange();
+      break;
+    case actionType.LOAD_MEDIA_VIDEO:
+      _mediaVideos = action.mediaVideo;
+      mediaDetailPageStore.emitChange();
+      break;
     case actionType.LOAD_MEDIA_DETAIL_AND_VIDEO_VIDEO:
       _mediaVideos = action.mediaVideo;
       _mediaDetails = action.mediaDetails;

@@ -6,25 +6,31 @@ import MediaDetailPageStore from "../../stores/mediaDetailPageStore";
 import * as mediaDetailPageAction from "../../actions/mediaDetailPageAction";
 import apiConstants from "../../api/apiConstants";
 import ConfigurationImage from "./configuration-image";
+import poster_path from "../../assets/poster-path-not-found.jpg";
 
 function MediaDetailsMeta(props) {
-  const [mediaDetails, setMediaDetails] = useState([]);
+  const [mediaDetails, setMediaDetails] = useState(
+    MediaDetailPageStore.getMediaDetails()
+  );
 
   const onMediaDetailsChange = () => {
     setMediaDetails(MediaDetailPageStore.getMediaDetails());
   };
 
   const mediaType = props.mediaType;
-  const mediaId = props.mediaId;
+  const mediaId = parseInt(props.mediaId);
 
   useEffect(() => {
     MediaDetailPageStore.addChangeListener(onMediaDetailsChange);
-    if (mediaDetails.id !== mediaId)
-      mediaDetailPageAction.loadMediaDataAndVideo(mediaType, mediaId);
+    if (
+      MediaDetailPageStore.getMediaDetails() &&
+      mediaId !== MediaDetailPageStore.getMediaDetails().id
+    )
+      mediaDetailPageAction.loadMediaData(mediaType, mediaId);
     return () => {
       MediaDetailPageStore.removeChangeListner(onMediaDetailsChange);
     };
-  }, [mediaType, mediaId, mediaDetails.id]);
+  }, [mediaType, mediaId]);
 
   ReactTooltip.rebuild();
 
@@ -158,12 +164,16 @@ function MediaDetailsMeta(props) {
                 <li title={data?.name} key={index}>
                   <div className="d-flex mb-2">
                     <div className="page-banner-poster-img-wrapper">
-                      <ConfigurationImage
-                        path={data?.poster_path}
-                        alt={data?.name}
-                        img_type={apiConstants.IMAGE_TYPE_POSTER}
-                        img_size_index={1}
-                      />
+                      {data?.poster_path ? (
+                        <ConfigurationImage
+                          path={data?.poster_path}
+                          alt={data?.name}
+                          img_type={apiConstants.IMAGE_TYPE_POSTER}
+                          img_size_index={1}
+                        />
+                      ) : (
+                        <img src={poster_path} alt={data?.name} width="154" />
+                      )}
                     </div>
                   </div>
                   <p>

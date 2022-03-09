@@ -28,6 +28,46 @@ export const loadMediaDataAndVideo = (mediaType, mediaId, callbackFunction) => {
   });
 };
 
+export const loadMediaData = (mediaType, mediaId, callbackFunction) => {
+  const pArray = [];
+  if (mediaType === apiConstants.MEDIA_TV) {
+    pArray.push(tvApi.getDetails(mediaId));
+  } else {
+    pArray.push(moviesApi.getDetails(mediaId));
+  }
+
+  return forkJoin(pArray).subscribe((mediaData) => {
+    dispatcher.dispatch({
+      actionType: MediaDetailPageActionTypes.LOAD_MEDIA_DETAIL,
+      mediaDetails: mediaData[0],
+    });
+
+    if (callbackFunction) {
+      callbackFunction();
+    }
+  });
+};
+
+export const loadMediaVideo = (mediaType, mediaId, callbackFunction) => {
+  const pArray = [];
+  if (mediaType === apiConstants.MEDIA_TV) {
+    pArray.push(tvApi.getVideos(mediaId));
+  } else {
+    pArray.push(moviesApi.getVideos(mediaId));
+  }
+
+  return forkJoin(pArray).subscribe((mediaData) => {
+    dispatcher.dispatch({
+      actionType: MediaDetailPageActionTypes.LOAD_MEDIA_VIDEO,
+      mediaVideo: mediaData[0].results,
+    });
+
+    if (callbackFunction) {
+      callbackFunction();
+    }
+  });
+};
+
 export const loadMediaExternalIds = (mediaType, mediaId, callbackFunction) => {
   const pArray = [];
   if (mediaType === apiConstants.MEDIA_TV) {
