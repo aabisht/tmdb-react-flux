@@ -94,11 +94,7 @@
 }
 
 .page-banner-poster-img-wrapper {
-  position: relative;
-  @include backgroundColor($page-banner-poster-img-bg-color);
-  @include padding($page-banner-poster-img-padding);
-  @include border-radius($page-banner-poster-img-border-radius);
-  @include box-shadow($page-banner-poster-img-box-shadow);
+  @extend %page-banner-poster-img;
 
   .network-img-wrapper {
     @include backgroundColor($page-banner-poster-img-bg-color);

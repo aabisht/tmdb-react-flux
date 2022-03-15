@@ -22,3 +22,11 @@
   );
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='$media-detail-meta-title-border-color-1', endColorstr='$media-detail-meta-title-border-color-2',GradientType=1 );
 }
+
+%page-banner-poster-img {
+  position: relative;
+  @include backgroundColor($page-banner-poster-img-bg-color);
+  @include padding($page-banner-poster-img-padding);
+  @include border-radius($page-banner-poster-img-border-radius);
+  @include box-shadow($page-banner-poster-img-box-shadow);
+}

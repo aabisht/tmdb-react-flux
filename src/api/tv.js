@@ -32,6 +32,8 @@ export function getAccountStates(tv_id, session_id, language = "en-US") {
 }
 
 // Get the aggregate credits (cast and crew) that have been added to a TV show.
+// This call differs from the main credits call in that it does not return the
+// newest season but rather, is a view of all the entire cast & crew for all episodes belonging to a TV show.
 export function getAggregateCredits(tv_id, language = "en-US") {
   const url =
     baseURL +
@@ -43,7 +45,7 @@ export function getAggregateCredits(tv_id, language = "en-US") {
   return fetch(url).then(handleResponse).catch(handleError);
 }
 
-// Get the aggregate credits (cast and crew) that have been added to a TV show.
+// Returns all of the alternative titles for a TV show.
 export function getAlternativeTitles(tv_id, language = "en-US") {
   const url =
     baseURL +

@@ -5,29 +5,6 @@ import * as tvApi from "../api/tv";
 import MediaDetailPageActionTypes from "./actionTypes/mediaDetailPageActionTypes";
 import { forkJoin } from "rxjs";
 
-export const loadMediaDataAndVideo = (mediaType, mediaId, callbackFunction) => {
-  const pArray = [];
-  if (mediaType === apiConstants.MEDIA_TV) {
-    pArray.push(tvApi.getDetails(mediaId));
-    pArray.push(tvApi.getVideos(mediaId));
-  } else {
-    pArray.push(moviesApi.getDetails(mediaId));
-    pArray.push(moviesApi.getVideos(mediaId));
-  }
-
-  return forkJoin(pArray).subscribe((mediaData) => {
-    dispatcher.dispatch({
-      actionType: MediaDetailPageActionTypes.LOAD_MEDIA_DETAIL_AND_VIDEO_VIDEO,
-      mediaDetails: mediaData[0],
-      mediaVideo: mediaData[1].results,
-    });
-
-    if (callbackFunction) {
-      callbackFunction();
-    }
-  });
-};
-
 export const loadMediaData = (mediaType, mediaId, callbackFunction) => {
   const pArray = [];
   if (mediaType === apiConstants.MEDIA_TV) {
@@ -104,6 +81,26 @@ export const loadMediaWatchProvider = (
     dispatcher.dispatch({
       actionType: MediaDetailPageActionTypes.LOAD_MEDIA_WATCH_PROVIDER,
       mediaWatchProviders: mediaData[0],
+    });
+
+    if (callbackFunction) {
+      callbackFunction();
+    }
+  });
+};
+
+export const loadMediaCredits = (mediaType, mediaId, callbackFunction) => {
+  const pArray = [];
+  if (mediaType === apiConstants.MEDIA_TV) {
+    pArray.push(tvApi.getCredits(mediaId));
+  } else {
+    pArray.push(moviesApi.getCredits(mediaId));
+  }
+
+  return forkJoin(pArray).subscribe((mediaData) => {
+    dispatcher.dispatch({
+      actionType: MediaDetailPageActionTypes.LOAD_MEDIA_CREDITS,
+      mediaCredits: mediaData[0],
     });
 
     if (callbackFunction) {

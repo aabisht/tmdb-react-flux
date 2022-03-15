@@ -1,0 +1,10 @@
+.credits-card-wrapper {
+  @extend %page-banner-poster-img;
+  @include color($credits-card-text-color);
+  width: 100%;
+  max-width: calculateRem($credits-card-height);
+}
+
+.credits-data-items-wrapper {
+  @include margin-right(-$credits-data-items-wrapper-right-margin);
+}

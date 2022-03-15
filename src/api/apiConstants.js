@@ -53,6 +53,13 @@ const apiConstants = {
   IMAGE_TYPE_STILL: "still",
 
   TOTAL_SLIDER_ITEMS: 30,
+
+  GENDER_MALE: 2,
+  GENDER_FEMALE: 1,
+  GENDER_NOT_SPECIFIED: 0,
+
+  SHOW_MORE: "Show More",
+  SHOW_LESS: "Show Less",
 };
 
 export default apiConstants;
