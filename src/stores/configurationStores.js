@@ -5,6 +5,7 @@ import actionTypes from "../actions/actionTypes/configurationActionTypes";
 const CHANGE_EVENT = "change";
 let _languages = [];
 let _api_configurations = [];
+let _api_configurationsCall = 0;
 let _countries = [];
 let _jobs = [];
 let _primary_translations = [];
@@ -42,6 +43,10 @@ class ConfigurationStores extends EventEmitter {
 
   getAPIConfiguration() {
     return _api_configurations;
+  }
+
+  getAPIConfigurationCall() {
+    return _api_configurationsCall;
   }
 
   getCountries() {
@@ -118,7 +123,7 @@ const configurationStores = new ConfigurationStores();
 Dispatcher.register((action) => {
   switch (action.actionType) {
     case actionTypes.LOAD_API_CONFIGURATIONS:
-      _api_configurations.push(action.api_configurations);
+      _api_configurations = action.api_configurations;
       _base_url = action.api_configurations.images.secure_base_url;
       _backdrop_sizes = action.api_configurations.images.backdrop_sizes;
       _logo_sizes = action.api_configurations.images.logo_sizes;
@@ -126,6 +131,7 @@ Dispatcher.register((action) => {
       _profile_sizes = action.api_configurations.images.profile_sizes;
       _still_sizes = action.api_configurations.images.still_sizes;
       _change_keys = action.api_configurations.change_keys;
+      _api_configurationsCall = action.api_configurations_call_count;
       configurationStores.emitChange();
       break;
     case actionTypes.LOAD_COUNTRIES:

@@ -109,6 +109,10 @@ Dispatcher.register((action) => {
       _mediaCredits = action.mediaCredits;
       mediaDetailPageStore.emitChange();
       break;
+    case actionType.LOAD_MEDIA_REVIEWS:
+      _mediaReviews = action.mediaReviews;
+      mediaDetailPageStore.emitChange();
+      break;
     default:
       break;
   }

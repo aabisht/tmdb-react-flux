@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import ConfigurationStores from "../../stores/configurationStores";
-import * as configurationAction from "../../actions/configurationAction";
 import apiConstants from "../../api/apiConstants";
 
 function ConfigurationImage(props) {
@@ -11,17 +10,10 @@ function ConfigurationImage(props) {
 
   useEffect(() => {
     ConfigurationStores.addChangeListener(onApiConfigurationsChange);
-    if (apiConfigurations.length === 0) {
-      if (!ConfigurationStores.getFullPageLoaderValue())
-        configurationAction.fullPageLoaderFlag(true);
-      configurationAction.loadAPIConfiguration().then(() => {
-        if (ConfigurationStores.getFullPageLoaderValue())
-          configurationAction.fullPageLoaderFlag(false);
-      });
-    }
-    return () =>
+    return () => {
       ConfigurationStores.removeChangeListner(onApiConfigurationsChange);
-  }, [apiConfigurations.length]);
+    };
+  }, [apiConfigurations.images]);
 
   const onApiConfigurationsChange = () => {
     setApiConfigurations(ConfigurationStores.getAPIConfiguration());

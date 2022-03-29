@@ -4,6 +4,7 @@ import MediaSocial from "../common/media-social";
 import MediaWatchProviders from "../common/media-watch-providers";
 import MediaDetailsMeta from "../common/media-detail-meta";
 import MediaDetailsCredits from "../common/media-detail-credits";
+import MediaDetailsReviews from "../common/media-detail-reviews";
 
 function MediaDetailPage(props) {
   const mediaType = props.match.params.type;
@@ -22,6 +23,7 @@ function MediaDetailPage(props) {
           <div className="col-12 col-sm-8 col-md-9 col-xl-10">
             <MediaWatchProviders mediaType={mediaType} mediaId={mediaId} />
             <MediaDetailsCredits mediaType={mediaType} mediaId={mediaId} />
+            <MediaDetailsReviews mediaType={mediaType} mediaId={mediaId} />
           </div>
           <div className="col-12 col-sm-4 col-md-3 col-xl-2">
             <MediaSocial mediaType={mediaType} mediaId={mediaId} />

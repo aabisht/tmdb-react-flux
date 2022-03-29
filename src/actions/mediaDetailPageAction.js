@@ -108,3 +108,23 @@ export const loadMediaCredits = (mediaType, mediaId, callbackFunction) => {
     }
   });
 };
+
+export const loadMediaReviews = (mediaType, mediaId, callbackFunction) => {
+  const pArray = [];
+  if (mediaType === apiConstants.MEDIA_TV) {
+    pArray.push(tvApi.getReviews(mediaId));
+  } else {
+    pArray.push(moviesApi.getReviews(mediaId));
+  }
+
+  return forkJoin(pArray).subscribe((mediaReviews) => {
+    dispatcher.dispatch({
+      actionType: MediaDetailPageActionTypes.LOAD_MEDIA_REVIEWS,
+      mediaReviews: mediaReviews[0],
+    });
+
+    if (callbackFunction) {
+      callbackFunction();
+    }
+  });
+};

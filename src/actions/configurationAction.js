@@ -4,13 +4,15 @@ import * as configurationApi from "../api/configuration";
 import * as genresApi from "../api/genres";
 import { forkJoin } from "rxjs";
 
-export const loadAPIConfiguration = () => {
-  return configurationApi.getAPIConfiguration().then((api_configurations) => {
-    dispatcher.dispatch({
-      actionType: ConfigurationActionTypes.LOAD_API_CONFIGURATIONS,
-      api_configurations,
+export const loadAPIConfiguration = async () => {
+  await configurationApi
+    .getAPIConfiguration()
+    .then(async (api_configurations) => {
+      await dispatcher.dispatch({
+        actionType: ConfigurationActionTypes.LOAD_API_CONFIGURATIONS,
+        api_configurations: api_configurations,
+      });
     });
-  });
 };
 
 export const loadCountries = () => {

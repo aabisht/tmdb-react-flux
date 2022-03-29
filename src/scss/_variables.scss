@@ -529,3 +529,11 @@ $episode-air-card-border-radius: $border-radius !default;
 $credits-card-text-color: $black-color !default;
 $credits-card-height: 200px !default;
 $credits-data-items-wrapper-right-margin: $base-size/2 !default;
+
+// Review Card
+$review-wrapper-background-color: $body-color !default;
+$review-wrapper-background-color-opacity: 0.03 !default;
+$review-wrapper-x-padding: $base-size !default;
+$review-wrapper-y-padding: $base-size !default;
+$review-profile-image-dimention: 80px !default;
+$review-profile-image-border-width: 4px !default;

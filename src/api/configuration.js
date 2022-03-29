@@ -9,7 +9,7 @@ const apiParam = new ApiParameters();
 // To build an image URL, you will need 3 pieces of data. The base_url, size and file_path. Simply combine them all and you will have a fully qualified URL. Here’s an example URL:
 // https://image.tmdb.org/t/p/w500/8uO0gUM8aNqYLs1OsTBQiXu0fEv.jpg
 // The configuration method also contains the list of change keys which can be useful if you are building an app that consumes data from the change feed.
-export function getAPIConfiguration() {
+export async function getAPIConfiguration() {
   const url = baseURL + apiParam.setApiKey(apiConstants.API_KEY);
   return fetch(url).then(handleResponse).catch(handleError);
 }

@@ -13,6 +13,9 @@ import * as configurationAction from "../../actions/configurationAction";
 
 function Header() {
   const location = useLocation();
+  const [apiConfigurations, setApiConfigurations] = useState(
+    ConfigurationStores.getAPIConfiguration()
+  );
 
   const isCurrentURL = (url) => {
     return location.pathname.toLowerCase() === url.toLowerCase();
@@ -27,6 +30,10 @@ function Header() {
   const [defaultLanguage, setDefaultLanguage] = useState(
     ConfigurationStores.getDefaultLanguage()
   );
+
+  const onApiConfigurationsChange = () => {
+    setApiConfigurations(ConfigurationStores.getAPIConfiguration());
+  };
 
   if (!isUserLoggedInFlag && sessionStorageSession?.success) {
     authenticationAction.isUserLoggedIn(true);
@@ -44,27 +51,15 @@ function Header() {
     setDefaultLanguage(ConfigurationStores.getDefaultLanguage());
   };
 
-  const [apiConfigurations, setApiConfigurations] = useState(
-    ConfigurationStores.getAPIConfiguration()
-  );
-
   useEffect(() => {
     ConfigurationStores.addChangeListener(onApiConfigurationsChange);
-    if (apiConfigurations.length === 0) {
-      if (!ConfigurationStores.getFullPageLoaderValue())
-        configurationAction.fullPageLoaderFlag(true);
-      configurationAction.loadAPIConfiguration().then(() => {
-        if (ConfigurationStores.getFullPageLoaderValue())
-          configurationAction.fullPageLoaderFlag(false);
-      });
+    if (!apiConfigurations.images) {
+      configurationAction.loadAPIConfiguration();
     }
-    return () =>
+    return () => {
       ConfigurationStores.removeChangeListner(onApiConfigurationsChange);
-  }, [apiConfigurations.length]);
-
-  const onApiConfigurationsChange = () => {
-    setApiConfigurations(ConfigurationStores.getAPIConfiguration());
-  };
+    };
+  }, [apiConfigurations.images]);
 
   window.addEventListener("scroll", () => {
     const headerElement = document.getElementById("headerContainer");

@@ -42,7 +42,7 @@ function MediaDetailsMeta(props) {
     <div className="media-detail-meta-wrapper">
       {mediaDetails.networks && mediaDetails.networks.length > 0 ? (
         <div className="media-detail-meta-item">
-          <h3 className="title">Networks</h3>
+          <h2 className="h3 title">Networks</h2>
           <div className="d-flex ">
             {mediaDetails?.networks.map((data, index) => {
               return (
@@ -67,7 +67,7 @@ function MediaDetailsMeta(props) {
       )}
       {mediaDetails.original_name ? (
         <div className="media-detail-meta-item">
-          <h3 className="title">Original Name</h3>
+          <h2 className="h3 title">Original Name</h2>
           <p>{mediaDetails.original_name}</p>
         </div>
       ) : (
@@ -75,7 +75,7 @@ function MediaDetailsMeta(props) {
       )}
       {mediaDetails.original_title ? (
         <div className="media-detail-meta-item">
-          <h3 className="title">Original Title</h3>
+          <h2 className="h3 title">Original Title</h2>
           <p>{mediaDetails.original_title}</p>
         </div>
       ) : (
@@ -83,7 +83,7 @@ function MediaDetailsMeta(props) {
       )}
       {mediaDetails.status && mediaDetails.status.length > 0 ? (
         <div className="media-detail-meta-item">
-          <h3 className="title">Status</h3>
+          <h2 className="h3 title">Status</h2>
           <p>{mediaDetails.status}</p>
         </div>
       ) : (
@@ -92,7 +92,7 @@ function MediaDetailsMeta(props) {
       {mediaDetails.spoken_languages &&
       mediaDetails.spoken_languages.length > 0 ? (
         <div className="media-detail-meta-item">
-          <h3 className="title">Spoken Language</h3>
+          <h2 className="h3 title">Spoken Language</h2>
           <ul className="list-unstyled">
             {mediaDetails?.spoken_languages.map((data, index) => {
               return (
@@ -108,7 +108,7 @@ function MediaDetailsMeta(props) {
       )}
       {mediaDetails.type ? (
         <div className="media-detail-meta-item">
-          <h3 className="title">Type</h3>
+          <h2 className="h3 title">Type</h2>
           <p>{mediaDetails.type}</p>
         </div>
       ) : (
@@ -116,7 +116,7 @@ function MediaDetailsMeta(props) {
       )}
       {mediaDetails.budget ? (
         <div className="media-detail-meta-item">
-          <h3 className="title">Budget</h3>
+          <h2 className="h3 title">Budget</h2>
           <p>{"$" + numberWithCommas(mediaDetails.budget) + ".00"}</p>
         </div>
       ) : (
@@ -124,7 +124,7 @@ function MediaDetailsMeta(props) {
       )}
       {mediaDetails.revenue ? (
         <div className="media-detail-meta-item">
-          <h3 className="title">Revenue</h3>
+          <h2 className="h3 title">Revenue</h2>
           <p>{"$" + numberWithCommas(mediaDetails.revenue) + ".00"}</p>
         </div>
       ) : (
@@ -133,7 +133,7 @@ function MediaDetailsMeta(props) {
       {mediaDetails.belongs_to_collection &&
       mediaDetails.belongs_to_collection?.id ? (
         <div className="media-detail-meta-item">
-          <h3 className="title">Collection</h3>
+          <h2 className="h3 title">Collection</h2>
           {mediaDetails.belongs_to_collection.poster_path ? (
             <div className="d-flex mb-2">
               <div className="page-banner-poster-img-wrapper">

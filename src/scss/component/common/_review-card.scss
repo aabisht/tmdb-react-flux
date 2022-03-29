@@ -1,0 +1,29 @@
+.review-wrapper {
+  @extend %page-banner-poster-img;
+  @include backgroundColor(
+    $review-wrapper-background-color,
+    $review-wrapper-background-color-opacity
+  );
+  @include padding($review-wrapper-y-padding $review-wrapper-x-padding);
+
+  .profile-image-wrapper {
+    width: calculateRem($review-profile-image-dimention);
+    height: calculateRem($review-profile-image-dimention);
+    position: relative;
+    overflow: hidden;
+    @include border(
+      $review-profile-image-border-width solid $review-wrapper-background-color
+    );
+
+    img {
+      width: calculateRem(
+        $review-profile-image-dimention -
+          ($review-profile-image-border-width * 2)
+      );
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      @include transform(translate(-50%, -50%));
+    }
+  }
+}
