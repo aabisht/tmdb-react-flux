@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import StarRatings from "react-star-ratings";
 import ReactTooltip from "react-tooltip";
 import MediaDetailPageStore from "../../stores/mediaDetailPageStore";
-import * as mediaDetailPageAction from "../../actions/mediaDetailPageAction";
 import apiConstants from "../../api/apiConstants";
 import ConfigurationImage from "./configuration-image";
 import poster_path from "../../assets/poster-path-not-found.jpg";
@@ -22,11 +21,6 @@ function MediaDetailsMeta(props) {
 
   useEffect(() => {
     MediaDetailPageStore.addChangeListener(onMediaDetailsChange);
-    if (
-      MediaDetailPageStore.getMediaDetails() &&
-      mediaId !== MediaDetailPageStore.getMediaDetails().id
-    )
-      mediaDetailPageAction.loadMediaData(mediaType, mediaId);
     return () => {
       MediaDetailPageStore.removeChangeListner(onMediaDetailsChange);
     };

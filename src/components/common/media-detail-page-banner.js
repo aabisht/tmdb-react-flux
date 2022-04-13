@@ -6,7 +6,6 @@ import Moment from "react-moment";
 import moment from "moment";
 import apiConstants from "../../api/apiConstants";
 import MediaDetailPageStore from "../../stores/mediaDetailPageStore";
-import * as mediaDetailPageAction from "../../actions/mediaDetailPageAction";
 import ConfigurationImage from "./configuration-image";
 import VideoBanner from "./video-banner";
 import banner_path from "../../assets/banner-not-found-detail.png";
@@ -26,11 +25,6 @@ function MediaDetailsPageBanner(props) {
 
   useEffect(() => {
     MediaDetailPageStore.addChangeListener(onMediaDetailsChange);
-    if (
-      MediaDetailPageStore.getMediaDetails() &&
-      mediaId !== MediaDetailPageStore.getMediaDetails().id
-    )
-      mediaDetailPageAction.loadMediaData(mediaType, mediaId);
     return () => {
       MediaDetailPageStore.removeChangeListner(onMediaDetailsChange);
     };

@@ -19,7 +19,6 @@ function MediaDetailsReviews(props) {
     setMediaReviews(MediaDetailPageStore.getMediaReviews());
   };
 
-  console.log(mediaReviews.results);
   useEffect(() => {
     MediaDetailPageStore.addChangeListener(onMediaReviewsChange);
     if (
@@ -33,13 +32,12 @@ function MediaDetailsReviews(props) {
   }, [mediaType, mediaId]);
 
   return mediaReviews.results && mediaReviews.results.length > 0 ? (
-    <div className="media-reviews-wrapper media-detail-meta-item">
+    <div className="media-reviews-wrapper media-detail-meta-item mb-4 mt-0">
       <h2 className="h3 title">Reviews</h2>
       {mediaReviews.results.map((item, index) => {
         return (
-          <div className="mt-3">
+          <div className="mt-3" key={index}>
             <ReviewCard
-              key={index}
               author={item.author}
               author_details={item.author_details}
               content={item.content}

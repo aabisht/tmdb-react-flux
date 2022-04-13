@@ -68,7 +68,7 @@ function MediaDetailsCredits(props) {
         ) : (
           <></>
         )}
-        <div className="d-flex flex-wrap justify-content-between mb-2 credits-data-items-wrapper">
+        <div className="d-flex flex-wrap mb-2 credits-data-items-wrapper">
           {creditsData.map((item, index) => {
             const creditsCardClass =
               index > 6 ? "mb-3 me-2 d-none" : "mb-3 me-2";
