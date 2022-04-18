@@ -37,7 +37,6 @@
 
 .episode-air-card-wrapper {
   @include padding($episode-air-card-gutter-sapce/2);
-  @include margin-bottom($episode-air-card-gutter-sapce);
   @include backgroundColor($episode-air-card-background-color);
   @include border-radius($episode-air-card-border-radius);
   @include box-shadow($episode-air-card-box-shadow);
@@ -52,5 +51,9 @@
     img {
       width: 100%;
     }
+  }
+
+  .description {
+    @include multi-line-text-truncate($font-size-base, 1.5, 3);
   }
 }

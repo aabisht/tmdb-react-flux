@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import StarRatings from "react-star-ratings";
-import ReactTooltip from "react-tooltip";
 import MediaDetailPageStore from "../../stores/mediaDetailPageStore";
 import apiConstants from "../../api/apiConstants";
 import ConfigurationImage from "./configuration-image";
+import EpisodeAirCard from "./episode-air-card";
 import poster_path from "../../assets/poster-path-not-found.jpg";
 
 function MediaDetailsMeta(props) {
@@ -25,8 +24,6 @@ function MediaDetailsMeta(props) {
       MediaDetailPageStore.removeChangeListner(onMediaDetailsChange);
     };
   }, [mediaType, mediaId]);
-
-  ReactTooltip.rebuild();
 
   const numberWithCommas = (number) => {
     return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -188,40 +185,13 @@ function MediaDetailsMeta(props) {
       mediaDetails.last_episode_to_air ? (
         <div className="media-detail-meta-item ">
           <h3 className="title">Last Episode To Air</h3>
-          <div className="episode-air-card-wrapper">
-            <div className="img-wrapper">
-              <ConfigurationImage
-                path={mediaDetails.last_episode_to_air?.still_path}
-                alt={mediaDetails.last_episode_to_air?.name}
-                img_type={apiConstants.IMAGE_TYPE_POSTER}
-                img_size_index={3}
-              />
-            </div>
-            <p>{mediaDetails.last_episode_to_air?.name}</p>
-            <p>{mediaDetails.last_episode_to_air?.overview}</p>
-            <p>
-              <i>{mediaDetails.last_episode_to_air?.air_date}</i>
-            </p>
-            <div className="d-flex align-item-center">
-              <div
-                className="star-rate-btn-wrapper"
-                data-tip={
-                  mediaDetails.last_episode_to_air?.vote_average + " Rating"
-                }
-              >
-                <StarRatings
-                  rating={mediaDetails.last_episode_to_air?.vote_average / 2}
-                  numberOfStars={5}
-                  svgIconPath={
-                    "M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
-                  }
-                  svgIconViewBox={"0 0 24 24"}
-                  starHoverColor={"#1ed5a9"}
-                  starRatedColor={"#1ed5a9"}
-                />
-              </div>
-            </div>
-          </div>
+          <EpisodeAirCard
+            still_path={mediaDetails.last_episode_to_air?.still_path}
+            name={mediaDetails.last_episode_to_air?.name}
+            overview={mediaDetails.last_episode_to_air?.overview}
+            air_date={mediaDetails.last_episode_to_air?.air_date}
+            vote_average={mediaDetails.last_episode_to_air?.vote_average}
+          />
         </div>
       ) : (
         <></>

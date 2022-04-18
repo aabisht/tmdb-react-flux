@@ -8,6 +8,7 @@ import MediaDetailsReviews from "../common/media-detail-reviews";
 import MediaDetailsCollection from "../common/media-details-collection";
 import apiConstants from "../../api/apiConstants";
 import MediaDetailPageStore from "../../stores/mediaDetailPageStore";
+import TvSeasonList from "../common/tv-season-list";
 import * as mediaDetailPageAction from "../../actions/mediaDetailPageAction";
 
 function MediaDetailPage(props) {
@@ -48,10 +49,19 @@ function MediaDetailPage(props) {
             <MediaWatchProviders mediaType={mediaType} mediaId={mediaId} />
             <MediaDetailsCredits mediaType={mediaType} mediaId={mediaId} />
             <MediaDetailsReviews mediaType={mediaType} mediaId={mediaId} />
-            {props.match.params.type !== apiConstants.MEDIA_TV ? (
-              <MediaDetailsCollection mediaType={mediaType} mediaId={mediaId} />
+            {props.match.params.type === apiConstants.MEDIA_TV ? (
+              mediaDetails.seasons && mediaDetails.seasons.length > 0 ? (
+                <TvSeasonList
+                  mediaId={mediaId}
+                  mediaType={mediaType}
+                  lastSeasonId={mediaDetails.seasons.at(-1).id}
+                  season_number={mediaDetails.seasons.at(-1).season_number}
+                />
+              ) : (
+                <></>
+              )
             ) : (
-              <></>
+              <MediaDetailsCollection mediaType={mediaType} mediaId={mediaId} />
             )}
           </div>
           <div className="col-12 col-sm-4 col-md-3 col-xl-2">

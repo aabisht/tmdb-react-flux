@@ -1,0 +1,25 @@
+.tv-season-name-wrapper {
+  position: relative;
+
+  &::after {
+    content: "";
+    display: block;
+    height: calculateRem(2px);
+    @include margin-top($media-detail-meta-title-border-gutter-sapce/2);
+    @include margin-bottom($media-detail-meta-title-border-gutter-sapce/2);
+    @extend %media-detail-meta-gradient-border;
+  }
+
+  .tv-season-img-wrapper,
+  .tv-season-info-wrapper {
+    flex: 0 0 auto;
+  }
+
+  .tv-season-img-wrapper {
+    width: calculateRem($media-detail-collection-poster-width);
+  }
+
+  .tv-season-info-wrapper {
+    width: calc(100% - #{calculateRem($media-detail-collection-poster-width)});
+  }
+}

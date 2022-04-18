@@ -16,6 +16,7 @@ let _mediaRecommendations = [];
 let _mediaSimilar = [];
 let _mediaAggregateCredits = [];
 let _mediaType = "";
+let _tvSeasonEpisodeList = {};
 
 class MediaDetailPageStore extends EventEmitter {
   addChangeListener(callback) {
@@ -83,6 +84,10 @@ class MediaDetailPageStore extends EventEmitter {
   getMediaAggregateCredits() {
     return _mediaAggregateCredits;
   }
+
+  getTvSeasonEpisodeList() {
+    return _tvSeasonEpisodeList;
+  }
 }
 
 const mediaDetailPageStore = new MediaDetailPageStore();
@@ -111,6 +116,10 @@ Dispatcher.register((action) => {
       break;
     case actionType.LOAD_MEDIA_REVIEWS:
       _mediaReviews = action.mediaReviews;
+      mediaDetailPageStore.emitChange();
+      break;
+    case actionType.LOAD_TV_SEASON_EPISODE_LIST:
+      _tvSeasonEpisodeList = action.seasonDetail;
       mediaDetailPageStore.emitChange();
       break;
     default:

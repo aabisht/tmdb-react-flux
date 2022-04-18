@@ -2,6 +2,7 @@ import dispatcher from "../appDispatcher";
 import apiConstants from "../api/apiConstants";
 import * as moviesApi from "../api/movies";
 import * as tvApi from "../api/tv";
+import * as tvSeasonsApi from "../api/tvSeasons";
 import MediaDetailPageActionTypes from "./actionTypes/mediaDetailPageActionTypes";
 import { forkJoin } from "rxjs";
 
@@ -127,4 +128,23 @@ export const loadMediaReviews = (mediaType, mediaId, callbackFunction) => {
       callbackFunction();
     }
   });
+};
+
+export const loadTVSeasonEpisodeList = (
+  tv_id,
+  season_number,
+  callbackFunction
+) => {
+  return forkJoin([tvSeasonsApi.getDetails(tv_id, season_number)]).subscribe(
+    (seasonDetail) => {
+      dispatcher.dispatch({
+        actionType: MediaDetailPageActionTypes.LOAD_TV_SEASON_EPISODE_LIST,
+        seasonDetail: seasonDetail[0],
+      });
+
+      if (callbackFunction) {
+        callbackFunction();
+      }
+    }
+  );
 };
