@@ -8,7 +8,7 @@ import MediaDetailsReviews from "../common/media-detail-reviews";
 import MediaDetailsCollection from "../common/media-details-collection";
 import apiConstants from "../../api/apiConstants";
 import MediaDetailPageStore from "../../stores/mediaDetailPageStore";
-import TvSeasonList from "../common/tv-season-list";
+import TvSeason from "../common/tv-season";
 import * as mediaDetailPageAction from "../../actions/mediaDetailPageAction";
 
 function MediaDetailPage(props) {
@@ -28,8 +28,12 @@ function MediaDetailPage(props) {
     if (
       MediaDetailPageStore.getMediaDetails() &&
       mediaId !== MediaDetailPageStore.getMediaDetails().id
-    )
-      mediaDetailPageAction.loadMediaData(mediaType, mediaId);
+    ) {
+      // configurationAction.fullPageLoaderFlag(true);
+      mediaDetailPageAction.loadMediaData(mediaType, mediaId, () => {
+        // configurationAction.fullPageLoaderFlag(false);
+      });
+    }
     return () => {
       MediaDetailPageStore.removeChangeListner(onMediaDetailsChange);
     };
@@ -47,22 +51,17 @@ function MediaDetailPage(props) {
         <div className="row">
           <div className="col-12 col-sm-8 col-md-9 col-xl-10">
             <MediaWatchProviders mediaType={mediaType} mediaId={mediaId} />
-            <MediaDetailsCredits mediaType={mediaType} mediaId={mediaId} />
-            <MediaDetailsReviews mediaType={mediaType} mediaId={mediaId} />
             {props.match.params.type === apiConstants.MEDIA_TV ? (
               mediaDetails.seasons && mediaDetails.seasons.length > 0 ? (
-                <TvSeasonList
-                  mediaId={mediaId}
-                  mediaType={mediaType}
-                  lastSeasonId={mediaDetails.seasons.at(-1).id}
-                  season_number={mediaDetails.seasons.at(-1).season_number}
-                />
+                <TvSeason mediaType={mediaType} mediaId={mediaId} />
               ) : (
                 <></>
               )
             ) : (
               <MediaDetailsCollection mediaType={mediaType} mediaId={mediaId} />
             )}
+            <MediaDetailsCredits mediaType={mediaType} mediaId={mediaId} />
+            <MediaDetailsReviews mediaType={mediaType} mediaId={mediaId} />
           </div>
           <div className="col-12 col-sm-4 col-md-3 col-xl-2">
             <MediaSocial mediaType={mediaType} mediaId={mediaId} />

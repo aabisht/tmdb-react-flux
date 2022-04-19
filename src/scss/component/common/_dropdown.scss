@@ -69,7 +69,8 @@
       left: calculateRem(-$container-x-padding/2);
     }
 
-    &.watch-provider-dropdown {
+    &.watch-provider-dropdown,
+    &.season-dropdown-wrappper {
       right: 0;
       left: 0;
       width: 100%;
@@ -95,7 +96,8 @@
       );
     }
 
-    &.watch-provider-dropdown-list-wrappper {
+    &.watch-provider-dropdown-list-wrappper,
+    &.season-dropdown-list-wrappper {
       height: 100%;
       overflow: auto;
       max-height: calculateRem($dropdown-watch-provider-height);

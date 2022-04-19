@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Route, Switch } from "react-router-dom";
 import Header from "./components/common/header";
 import FullPageLoader from "./components/common/full-page-loader";
@@ -16,31 +16,57 @@ import MediaDetailPage from "./components/pages/media-detail-page";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ReactTooltip from "react-tooltip";
+import ConfigurationStores from "./stores/configurationStores";
 
 function App() {
+  const [appClass, setAppClass] = useState("");
+
+  const [showLoaderFlag, setShowLoaderFlag] = useState(
+    ConfigurationStores.getFullPageLoaderValue()
+  );
+  const onShowLoaderFlagChange = () => {
+    setShowLoaderFlag(ConfigurationStores.getFullPageLoaderValue());
+  };
+
+  useEffect(() => {
+    ConfigurationStores.addChangeListener(onShowLoaderFlagChange);
+    showLoaderFlag ? setAppClass("loader-active") : setAppClass("");
+    return () =>
+      ConfigurationStores.removeChangeListner(onShowLoaderFlagChange);
+  }, [showLoaderFlag]);
+
   return (
-    <div id="tmdbAppWrapper">
+    <div id="tmdbAppWrapper" className={appClass}>
       <Header />
       <div className="body-container">
         <div className="body-container-wrapper">
           <Switch>
             <Route path="/" exact component={HomePage} />
-            <Route path="/tv-shows" component={TVShowsPage} />
-            <Route path="/movies" component={MoviesPage} />
-            <Route path="/my-list" component={MyListPage} />
-            <Route path="/search/:slug" component={SearchPage} />
-            <Route path="/profile/:slug" component={ProfilePage} />
-            <Route path="/login" component={LoginPage} />
+            <Route path="/tv-shows" exact component={TVShowsPage} />
+            <Route path="/movies" exact component={MoviesPage} />
+            <Route path="/my-list" exact component={MyListPage} />
+            <Route path="/search/:slug" exact component={SearchPage} />
+            <Route path="/profile/:slug" exact component={ProfilePage} />
+            <Route path="/login" exact component={LoginPage} />
             <Route
               path="/browse/:type/:genre/:genreId"
+              exact
               component={BrowsePage}
             />
-            <Route path="/detail/:type/:mediaId" component={MediaDetailPage} />
+            <Route
+              path="/detail/:type/:mediaId"
+              exact
+              component={MediaDetailPage}
+            />
           </Switch>
         </div>
       </div>
       <MediaCardPopup />
-      <FullPageLoader />
+      {ConfigurationStores.getFullPageLoaderValue() ? (
+        <FullPageLoader />
+      ) : (
+        <></>
+      )}
       <ToastContainer pauseOnHover draggable hideProgressBar />
       <ReactTooltip
         place="top"

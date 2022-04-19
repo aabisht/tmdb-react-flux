@@ -4,7 +4,6 @@ import MediaDetailPageStore from "../../stores/mediaDetailPageStore";
 import apiConstants from "../../api/apiConstants";
 import ConfigurationImage from "./configuration-image";
 import EpisodeAirCard from "./episode-air-card";
-import poster_path from "../../assets/poster-path-not-found.jpg";
 
 function MediaDetailsMeta(props) {
   const [mediaDetails, setMediaDetails] = useState(
@@ -140,43 +139,6 @@ function MediaDetailsMeta(props) {
             <></>
           )}
           <p>{mediaDetails.belongs_to_collection.name}</p>
-        </div>
-      ) : (
-        <></>
-      )}
-      {mediaType === apiConstants.MEDIA_TV &&
-      mediaDetails.seasons &&
-      mediaDetails.seasons.length > 0 ? (
-        <div className="media-detail-meta-item">
-          <h3 className="title">Seasons</h3>
-          <ul className="list-unstyled">
-            {mediaDetails?.seasons.map((data, index) => {
-              return (
-                <li title={data?.name} key={index}>
-                  <div className="d-flex mb-2">
-                    <div className="page-banner-poster-img-wrapper">
-                      {data?.poster_path ? (
-                        <ConfigurationImage
-                          path={data?.poster_path}
-                          alt={data?.name}
-                          img_type={apiConstants.IMAGE_TYPE_POSTER}
-                          img_size_index={1}
-                        />
-                      ) : (
-                        <img src={poster_path} alt={data?.name} width="154" />
-                      )}
-                    </div>
-                  </div>
-                  <p>
-                    {data?.name}
-                    <br></br>
-                    <strong>Total Episode: </strong>
-                    {data?.episode_count}
-                  </p>
-                </li>
-              );
-            })}
-          </ul>
         </div>
       ) : (
         <></>

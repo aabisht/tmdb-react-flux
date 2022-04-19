@@ -90,6 +90,11 @@ function MediaWatchProviders(props) {
         event.currentTarget.innerText
       ]
     );
+
+    document
+      .querySelector(".media-detail-watch-provider-wrapper .dropdown-btn")
+      .classList.remove("show");
+    document.querySelector(".watch-provider-dropdown").classList.remove("show");
   };
 
   const filterDefaultLanguage = (filterText) => {

@@ -23,3 +23,9 @@
     width: calc(100% - #{calculateRem($media-detail-collection-poster-width)});
   }
 }
+
+.tv-seadon-wrapper {
+  .season-selector-text {
+    min-width: calc(250px);
+  }
+}

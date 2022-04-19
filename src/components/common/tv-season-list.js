@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import MediaDetailPageStore from "../../stores/mediaDetailPageStore";
 import * as mediaDetailPageAction from "../../actions/mediaDetailPageAction";
+// import * as configurationAction from "../../actions/configurationAction";
 import poster_path from "../../assets/poster-path-not-found.jpg";
 import ConfigurationImage from "./configuration-image";
 import apiConstants from "../../api/apiConstants";
@@ -9,48 +10,33 @@ import Moment from "react-moment";
 import EpisodeAirCard from "./episode-air-card";
 
 function TvSeasonList(props) {
-  const mediaType = props.mediaType;
   const mediaId = parseInt(props.mediaId);
-  const lastSeasonId = parseInt(props.lastSeasonId);
   const season_number = parseInt(props.season_number);
 
   const [tvSeasonList, setTvSeasonList] = useState(
     MediaDetailPageStore.getTvSeasonEpisodeList()
   );
 
-  const [mediaDetails, setMediaDetails] = useState(
-    MediaDetailPageStore.getMediaDetails()
-  );
-
-  const onMediaDetailsChange = () => {
-    setMediaDetails(MediaDetailPageStore.getMediaDetails());
-  };
-
   const onTvSeasonListChange = () => {
     setTvSeasonList(MediaDetailPageStore.getTvSeasonEpisodeList());
   };
 
   useEffect(() => {
-    MediaDetailPageStore.addChangeListener(onMediaDetailsChange);
     MediaDetailPageStore.addChangeListener(onTvSeasonListChange);
-    if (
-      lastSeasonId !== MediaDetailPageStore.getTvSeasonEpisodeList().id &&
-      season_number !==
-        MediaDetailPageStore.getTvSeasonEpisodeList().season_number
-    )
-      mediaDetailPageAction.loadTVSeasonEpisodeList(
-        MediaDetailPageStore.getMediaDetails().id,
-        MediaDetailPageStore.getMediaDetails().seasons.at(-1).season_number
-      );
+    // configurationAction.fullPageLoaderFlag(true);
+    mediaDetailPageAction.loadTVSeasonEpisodeList(
+      mediaId,
+      season_number,
+      () => {
+        // configurationAction.fullPageLoaderFlag(false);
+      }
+    );
     return () => {
-      MediaDetailPageStore.removeChangeListner(onMediaDetailsChange);
       MediaDetailPageStore.removeChangeListner(onTvSeasonListChange);
     };
-  }, [mediaType, mediaId, lastSeasonId, season_number]);
+  }, [mediaId, season_number]);
 
-  return mediaDetails &&
-    tvSeasonList &&
-    Object.keys(tvSeasonList).length > 0 ? (
+  return tvSeasonList && tvSeasonList.episodes?.length > 0 ? (
     <div className="tv-season-list-wrapper">
       <div className="tv-season-name-wrapper">
         <div className="row align-items-end">
@@ -106,14 +92,16 @@ function TvSeasonList(props) {
       </div>
     </div>
   ) : (
-    <></>
+    <div className="tv-season-list-no-episode">
+      <h2 className="h4 mb-3">
+        <strong>Sorry No Episode Found</strong>
+      </h2>
+    </div>
   );
 }
 
 TvSeasonList.prototype = {
   mediaId: PropTypes.string.required,
-  mediaType: PropTypes.string.required,
-  lastSeasonId: PropTypes.string.required,
   season_number: PropTypes.string.required,
 };
 
