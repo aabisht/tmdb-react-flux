@@ -25,23 +25,18 @@ function App() {
       <div className="body-container">
         <div className="body-container-wrapper">
           <Switch>
-            <Route path="/" exact component={HomePage} />
-            <Route path="/tv-shows" exact component={TVShowsPage} />
-            <Route path="/movies" exact component={MoviesPage} />
-            <Route path="/my-list" exact component={MyListPage} />
-            <Route path="/search/:slug" exact component={SearchPage} />
-            <Route path="/profile/:slug" exact component={ProfilePage} />
-            <Route path="/login" exact component={LoginPage} />
             <Route
               path="/browse/:type/:genre/:genreId"
-              exact
               component={BrowsePage}
             />
-            <Route
-              path="/detail/:type/:mediaId"
-              exact
-              component={MediaDetailPage}
-            />
+            <Route path="/detail/:type/:mediaId" component={MediaDetailPage} />
+            <Route path="/login" component={LoginPage} />
+            <Route path="/profile/:slug" component={ProfilePage} />
+            <Route path="/search/:slug" component={SearchPage} />
+            <Route path="/my-list" component={MyListPage} />
+            <Route path="/tv-shows" component={TVShowsPage} />
+            <Route path="/movies" component={MoviesPage} />
+            <Route path="/" exact component={HomePage} />
           </Switch>
         </div>
       </div>

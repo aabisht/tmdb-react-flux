@@ -8,10 +8,8 @@ function TabView(props) {
   useEffect(() => {
     if (props.children && props.children.length > 0) {
       let _tabChildren = [];
-      props.children.map((item, index) => {
-        if (item) {
-          return _tabChildren.push(item);
-        } else return false;
+      props.children.map((item) => {
+        return item && item.props.header ? _tabChildren.push(item) : false;
       });
       setTabChildren(_tabChildren);
     }
@@ -22,7 +20,7 @@ function TabView(props) {
     : "tab-view";
 
   const replaceWhiteSpace = (text) => {
-    return text.replace(/ /g, "_");
+    return text ? text.replace(/ /g, "_") : text;
   };
 
   const handleTabNavClick = (event) => {

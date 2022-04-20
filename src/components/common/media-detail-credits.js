@@ -77,10 +77,20 @@ function MediaDetailsCredits(props) {
     );
   };
 
-  return mediaCredits && mediaId === mediaCredits.id ? (
+  return mediaCredits &&
+    mediaId === mediaCredits.id &&
+    (mediaCredits?.cast.length > 0 || mediaCredits?.crew.length > 0) ? (
     <TabView>
-      {renderCreditsTabs("Cast", mediaCredits?.cast)}
-      {renderCreditsTabs("Crew", mediaCredits?.crew)}
+      {mediaCredits?.cast.length > 0 ? (
+        renderCreditsTabs("Cast", mediaCredits?.cast)
+      ) : (
+        <></>
+      )}
+      {mediaCredits?.crew.length > 0 ? (
+        renderCreditsTabs("Crew", mediaCredits?.crew)
+      ) : (
+        <></>
+      )}
     </TabView>
   ) : (
     <></>

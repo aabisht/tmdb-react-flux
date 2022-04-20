@@ -20,39 +20,12 @@ function MediaDetailPage(props) {
     MediaDetailPageStore.getMediaDetails()
   );
 
-  const [mediaCredits, setMediaCredits] = useState(
-    MediaDetailPageStore.getMediaCredits()
-  );
-
-  const [mediaReviews, setMediaReviews] = useState(
-    MediaDetailPageStore.getMediaReviews()
-  );
-
-  const [mediaExternalIDs, setMediaExternalIDs] = useState(
-    MediaDetailPageStore.getMediaExternalIDs()
-  );
-
   const onMediaDetailsChange = () => {
     setMediaDetails(MediaDetailPageStore.getMediaDetails());
   };
 
-  const onMediaCreditsChange = () => {
-    setMediaCredits(MediaDetailPageStore.getMediaCredits());
-  };
-
-  const onMediaReviewsChange = () => {
-    setMediaReviews(MediaDetailPageStore.getMediaReviews());
-  };
-
-  const onMediaExternalIDsChange = () => {
-    setMediaExternalIDs(MediaDetailPageStore.getMediaExternalIDs());
-  };
-
   useEffect(() => {
     MediaDetailPageStore.addChangeListener(onMediaDetailsChange);
-    MediaDetailPageStore.addChangeListener(onMediaCreditsChange);
-    MediaDetailPageStore.addChangeListener(onMediaReviewsChange);
-    MediaDetailPageStore.addChangeListener(onMediaExternalIDsChange);
     if (
       MediaDetailPageStore.getMediaDetails() &&
       mediaId !== MediaDetailPageStore.getMediaDetails().id
@@ -64,9 +37,6 @@ function MediaDetailPage(props) {
     }
     return () => {
       MediaDetailPageStore.removeChangeListner(onMediaDetailsChange);
-      MediaDetailPageStore.removeChangeListner(onMediaCreditsChange);
-      MediaDetailPageStore.removeChangeListner(onMediaReviewsChange);
-      MediaDetailPageStore.removeChangeListner(onMediaExternalIDsChange);
     };
   }, [mediaType, mediaId]);
 
@@ -91,25 +61,11 @@ function MediaDetailPage(props) {
             ) : (
               <MediaDetailsCollection mediaId={mediaId} />
             )}
-            {mediaCredits &&
-            (mediaCredits.cast?.length > 0 || mediaCredits.crew?.length > 0) ? (
-              <MediaDetailsCredits mediaId={mediaId} />
-            ) : (
-              <></>
-            )}
-            {mediaReviews && mediaReviews.results?.length > 0 ? (
-              <MediaDetailReviews mediaId={mediaId} />
-            ) : (
-              <></>
-            )}
+            <MediaDetailsCredits mediaId={mediaId} />
+            <MediaDetailReviews mediaId={mediaId} />
           </div>
           <div className="col-12 col-sm-4 col-md-3 col-xl-2">
-            {(mediaExternalIDs && Object.keys(mediaExternalIDs).length > 0) ||
-            (mediaDetails && mediaDetails?.homepage) ? (
-              <MediaSocial mediaId={mediaId} />
-            ) : (
-              <></>
-            )}
+            <MediaSocial mediaId={mediaId} />
             <MediaDetailMeta mediaType={mediaType} mediaId={mediaId} />
           </div>
         </div>

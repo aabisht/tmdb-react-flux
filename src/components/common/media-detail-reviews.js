@@ -8,7 +8,7 @@ function MediaDetailReviews(props) {
 
   const mediaReviews = MediaDetailPageStore.getMediaReviews();
 
-  return mediaId === mediaReviews.id ? (
+  return mediaId === mediaReviews.id && mediaReviews.results?.length > 0 ? (
     <div className="media-reviews-wrapper media-detail-meta-item mb-4 mt-0">
       <h2 className="h3 title">Reviews</h2>
       {mediaReviews.results.map((item, index) => {
