@@ -96,6 +96,10 @@ Dispatcher.register((action) => {
   switch (action.actionType) {
     case actionType.LOAD_MEDIA_DETAIL:
       _mediaDetails = action.mediaDetails;
+      _mediaReviews = action.mediaReviews;
+      _mediaCredits = action.mediaCredits;
+      _mediaExternalIDs = action.mediaExternalIDs;
+      _mediaVideos = action.mediaVideo;
       mediaDetailPageStore.emitChange();
       break;
     case actionType.LOAD_MEDIA_VIDEO:

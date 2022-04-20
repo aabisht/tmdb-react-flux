@@ -1,47 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import ReactTooltip from "react-tooltip";
 import MediaDetailPageStore from "../../stores/mediaDetailPageStore";
-import * as mediaDetailPageAction from "../../actions/mediaDetailPageAction";
 
 function MediaSocial(props) {
-  const [mediaExternalIDs, setMediaExternalIDs] = useState(
-      MediaDetailPageStore.getMediaExternalIDs()
-    ),
-    [mediaDetails, setMediaDetails] = useState(
-      MediaDetailPageStore.getMediaDetails()
-    ),
-    mediaType = props.mediaType,
-    mediaId = props.mediaId;
-
-  useEffect(() => {
-    MediaDetailPageStore.addChangeListener(onMediaExternalIDsChange);
-    MediaDetailPageStore.addChangeListener(onMediaDetailsChange);
-    if (
-      MediaDetailPageStore.getMediaExternalIDs() &&
-      mediaId !== MediaDetailPageStore.getMediaExternalIDs().id
-    )
-      mediaDetailPageAction.loadMediaExternalIds(mediaType, mediaId);
-    return () => {
-      MediaDetailPageStore.removeChangeListner(onMediaDetailsChange);
-      MediaDetailPageStore.removeChangeListner(onMediaExternalIDsChange);
-    };
-  }, [mediaType, mediaId]);
-
-  const onMediaExternalIDsChange = () => {
-    setMediaExternalIDs(MediaDetailPageStore.getMediaExternalIDs());
-  };
-
-  const onMediaDetailsChange = () => {
-    setMediaDetails(MediaDetailPageStore.getMediaDetails());
-  };
+  const mediaExternalIDs = MediaDetailPageStore.getMediaExternalIDs(),
+    mediaDetails = MediaDetailPageStore.getMediaDetails(),
+    mediaId = parseInt(props.mediaId);
 
   ReactTooltip.rebuild();
 
   return (
     <>
-      {(mediaExternalIDs && Object.keys(mediaExternalIDs).length > 0) ||
-      (mediaDetails && Object.keys(mediaDetails).length > 0) ? (
+      {mediaId === mediaExternalIDs.id && mediaId === mediaDetails.id ? (
         <>
           <div className="external-ids-wrapper">
             <ul className="social-list list-unstyled d-flex align-content-center justify-content-start">
@@ -140,7 +111,6 @@ function MediaSocial(props) {
 }
 
 MediaSocial.prototype = {
-  mediaType: PropTypes.string.required,
   mediaId: PropTypes.string.required,
 };
 

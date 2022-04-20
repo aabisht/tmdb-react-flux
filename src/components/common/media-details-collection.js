@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import MediaDetailPageStore from "../../stores/mediaDetailPageStore";
 import banner_path from "../../assets/banner-path-not-found.jpg";
@@ -7,25 +7,11 @@ import poster_path from "../../assets/poster-path-not-found.jpg";
 import apiConstants from "../../api/apiConstants";
 
 function MediaDetailsCollection(props) {
-  const [mediaDetails, setMediaDetails] = useState(
-    MediaDetailPageStore.getMediaDetails()
-  );
-  const mediaType = props.mediaType;
+  const mediaDetails = MediaDetailPageStore.getMediaDetails();
   const mediaId = parseInt(props.mediaId);
 
-  const onMediaDetailsChange = () => {
-    setMediaDetails(MediaDetailPageStore.getMediaDetails());
-  };
-
-  useEffect(() => {
-    MediaDetailPageStore.addChangeListener(onMediaDetailsChange);
-    return () => {
-      MediaDetailPageStore.removeChangeListner(onMediaDetailsChange);
-    };
-  }, [mediaType, mediaId]);
-
   return mediaDetails &&
-    Object.keys(mediaDetails).length > 0 &&
+    mediaDetails?.id === mediaId &&
     mediaDetails.belongs_to_collection ? (
     <div className="media-detail-collection-wrapper mb-4">
       <div className="media-detail-collection-banner-img-wrapper">
@@ -81,7 +67,6 @@ function MediaDetailsCollection(props) {
 }
 
 MediaDetailsCollection.prototype = {
-  mediaType: PropTypes.string.required,
   mediaId: PropTypes.string.required,
 };
 

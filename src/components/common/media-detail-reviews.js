@@ -1,37 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import MediaDetailPageStore from "../../stores/mediaDetailPageStore";
 import ReviewCard from "./review-card";
-import * as mediaDetailPageAction from "../../actions/mediaDetailPageAction";
-// import TabView from "./tab-view";
-// import CreditsCard from "./credits-card";
-// import apiConstants from "../../api/apiConstants";
 
-function MediaDetailsReviews(props) {
-  const mediaType = props.mediaType;
+function MediaDetailReviews(props) {
   const mediaId = parseInt(props.mediaId);
 
-  const [mediaReviews, setMediaReviews] = useState(
-    MediaDetailPageStore.getMediaReviews()
-  );
+  const mediaReviews = MediaDetailPageStore.getMediaReviews();
 
-  const onMediaReviewsChange = () => {
-    setMediaReviews(MediaDetailPageStore.getMediaReviews());
-  };
-
-  useEffect(() => {
-    MediaDetailPageStore.addChangeListener(onMediaReviewsChange);
-    if (
-      MediaDetailPageStore.getMediaReviews() &&
-      mediaId !== MediaDetailPageStore.getMediaReviews().id
-    )
-      mediaDetailPageAction.loadMediaReviews(mediaType, mediaId);
-    return () => {
-      MediaDetailPageStore.removeChangeListner(onMediaReviewsChange);
-    };
-  }, [mediaType, mediaId]);
-
-  return mediaReviews.results && mediaReviews.results.length > 0 ? (
+  return mediaId === mediaReviews.id ? (
     <div className="media-reviews-wrapper media-detail-meta-item mb-4 mt-0">
       <h2 className="h3 title">Reviews</h2>
       {mediaReviews.results.map((item, index) => {
@@ -54,9 +31,8 @@ function MediaDetailsReviews(props) {
   );
 }
 
-MediaDetailsReviews.prototype = {
-  mediaType: PropTypes.string.required,
+MediaDetailReviews.prototype = {
   mediaId: PropTypes.string.required,
 };
 
-export default MediaDetailsReviews;
+export default MediaDetailReviews;

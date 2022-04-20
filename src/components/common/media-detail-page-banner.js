@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import ReactTooltip from "react-tooltip";
 import StarRatings from "react-star-ratings";
@@ -11,24 +11,11 @@ import VideoBanner from "./video-banner";
 import banner_path from "../../assets/banner-not-found-detail.png";
 import poster_path from "../../assets/poster-path-not-found.jpg";
 
-function MediaDetailsPageBanner(props) {
-  const [mediaDetails, setMediaDetails] = useState(
-    MediaDetailPageStore.getMediaDetails()
-  );
+function MediaDetailPageBanner(props) {
+  const mediaDetails = MediaDetailPageStore.getMediaDetails();
 
   const mediaType = props.mediaType;
   const mediaId = parseInt(props.mediaId);
-
-  const onMediaDetailsChange = () => {
-    setMediaDetails(MediaDetailPageStore.getMediaDetails());
-  };
-
-  useEffect(() => {
-    MediaDetailPageStore.addChangeListener(onMediaDetailsChange);
-    return () => {
-      MediaDetailPageStore.removeChangeListner(onMediaDetailsChange);
-    };
-  }, [mediaType, mediaId]);
 
   const oldDate = moment().add(-30, "d");
   const releaseDate = moment(
@@ -42,7 +29,7 @@ function MediaDetailsPageBanner(props) {
 
   const isNew = releaseDate >= oldDate && releaseDate <= currentDate;
 
-  return mediaDetails && Object.keys(mediaDetails).length > 0 ? (
+  return mediaDetails && mediaDetails?.id === mediaId ? (
     <div className="page-banner">
       <div className="page-banner-wrapper">
         <div className="page-banner-bg-wrapper">
@@ -69,7 +56,6 @@ function MediaDetailsPageBanner(props) {
               className="banner-not-found page-banner-img-bg"
             />
           )}
-
           <VideoBanner mediaType={mediaType} mediaId={mediaId} />
           <div className="page-banner-overlay-bg"></div>
         </div>
@@ -234,9 +220,9 @@ function MediaDetailsPageBanner(props) {
   );
 }
 
-MediaDetailsPageBanner.prototype = {
+MediaDetailPageBanner.prototype = {
   mediaType: PropTypes.string.required,
   mediaId: PropTypes.string.required,
 };
 
-export default MediaDetailsPageBanner;
+export default MediaDetailPageBanner;

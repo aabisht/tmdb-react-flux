@@ -14,6 +14,11 @@
     $full-page-loader-bg-color,
     $full-page-loader-opacity
   );
+  display: none;
+
+  &.loader-active {
+    display: flex;
+  }
 
   .loader-image {
     -webkit-animation-name: loaderFadeIn;

@@ -23,13 +23,14 @@ function TvSeasonList(props) {
 
   useEffect(() => {
     MediaDetailPageStore.addChangeListener(onTvSeasonListChange);
-    // configurationAction.fullPageLoaderFlag(true);
+    // if (props.loader !== true) configurationAction.fullPageLoaderFlag(true);
     mediaDetailPageAction.loadTVSeasonEpisodeList(
       mediaId,
-      season_number,
-      () => {
-        // configurationAction.fullPageLoaderFlag(false);
-      }
+      season_number
+      // () => {
+      //   if (props.loader === true)
+      //     configurationAction.fullPageLoaderFlag(false);
+      // }
     );
     return () => {
       MediaDetailPageStore.removeChangeListner(onTvSeasonListChange);

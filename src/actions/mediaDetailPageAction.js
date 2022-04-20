@@ -10,14 +10,26 @@ export const loadMediaData = (mediaType, mediaId, callbackFunction) => {
   const pArray = [];
   if (mediaType === apiConstants.MEDIA_TV) {
     pArray.push(tvApi.getDetails(mediaId));
+    pArray.push(tvApi.getCredits(mediaId));
+    pArray.push(tvApi.getReviews(mediaId));
+    pArray.push(tvApi.getExternalIDs(mediaId));
+    pArray.push(tvApi.getVideos(mediaId));
   } else {
     pArray.push(moviesApi.getDetails(mediaId));
+    pArray.push(moviesApi.getCredits(mediaId));
+    pArray.push(moviesApi.getReviews(mediaId));
+    pArray.push(moviesApi.getExternalIDs(mediaId));
+    pArray.push(moviesApi.getVideos(mediaId));
   }
 
   return forkJoin(pArray).subscribe((mediaData) => {
     dispatcher.dispatch({
       actionType: MediaDetailPageActionTypes.LOAD_MEDIA_DETAIL,
       mediaDetails: mediaData[0],
+      mediaCredits: mediaData[1],
+      mediaReviews: mediaData[2],
+      mediaExternalIDs: mediaData[3],
+      mediaVideo: mediaData[4],
     });
 
     if (callbackFunction) {

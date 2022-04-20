@@ -1,35 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import MediaDetailPageStore from "../../stores/mediaDetailPageStore";
-import * as mediaDetailPageAction from "../../actions/mediaDetailPageAction";
 import TabView from "./tab-view";
 import CreditsCard from "./credits-card";
 import apiConstants from "../../api/apiConstants";
 
 function MediaDetailsCredits(props) {
-  const mediaType = props.mediaType;
   const mediaId = parseInt(props.mediaId);
   const intCardVisible = 7;
 
-  const [mediaCredits, setMediaCredits] = useState(
-    MediaDetailPageStore.getMediaCredits()
-  );
-
-  const onMediaCreditsChange = () => {
-    setMediaCredits(MediaDetailPageStore.getMediaCredits());
-  };
-
-  useEffect(() => {
-    MediaDetailPageStore.addChangeListener(onMediaCreditsChange);
-    if (
-      MediaDetailPageStore.getMediaCredits() &&
-      mediaId !== MediaDetailPageStore.getMediaCredits().id
-    )
-      mediaDetailPageAction.loadMediaCredits(mediaType, mediaId);
-    return () => {
-      MediaDetailPageStore.removeChangeListner(onMediaCreditsChange);
-    };
-  }, [mediaType, mediaId]);
+  const mediaCredits = MediaDetailPageStore.getMediaCredits();
 
   const toggleCredit = (event) => {
     const cartItem =
@@ -97,7 +77,7 @@ function MediaDetailsCredits(props) {
     );
   };
 
-  return mediaCredits && Object.keys(mediaCredits).length > 0 ? (
+  return mediaCredits && mediaId === mediaCredits.id ? (
     <TabView>
       {renderCreditsTabs("Cast", mediaCredits?.cast)}
       {renderCreditsTabs("Crew", mediaCredits?.crew)}
@@ -108,7 +88,6 @@ function MediaDetailsCredits(props) {
 }
 
 MediaDetailsCredits.prototype = {
-  mediaType: PropTypes.string.required,
   mediaId: PropTypes.string.required,
 };
 

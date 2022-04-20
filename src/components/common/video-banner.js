@@ -1,15 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import YouTube from "react-youtube";
 import MediaDetailPageStore from "../../stores/mediaDetailPageStore";
-import * as mediaDetailPageAction from "../../actions/mediaDetailPageAction";
 
 function VideoBanner(props) {
-  const mediaType = props.mediaType;
   const mediaId = parseInt(props.mediaId);
-  const [mediaVideo, setMediaVideo] = useState(
-    MediaDetailPageStore.getMediaVideos()
-  );
+  const mediaVideo = MediaDetailPageStore.getMediaVideos();
   const [videoBannerClass, setVideoBannerClass] = useState(
     "page-banner-video-bg"
   );
@@ -32,18 +28,6 @@ function VideoBanner(props) {
     },
   };
 
-  useEffect(() => {
-    MediaDetailPageStore.addChangeListener(onMediaVideoChange);
-    mediaDetailPageAction.loadMediaVideo(mediaType, mediaId);
-    return () => {
-      MediaDetailPageStore.removeChangeListner(onMediaVideoChange);
-    };
-  }, [mediaType, mediaId]);
-
-  const onMediaVideoChange = () => {
-    setMediaVideo(MediaDetailPageStore.getMediaVideos());
-  };
-
   const onVideoReady = (event) => {
     event.target.playVideo();
     setVideoBannerClass("page-banner-video-bg hide-image");
@@ -54,11 +38,11 @@ function VideoBanner(props) {
     setVideoBannerClass("page-banner-video-bg");
   };
 
-  return mediaVideo.length > 0 ? (
+  return mediaId === mediaVideo.id && mediaVideo.results?.length > 0 ? (
     <div className={videoBannerClass}>
       <div className="page-banner-video-foreground">
         <YouTube
-          videoId={mediaVideo[0].key}
+          videoId={mediaVideo.results[0].key}
           opts={opts}
           onReady={onVideoReady}
           onEnd={onVideoEnd}
@@ -71,7 +55,6 @@ function VideoBanner(props) {
 }
 
 VideoBanner.prototype = {
-  mediaType: PropTypes.string.required,
   mediaId: PropTypes.string.required,
 };
 

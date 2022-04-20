@@ -1,31 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import MediaDetailPageStore from "../../stores/mediaDetailPageStore";
 import DropDown from "./dropdown";
 import TvSeasonList from "../common/tv-season-list";
 
 function TvSeason(props) {
-  const mediaType = props.mediaType;
   const mediaId = parseInt(props.mediaId);
 
-  const [mediaDetails, setMediaDetails] = useState(
-    MediaDetailPageStore.getMediaDetails()
-  );
+  const mediaDetails = MediaDetailPageStore.getMediaDetails();
 
   const [selectedSeason, setSelectedSeason] = useState(
     mediaDetails.seasons[mediaDetails.seasons.length - 1]
   );
-
-  const onMediaDetailsChange = () => {
-    setMediaDetails(MediaDetailPageStore.getMediaDetails());
-  };
-
-  useEffect(() => {
-    MediaDetailPageStore.addChangeListener(onMediaDetailsChange);
-    return () => {
-      MediaDetailPageStore.removeChangeListner(onMediaDetailsChange);
-    };
-  }, [mediaType, mediaId]);
 
   const handleSeasonChange = (season) => {
     setSelectedSeason(season);
@@ -35,7 +21,9 @@ function TvSeason(props) {
       .classList.remove("show");
   };
 
-  return mediaDetails && mediaDetails.seasons.length > 0 ? (
+  return mediaDetails &&
+    mediaDetails?.id === mediaId &&
+    mediaDetails.seasons.length > 0 ? (
     <div className="tv-seadon-wrapper">
       <div className="mb-3">
         <DropDown
@@ -88,7 +76,6 @@ function TvSeason(props) {
 
 TvSeason.prototype = {
   mediaId: PropTypes.string.required,
-  mediaType: PropTypes.string.required,
 };
 
 export default TvSeason;

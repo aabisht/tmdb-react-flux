@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Route, Switch } from "react-router-dom";
 import Header from "./components/common/header";
 import FullPageLoader from "./components/common/full-page-loader";
@@ -19,24 +19,8 @@ import ReactTooltip from "react-tooltip";
 import ConfigurationStores from "./stores/configurationStores";
 
 function App() {
-  const [appClass, setAppClass] = useState("");
-
-  const [showLoaderFlag, setShowLoaderFlag] = useState(
-    ConfigurationStores.getFullPageLoaderValue()
-  );
-  const onShowLoaderFlagChange = () => {
-    setShowLoaderFlag(ConfigurationStores.getFullPageLoaderValue());
-  };
-
-  useEffect(() => {
-    ConfigurationStores.addChangeListener(onShowLoaderFlagChange);
-    showLoaderFlag ? setAppClass("loader-active") : setAppClass("");
-    return () =>
-      ConfigurationStores.removeChangeListner(onShowLoaderFlagChange);
-  }, [showLoaderFlag]);
-
   return (
-    <div id="tmdbAppWrapper" className={appClass}>
+    <div id="tmdbAppWrapper">
       <Header />
       <div className="body-container">
         <div className="body-container-wrapper">

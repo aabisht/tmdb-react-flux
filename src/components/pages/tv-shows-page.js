@@ -32,7 +32,9 @@ function TVShowsPage() {
 
   useEffect(() => {
     TvShowPageStores.addChangeListener(onTvShowPageTrendingDataChange);
-    if (tvShowPageTrendingData.length === 0) loadTVShowPageTrendingData();
+    if (tvShowPageTrendingData.length === 0) {
+      loadTVShowPageTrendingData();
+    }
     return () =>
       TvShowPageStores.removeChangeListner(onTvShowPageTrendingDataChange);
   }, [tvShowPageTrendingData.length]);

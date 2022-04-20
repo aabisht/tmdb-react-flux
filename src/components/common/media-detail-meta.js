@@ -1,34 +1,20 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import MediaDetailPageStore from "../../stores/mediaDetailPageStore";
 import apiConstants from "../../api/apiConstants";
 import ConfigurationImage from "./configuration-image";
 import EpisodeAirCard from "./episode-air-card";
 
-function MediaDetailsMeta(props) {
-  const [mediaDetails, setMediaDetails] = useState(
-    MediaDetailPageStore.getMediaDetails()
-  );
-
-  const onMediaDetailsChange = () => {
-    setMediaDetails(MediaDetailPageStore.getMediaDetails());
-  };
-
-  const mediaType = props.mediaType;
+function MediaDetailMeta(props) {
+  const mediaDetails = MediaDetailPageStore.getMediaDetails();
   const mediaId = parseInt(props.mediaId);
-
-  useEffect(() => {
-    MediaDetailPageStore.addChangeListener(onMediaDetailsChange);
-    return () => {
-      MediaDetailPageStore.removeChangeListner(onMediaDetailsChange);
-    };
-  }, [mediaType, mediaId]);
+  const mediaType = props.mediaType;
 
   const numberWithCommas = (number) => {
     return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };
 
-  return mediaDetails && Object.keys(mediaDetails).length > 0 ? (
+  return mediaId === mediaDetails.id ? (
     <div className="media-detail-meta-wrapper">
       {mediaDetails.networks && mediaDetails.networks.length > 0 ? (
         <div className="media-detail-meta-item">
@@ -197,9 +183,9 @@ function MediaDetailsMeta(props) {
   );
 }
 
-MediaDetailsMeta.prototype = {
+MediaDetailMeta.prototype = {
   mediaType: PropTypes.string.required,
   mediaId: PropTypes.string.required,
 };
 
-export default MediaDetailsMeta;
+export default MediaDetailMeta;
