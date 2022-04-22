@@ -1,21 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import DropDown from "./dropdown";
-import LanguagePreferences from "./language-preferences";
 import logo from "../../assets/logo.svg";
 import HeaderSearch from "./header-search";
 import LoginDropdown from "./login-dropdown";
 import HeaderAccountDropdown from "./header-account-dropdown";
 import AuthenticationStores from "../../stores/authenticationStores";
-import ConfigurationStores from "../../stores/configurationStores";
 import * as authenticationAction from "../../actions/authenticationAction";
-import * as configurationAction from "../../actions/configurationAction";
 
 function Header() {
-  const location = useLocation();
-  const [apiConfigurations, setApiConfigurations] = useState(
-    ConfigurationStores.getAPIConfiguration()
-  );
+  const location = useLocation(),
+    defaultHeaderContainerClass = "header-container-wrapper",
+    [headerContainerClass, setHeaderContainerClass] = useState(
+      defaultHeaderContainerClass
+    );
 
   const isCurrentURL = (url) => {
     return location.pathname.toLowerCase() === url.toLowerCase();
@@ -27,52 +25,23 @@ function Header() {
     sessionStorage.getItem("sessionData")
   );
 
-  const [defaultLanguage, setDefaultLanguage] = useState(
-    ConfigurationStores.getDefaultLanguage()
-  );
-
-  const onApiConfigurationsChange = () => {
-    setApiConfigurations(ConfigurationStores.getAPIConfiguration());
-  };
-
   if (!isUserLoggedInFlag && sessionStorageSession?.success) {
     authenticationAction.isUserLoggedIn(true);
     authenticationAction.createSessionWithSavedSession(sessionStorageSession);
   }
 
-  useEffect(() => {
-    ConfigurationStores.addChangeListener(onDefaultLanguageChange);
-    if (defaultLanguage) configurationAction.loadGenres(defaultLanguage);
-    return () =>
-      ConfigurationStores.removeChangeListner(onDefaultLanguageChange);
-  }, [defaultLanguage]);
-
-  const onDefaultLanguageChange = () => {
-    setDefaultLanguage(ConfigurationStores.getDefaultLanguage());
-  };
-
-  useEffect(() => {
-    ConfigurationStores.addChangeListener(onApiConfigurationsChange);
-    if (!apiConfigurations.images) {
-      configurationAction.loadAPIConfiguration();
-    }
-    return () => {
-      ConfigurationStores.removeChangeListner(onApiConfigurationsChange);
-    };
-  }, [apiConfigurations.images]);
-
   window.addEventListener("scroll", () => {
-    const headerElement = document.getElementById("headerContainer");
-    if (headerElement && window.scrollY > headerElement.offsetHeight) {
-      headerElement.classList.add("header-scrolled");
-    } else {
-      headerElement.classList.remove("header-scrolled");
-    }
+    document.getElementById("headerContainer") &&
+    window.scrollY > document.getElementById("headerContainer").offsetHeight
+      ? setHeaderContainerClass(
+          defaultHeaderContainerClass + " header-scrolled"
+        )
+      : setHeaderContainerClass(defaultHeaderContainerClass);
   });
 
   return (
     <div className="header-container">
-      <div className="header-container-wrapper" id="headerContainer">
+      <div className={headerContainerClass} id="headerContainer">
         <div className="container">
           <div className="align-items-center d-flex header-menu-item-wrapper justify-content-between">
             <div className="header-logo-menu-wrapper d-flex align-items-center">
@@ -141,7 +110,7 @@ function Header() {
                 <li className="nav-item list-inline-item">
                   <HeaderSearch />
                 </li>
-                <li className="nav-item list-inline-item">
+                {/* <li className="nav-item list-inline-item">
                   <DropDown
                     dropdownText={[
                       <span
@@ -157,7 +126,7 @@ function Header() {
                     dropdownPosition="right"
                     dropdownTextClass="link-text"
                   />
-                </li>
+                </li> */}
                 {/* <li className="nav-item list-inline-item">
                   <DropDown
                     dropdownText={[

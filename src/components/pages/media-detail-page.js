@@ -40,6 +40,8 @@ function MediaDetailPage(props) {
     };
   }, [mediaType, mediaId]);
 
+  console.log(mediaId);
+
   return mediaDetails &&
     Object.keys(mediaDetails).length > 0 &&
     mediaDetails.id === mediaId ? (

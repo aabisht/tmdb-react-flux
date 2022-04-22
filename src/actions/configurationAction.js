@@ -4,15 +4,13 @@ import * as configurationApi from "../api/configuration";
 import * as genresApi from "../api/genres";
 import { forkJoin } from "rxjs";
 
-export const loadAPIConfiguration = async () => {
-  await configurationApi
-    .getAPIConfiguration()
-    .then(async (api_configurations) => {
-      await dispatcher.dispatch({
-        actionType: ConfigurationActionTypes.LOAD_API_CONFIGURATIONS,
-        api_configurations: api_configurations,
-      });
+export const loadAPIConfiguration = () => {
+  return configurationApi.getAPIConfiguration().then((api_configurations) => {
+    dispatcher.dispatch({
+      actionType: ConfigurationActionTypes.LOAD_API_CONFIGURATIONS,
+      api_configurations: api_configurations,
     });
+  });
 };
 
 export const loadCountries = () => {
@@ -123,12 +121,13 @@ export const loadDefaultLanguage = (defaultLanguage) => {
 };
 
 export const loadGenres = (defaultLang) => {
-  const movieGenres = genresApi.getGenres("movie", defaultLang);
-  const tvGenres = genresApi.getGenres("tv", defaultLang);
-  const pArray = [movieGenres, tvGenres];
+  const pArray = [
+    genresApi.getGenres("movie", defaultLang),
+    genresApi.getGenres("tv", defaultLang),
+  ];
   let _genres = [];
 
-  return forkJoin(pArray).subscribe((genres) => {
+  return Promise.all(pArray).then((genres) => {
     _genres.push({
       type: "movie",
       data: genres[0],
