@@ -2,8 +2,8 @@ import React from "react";
 import { NavLink, useHistory, useLocation } from "react-router-dom";
 import AuthenticationStores from "../../stores/authenticationStores";
 import AccountStores from "../../stores/accountStores";
-import ConfigurationStores from "../../stores/configurationStores";
-import * as configurationAction from "../../actions/configurationAction";
+// import ConfigurationStores from "../../stores/configurationStores";
+// import * as configurationAction from "../../actions/configurationAction";
 import * as authenticationAction from "../../actions/authenticationAction";
 import apiConstants from "../../api/apiConstants";
 import ConfigurationImage from "./configuration-image";
@@ -16,15 +16,15 @@ function HeaderAccountDropdown() {
     location.pathname.toLowerCase() === "/login" ? "/" : location.pathname;
 
   const userLogout = () => {
-    if (!ConfigurationStores.getFullPageLoaderValue())
-      configurationAction.fullPageLoaderFlag(true);
+    // if (!ConfigurationStores.getFullPageLoaderValue())
+    //   configurationAction.fullPageLoaderFlag(true);
     const session_id = AuthenticationStores.getSessionData().session_id;
     authenticationAction.deleteSession(session_id).then(() => {
       sessionStorage.removeItem("accountData");
       sessionStorage.removeItem("sessionData");
       authenticationAction.isUserLoggedIn(false);
-      if (ConfigurationStores.getFullPageLoaderValue())
-        configurationAction.fullPageLoaderFlag(false);
+      // if (ConfigurationStores.getFullPageLoaderValue())
+      //   configurationAction.fullPageLoaderFlag(false);
       history.push(routeTo);
     });
   };

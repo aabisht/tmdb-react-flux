@@ -2,20 +2,18 @@ import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import MediaDetailPageStore from "../../stores/mediaDetailPageStore";
 import * as mediaDetailPageAction from "../../actions/mediaDetailPageAction";
-// import * as configurationAction from "../../actions/configurationAction";
 import poster_path from "../../assets/poster-path-not-found.jpg";
 import ConfigurationImage from "./configuration-image";
 import apiConstants from "../../api/apiConstants";
 import Moment from "react-moment";
 import EpisodeAirCard from "./episode-air-card";
+import * as configurationAction from "../../actions/configurationAction";
 
 function TvSeasonList(props) {
   const mediaId = parseInt(props.mediaId);
   const season_number = parseInt(props.season_number);
 
-  const [tvSeasonList, setTvSeasonList] = useState(
-    MediaDetailPageStore.getTvSeasonEpisodeList()
-  );
+  const [tvSeasonList, setTvSeasonList] = useState({});
 
   const onTvSeasonListChange = () => {
     setTvSeasonList(MediaDetailPageStore.getTvSeasonEpisodeList());
@@ -23,15 +21,12 @@ function TvSeasonList(props) {
 
   useEffect(() => {
     MediaDetailPageStore.addChangeListener(onTvSeasonListChange);
-    // if (props.loader !== true) configurationAction.fullPageLoaderFlag(true);
-    mediaDetailPageAction.loadTVSeasonEpisodeList(
-      mediaId,
-      season_number
-      // () => {
-      //   if (props.loader === true)
-      //     configurationAction.fullPageLoaderFlag(false);
-      // }
-    );
+    configurationAction.fullPageLoaderFlag(true);
+    mediaDetailPageAction
+      .loadTVSeasonEpisodeList(mediaId, season_number)
+      .then(() => {
+        configurationAction.fullPageLoaderFlag(false);
+      });
     return () => {
       MediaDetailPageStore.removeChangeListner(onTvSeasonListChange);
     };

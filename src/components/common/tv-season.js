@@ -9,6 +9,8 @@ function TvSeason(props) {
 
   const mediaDetails = MediaDetailPageStore.getMediaDetails();
 
+  const mediaSeasons = [];
+
   const [selectedSeason, setSelectedSeason] = useState(
     mediaDetails.seasons[mediaDetails.seasons.length - 1]
   );
@@ -20,6 +22,12 @@ function TvSeason(props) {
       .querySelector(".season-dropdown-wrappper")
       .classList.remove("show");
   };
+
+  for (let i = 0; i < mediaDetails.seasons.length; i++) {
+    mediaSeasons.push(
+      mediaDetails.seasons[mediaDetails.seasons.length - 1 - i]
+    );
+  }
 
   return mediaDetails &&
     mediaDetails?.id === mediaId &&
@@ -43,7 +51,7 @@ function TvSeason(props) {
               className="list-unstyled dropdown-list-wrappper season-dropdown-list-wrappper"
               key="watchProviderDropdown"
             >
-              {mediaDetails.seasons.map((item, index) => {
+              {mediaSeasons.map((item, index) => {
                 let activeClass = item.id === selectedSeason.id ? "active" : "";
                 return (
                   <li key={index} className={activeClass}>

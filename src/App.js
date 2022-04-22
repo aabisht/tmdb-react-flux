@@ -16,7 +16,6 @@ import MediaDetailPage from "./components/pages/media-detail-page";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ReactTooltip from "react-tooltip";
-import ConfigurationStores from "./stores/configurationStores";
 
 function App() {
   return (
@@ -41,11 +40,7 @@ function App() {
         </div>
       </div>
       <MediaCardPopup />
-      {ConfigurationStores.getFullPageLoaderValue() ? (
-        <FullPageLoader />
-      ) : (
-        <></>
-      )}
+      <FullPageLoader />
       <ToastContainer pauseOnHover draggable hideProgressBar />
       <ReactTooltip
         place="top"

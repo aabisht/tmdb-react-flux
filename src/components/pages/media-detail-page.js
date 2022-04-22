@@ -14,7 +14,7 @@ import * as configurationAction from "../../actions/configurationAction";
 
 function MediaDetailPage(props) {
   const mediaType = props.match.params.type;
-  const mediaId = props.match.params.mediaId;
+  const mediaId = parseInt(props.match.params.mediaId);
 
   const [mediaDetails, setMediaDetails] = useState(
     MediaDetailPageStore.getMediaDetails()
@@ -31,7 +31,7 @@ function MediaDetailPage(props) {
       mediaId !== MediaDetailPageStore.getMediaDetails().id
     ) {
       configurationAction.fullPageLoaderFlag(true);
-      mediaDetailPageAction.loadMediaData(mediaType, mediaId, () => {
+      mediaDetailPageAction.loadMediaData(mediaType, mediaId).then(() => {
         configurationAction.fullPageLoaderFlag(false);
       });
     }
@@ -40,7 +40,9 @@ function MediaDetailPage(props) {
     };
   }, [mediaType, mediaId]);
 
-  return mediaDetails && Object.keys(mediaDetails).length > 0 ? (
+  return mediaDetails &&
+    Object.keys(mediaDetails).length > 0 &&
+    mediaDetails.id === mediaId ? (
     <>
       <div className="mb-4">
         <MediaDetailPageBanner

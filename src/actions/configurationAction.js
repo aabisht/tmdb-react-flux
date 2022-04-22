@@ -94,10 +94,12 @@ export const loadLanguagesWithPrimaryTranslations = () => {
 };
 
 export const fullPageLoaderFlag = (isFullPageLoaderFlag) => {
-  return dispatcher.dispatch({
-    actionType: ConfigurationActionTypes.LOAD_FULL_PAGE_LOADER,
-    isFullPageLoaderFlag,
-  });
+  if (!dispatcher._isDispatching) {
+    return dispatcher.dispatch({
+      actionType: ConfigurationActionTypes.LOAD_FULL_PAGE_LOADER,
+      isFullPageLoaderFlag,
+    });
+  }
 };
 
 export const mediaCardPopupToggle = (

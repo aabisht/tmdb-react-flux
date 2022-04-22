@@ -120,7 +120,7 @@ class ConfigurationStores extends EventEmitter {
 
 const configurationStores = new ConfigurationStores();
 
-Dispatcher.register((action) => {
+ConfigurationStores.dispatchToken = Dispatcher.register((action) => {
   switch (action.actionType) {
     case actionTypes.LOAD_API_CONFIGURATIONS:
       _api_configurations = action.api_configurations;

@@ -4,9 +4,8 @@ import * as moviesApi from "../api/movies";
 import * as tvApi from "../api/tv";
 import * as tvSeasonsApi from "../api/tvSeasons";
 import MediaDetailPageActionTypes from "./actionTypes/mediaDetailPageActionTypes";
-import { forkJoin } from "rxjs";
 
-export const loadMediaData = (mediaType, mediaId, callbackFunction) => {
+export const loadMediaData = (mediaType, mediaId) => {
   const pArray = [];
   if (mediaType === apiConstants.MEDIA_TV) {
     pArray.push(tvApi.getDetails(mediaId));
@@ -22,7 +21,7 @@ export const loadMediaData = (mediaType, mediaId, callbackFunction) => {
     pArray.push(moviesApi.getVideos(mediaId));
   }
 
-  return forkJoin(pArray).subscribe((mediaData) => {
+  return Promise.all(pArray).then((mediaData) => {
     dispatcher.dispatch({
       actionType: MediaDetailPageActionTypes.LOAD_MEDIA_DETAIL,
       mediaDetails: mediaData[0],
@@ -31,132 +30,80 @@ export const loadMediaData = (mediaType, mediaId, callbackFunction) => {
       mediaExternalIDs: mediaData[3],
       mediaVideo: mediaData[4],
     });
-
-    if (callbackFunction) {
-      callbackFunction();
-    }
   });
 };
 
-export const loadMediaVideo = (mediaType, mediaId, callbackFunction) => {
-  const pArray = [];
-  if (mediaType === apiConstants.MEDIA_TV) {
-    pArray.push(tvApi.getVideos(mediaId));
-  } else {
-    pArray.push(moviesApi.getVideos(mediaId));
-  }
+export const loadMediaVideo = (mediaType, mediaId) => {
+  const loadMediaVideoApi =
+    mediaType === apiConstants.MEDIA_TV
+      ? tvApi.getVideos(mediaId)
+      : moviesApi.getVideos(mediaId);
 
-  return forkJoin(pArray).subscribe((mediaData) => {
+  return loadMediaVideoApi.then((mediaVideo) => {
     dispatcher.dispatch({
       actionType: MediaDetailPageActionTypes.LOAD_MEDIA_VIDEO,
-      mediaVideo: mediaData[0].results,
+      mediaVideo,
     });
-
-    if (callbackFunction) {
-      callbackFunction();
-    }
   });
 };
 
-export const loadMediaExternalIds = (mediaType, mediaId, callbackFunction) => {
-  const pArray = [];
-  if (mediaType === apiConstants.MEDIA_TV) {
-    pArray.push(tvApi.getExternalIDs(mediaId));
-  } else {
-    pArray.push(moviesApi.getExternalIDs(mediaId));
-  }
-
-  return forkJoin(pArray).subscribe((mediaData) => {
+export const loadMediaExternalIds = (mediaType, mediaId) => {
+  const loadMediaExternalIdsApi =
+    mediaType === apiConstants.MEDIA_TV
+      ? tvApi.getExternalIDs(mediaId)
+      : moviesApi.getExternalIDs(mediaId);
+  return loadMediaExternalIdsApi.then((mediaExternalIDs) => {
     dispatcher.dispatch({
       actionType: MediaDetailPageActionTypes.LOAD_MEDIA_EXTERNAL_IDS,
-      mediaExternalIDs: mediaData[0],
+      mediaExternalIDs,
     });
-
-    if (callbackFunction) {
-      callbackFunction();
-    }
   });
 };
 
-export const loadMediaWatchProvider = (
-  mediaType,
-  mediaId,
-  callbackFunction
-) => {
-  const pArray = [];
-  if (mediaType === apiConstants.MEDIA_TV) {
-    pArray.push(tvApi.getWatchProviders(mediaId));
-  } else {
-    pArray.push(moviesApi.getWatchProviders(mediaId));
-  }
-
-  return forkJoin(pArray).subscribe((mediaData) => {
+export const loadMediaWatchProvider = (mediaType, mediaId) => {
+  const loadMediaWatchProviderApi =
+    mediaType === apiConstants.MEDIA_TV
+      ? tvApi.getWatchProviders(mediaId)
+      : moviesApi.getWatchProviders(mediaId);
+  return loadMediaWatchProviderApi.then((mediaWatchProviders) => {
     dispatcher.dispatch({
       actionType: MediaDetailPageActionTypes.LOAD_MEDIA_WATCH_PROVIDER,
-      mediaWatchProviders: mediaData[0],
+      mediaWatchProviders,
     });
-
-    if (callbackFunction) {
-      callbackFunction();
-    }
   });
 };
 
-export const loadMediaCredits = (mediaType, mediaId, callbackFunction) => {
-  const pArray = [];
-  if (mediaType === apiConstants.MEDIA_TV) {
-    pArray.push(tvApi.getCredits(mediaId));
-  } else {
-    pArray.push(moviesApi.getCredits(mediaId));
-  }
-
-  return forkJoin(pArray).subscribe((mediaData) => {
+export const loadMediaCredits = (mediaType, mediaId) => {
+  const loadMediaCreditsApi =
+    mediaType === apiConstants.MEDIA_TV
+      ? tvApi.getCredits(mediaId)
+      : moviesApi.getCredits(mediaId);
+  return loadMediaCreditsApi.then((mediaCredits) => {
     dispatcher.dispatch({
       actionType: MediaDetailPageActionTypes.LOAD_MEDIA_CREDITS,
-      mediaCredits: mediaData[0],
+      mediaCredits,
     });
-
-    if (callbackFunction) {
-      callbackFunction();
-    }
   });
 };
 
-export const loadMediaReviews = (mediaType, mediaId, callbackFunction) => {
-  const pArray = [];
-  if (mediaType === apiConstants.MEDIA_TV) {
-    pArray.push(tvApi.getReviews(mediaId));
-  } else {
-    pArray.push(moviesApi.getReviews(mediaId));
-  }
-
-  return forkJoin(pArray).subscribe((mediaReviews) => {
+export const loadMediaReviews = (mediaType, mediaId) => {
+  const loadMediaReviewsApi =
+    mediaType === apiConstants.MEDIA_TV
+      ? tvApi.getReviews(mediaId)
+      : moviesApi.getReviews(mediaId);
+  return loadMediaReviewsApi.then((mediaReviews) => {
     dispatcher.dispatch({
       actionType: MediaDetailPageActionTypes.LOAD_MEDIA_REVIEWS,
-      mediaReviews: mediaReviews[0],
+      mediaReviews,
     });
-
-    if (callbackFunction) {
-      callbackFunction();
-    }
   });
 };
 
-export const loadTVSeasonEpisodeList = (
-  tv_id,
-  season_number,
-  callbackFunction
-) => {
-  return forkJoin([tvSeasonsApi.getDetails(tv_id, season_number)]).subscribe(
-    (seasonDetail) => {
-      dispatcher.dispatch({
-        actionType: MediaDetailPageActionTypes.LOAD_TV_SEASON_EPISODE_LIST,
-        seasonDetail: seasonDetail[0],
-      });
-
-      if (callbackFunction) {
-        callbackFunction();
-      }
-    }
-  );
+export const loadTVSeasonEpisodeList = (tv_id, season_number) => {
+  return tvSeasonsApi.getDetails(tv_id, season_number).then((seasonDetail) => {
+    dispatcher.dispatch({
+      actionType: MediaDetailPageActionTypes.LOAD_TV_SEASON_EPISODE_LIST,
+      seasonDetail,
+    });
+  });
 };
