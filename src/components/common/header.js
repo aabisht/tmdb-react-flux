@@ -4,6 +4,7 @@ import DropDown from "./dropdown";
 import logo from "../../assets/logo.svg";
 import HeaderSearch from "./header-search";
 import LoginDropdown from "./login-dropdown";
+import LanguagePreferences from "./language-preferences";
 import HeaderAccountDropdown from "./header-account-dropdown";
 import AuthenticationStores from "../../stores/authenticationStores";
 import * as authenticationAction from "../../actions/authenticationAction";
@@ -110,7 +111,7 @@ function Header() {
                 <li className="nav-item list-inline-item">
                   <HeaderSearch />
                 </li>
-                {/* <li className="nav-item list-inline-item">
+                <li className="nav-item list-inline-item">
                   <DropDown
                     dropdownText={[
                       <span
@@ -124,9 +125,10 @@ function Header() {
                       <LanguagePreferences key="headerTranslateList" />,
                     ]}
                     dropdownPosition="right"
-                    dropdownTextClass="link-text"
+                    dropdownTextClass="link-text header-language-selector-text"
+                    dropdownListClass="header-language-selector-dropdown-wrappper"
                   />
-                </li> */}
+                </li>
                 {/* <li className="nav-item list-inline-item">
                   <DropDown
                     dropdownText={[

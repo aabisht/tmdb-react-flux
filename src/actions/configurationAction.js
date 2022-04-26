@@ -4,6 +4,23 @@ import * as configurationApi from "../api/configuration";
 import * as genresApi from "../api/genres";
 import { forkJoin } from "rxjs";
 
+export const loadDefaultConfigurationData = () => {
+  const pArray = [
+    configurationApi.getAPIConfiguration(),
+    configurationApi.getLanguages(),
+    configurationApi.getCountries(),
+  ];
+
+  return Promise.all(pArray).then((defaultConfigurationData) => {
+    dispatcher.dispatch({
+      actionType: ConfigurationActionTypes.LOAD_DEFAULT_CONFIGURATIONS,
+      api_configurations: defaultConfigurationData[0],
+      languages: defaultConfigurationData[1],
+      countries: defaultConfigurationData[2],
+    });
+  });
+};
+
 export const loadAPIConfiguration = () => {
   return configurationApi.getAPIConfiguration().then((api_configurations) => {
     dispatcher.dispatch({
@@ -136,7 +153,9 @@ export const loadGenres = (defaultLang) => {
       type: "tv",
       data: genres[1],
     });
-
+    _genres.push({
+      defaultLang,
+    });
     dispatcher.dispatch({
       actionType: ConfigurationActionTypes.LOAD_GENRES,
       genres: _genres,

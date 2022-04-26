@@ -39,15 +39,17 @@ function HomePage() {
 
     let _genres = [];
     genres.forEach((item) => {
-      item.data.genres.every((value) => {
-        let _genre = {
-          id: value.id,
-          name: value.name,
-          type: item.type,
-        };
+      if (item.data) {
+        item.data.genres.every((value) => {
+          let _genre = {
+            id: value.id,
+            name: value.name,
+            type: item.type,
+          };
 
-        return _genres.push(_genre);
-      });
+          return _genres.push(_genre);
+        });
+      }
     });
 
     if (homePageData.length === 0) loadGenresHomeData(_genres);

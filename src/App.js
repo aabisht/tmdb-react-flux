@@ -22,29 +22,37 @@ import * as configurationAction from "./actions/configurationAction";
 
 function App() {
   const [apiConfigurations, setApiConfigurations] = useState(
-    ConfigurationStores.getAPIConfiguration()
-  );
+      ConfigurationStores.getAPIConfiguration()
+    ),
+    [defaultLanguage, setDefaultLanguage] = useState(
+      ConfigurationStores.getDefaultLanguage()
+    );
 
   const onApiConfigurationsChange = () => {
     setApiConfigurations(ConfigurationStores.getAPIConfiguration());
   };
 
+  const onDefaultLanguageChange = () => {
+    setDefaultLanguage(ConfigurationStores.getDefaultLanguage());
+  };
+
   useEffect(() => {
     ConfigurationStores.addChangeListener(onApiConfigurationsChange);
+    ConfigurationStores.addChangeListener(onDefaultLanguageChange);
     if (!apiConfigurations.images) {
       configurationAction.fullPageLoaderFlag(true);
-      configurationAction.loadAPIConfiguration().then(() => {
-        configurationAction
-          .loadGenres(ConfigurationStores.getDefaultLanguage())
-          .then(() => {
-            configurationAction.fullPageLoaderFlag(false);
-          });
+      configurationAction.loadDefaultConfigurationData().then(() => {
+        configurationAction.fullPageLoaderFlag(false);
       });
     }
+    configurationAction.loadGenres(defaultLanguage).then(() => {
+      configurationAction.fullPageLoaderFlag(false);
+    });
     return () => {
       ConfigurationStores.removeChangeListner(onApiConfigurationsChange);
+      ConfigurationStores.removeChangeListner(onDefaultLanguageChange);
     };
-  }, [apiConfigurations]);
+  }, [apiConfigurations, defaultLanguage]);
 
   return (
     <div id="tmdbAppWrapper">

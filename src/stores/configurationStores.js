@@ -11,7 +11,9 @@ let _jobs = [];
 let _primary_translations = [];
 let _timezones = [];
 let _languages_primary_translations = [];
-let _defaultLanguage = window.navigator.language;
+let _defaultLanguage = sessionStorage.defaultLanguage
+  ? sessionStorage.defaultLanguage
+  : navigator.language || navigator.userLanguage;
 let _base_url = "";
 let _backdrop_sizes = [];
 let _logo_sizes = [];
@@ -122,6 +124,19 @@ const configurationStores = new ConfigurationStores();
 
 ConfigurationStores.dispatchToken = Dispatcher.register((action) => {
   switch (action.actionType) {
+    case actionTypes.LOAD_DEFAULT_CONFIGURATIONS:
+      _countries = action.countries;
+      _languages = action.languages;
+      _api_configurations = action.api_configurations;
+      _base_url = action.api_configurations.images.secure_base_url;
+      _backdrop_sizes = action.api_configurations.images.backdrop_sizes;
+      _logo_sizes = action.api_configurations.images.logo_sizes;
+      _poster_sizes = action.api_configurations.images.poster_sizes;
+      _profile_sizes = action.api_configurations.images.profile_sizes;
+      _still_sizes = action.api_configurations.images.still_sizes;
+      _change_keys = action.api_configurations.change_keys;
+      configurationStores.emitChange();
+      break;
     case actionTypes.LOAD_API_CONFIGURATIONS:
       _api_configurations = action.api_configurations;
       _base_url = action.api_configurations.images.secure_base_url;
@@ -131,7 +146,6 @@ ConfigurationStores.dispatchToken = Dispatcher.register((action) => {
       _profile_sizes = action.api_configurations.images.profile_sizes;
       _still_sizes = action.api_configurations.images.still_sizes;
       _change_keys = action.api_configurations.change_keys;
-      _api_configurationsCall = action.api_configurations_call_count;
       configurationStores.emitChange();
       break;
     case actionTypes.LOAD_COUNTRIES:

@@ -1,6 +1,10 @@
-.language-list-wrapper {
+.language-preferences-wrapper {
+  min-width: calculateRem($language-preferences-min-width);
+}
+
+.search-list-wrapper {
   height: 100%;
-  max-height: $language-list-wrapper-max-height;
+  max-height: $search-list-wrappe-max-height;
   overflow-x: hidden;
   overflow-y: auto;
 }
