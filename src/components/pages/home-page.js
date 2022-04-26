@@ -12,14 +12,15 @@ function HomePage() {
   window.scrollTo(0, 0);
 
   const [trendingMedia, setTrendingMedia] = useState(
-    TrendingStores.getTrendingMedia()
-  );
-
-  const [genres, setGenres] = useState(ConfigurationStores.getGenres());
-
-  const [homePageData, setHomePageData] = useState(
-    HomePageStores.getHomePageData()
-  );
+      TrendingStores.getTrendingMedia()
+    ),
+    [genres, setGenres] = useState(ConfigurationStores.getGenres()),
+    [homePageData, setHomePageData] = useState(
+      HomePageStores.getHomePageData()
+    ),
+    [defaultLanguage, setDefaultLanguage] = useState(
+      ConfigurationStores.getDefaultLanguage()
+    );
 
   useEffect(() => {
     TrendingStores.addChangeListener(onTrendingMediaChange);
@@ -36,6 +37,7 @@ function HomePage() {
   useEffect(() => {
     ConfigurationStores.addChangeListener(onGenresChange);
     HomePageStores.addChangeListener(onHomePageData);
+    ConfigurationStores.addChangeListener(onDefaultLanguageChange);
 
     let _genres = [];
     genres.forEach((item) => {
@@ -52,13 +54,18 @@ function HomePage() {
       }
     });
 
-    if (homePageData.length === 0) loadGenresHomeData(_genres);
+    if (
+      homePageData.length === 0 ||
+      homePageData[0]?.defaultLanguage !== defaultLanguage
+    )
+      loadGenresHomeData(_genres, defaultLanguage);
 
     return () => {
       ConfigurationStores.removeChangeListner(onGenresChange);
       HomePageStores.removeChangeListner(onHomePageData);
+      ConfigurationStores.removeChangeListner(onDefaultLanguageChange);
     };
-  }, [genres, homePageData]);
+  }, [genres, homePageData, defaultLanguage]);
 
   const onTrendingMediaChange = () => {
     setTrendingMedia(TrendingStores.getTrendingMedia());
@@ -70,6 +77,10 @@ function HomePage() {
 
   const onHomePageData = () => {
     setHomePageData(HomePageStores.getHomePageData());
+  };
+
+  const onDefaultLanguageChange = () => {
+    setDefaultLanguage(ConfigurationStores.getDefaultLanguage());
   };
 
   const getSilderTitle = (name, type) => {

@@ -1,18 +1,19 @@
 import dispatcher from "../appDispatcher";
 import * as discoverApi from "../api/discover";
-import { forkJoin } from "rxjs";
 import HomePageActionTypes from "./actionTypes/homePageActionTypes";
 
-export const loadGenresHomeData = (genresList) => {
+export const loadGenresHomeData = (genresList, defaultLanguage = "en-US") => {
   const pArray = [];
   genresList.forEach((item) => {
     const filter = {
       with_genres: item.id,
     };
-    pArray.push(discoverApi.getMediaDiscover(filter, item.type));
+    pArray.push(
+      discoverApi.getMediaDiscover(filter, item.type, defaultLanguage)
+    );
   });
 
-  return forkJoin(pArray).subscribe((data) => {
+  return Promise.all(pArray).then((data) => {
     let homeGenreSliderData = [];
     data.forEach((item, index) => {
       homeGenreSliderData.push({
@@ -20,6 +21,7 @@ export const loadGenresHomeData = (genresList) => {
         name: genresList[index].name,
         type: genresList[index].type,
         sliderData: item.results,
+        defaultLanguage,
       });
     });
 

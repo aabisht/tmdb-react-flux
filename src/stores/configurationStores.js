@@ -168,10 +168,6 @@ ConfigurationStores.dispatchToken = Dispatcher.register((action) => {
       _timezones = action.timezones;
       configurationStores.emitChange();
       break;
-    case actionTypes.LOAD_LANGUAGES_WITH_PRIMARY_TRANSLATIONS:
-      _languages_primary_translations = action.languagesWithPrimaryTranslations;
-      configurationStores.emitChange();
-      break;
     case actionTypes.LOAD_DEFAULT_LANGUAGE:
       _defaultLanguage = action.defaultLanguage;
       sessionStorage.setItem("defaultLanguage", action.defaultLanguage);

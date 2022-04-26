@@ -2,7 +2,6 @@ import dispatcher from "../appDispatcher";
 import ConfigurationActionTypes from "./actionTypes/configurationActionTypes";
 import * as configurationApi from "../api/configuration";
 import * as genresApi from "../api/genres";
-import { forkJoin } from "rxjs";
 
 export const loadDefaultConfigurationData = () => {
   const pArray = [
@@ -71,39 +70,6 @@ export const loadTimezones = () => {
     dispatcher.dispatch({
       actionType: ConfigurationActionTypes.LOAD_TIME_ZONE,
       timezones,
-    });
-  });
-};
-
-export const loadLanguagesWithPrimaryTranslations = () => {
-  const languages = configurationApi.getLanguages();
-  const primaryTranslations = configurationApi.getPrimaryTranslations();
-  const pArray = [languages, primaryTranslations];
-  let _languagesWithPrimaryTranslations = [];
-  let _lang = [];
-  return forkJoin(pArray).subscribe((languagesWithPrimaryTranslations) => {
-    _lang = languagesWithPrimaryTranslations[0];
-
-    _languagesWithPrimaryTranslations.push(
-      languagesWithPrimaryTranslations[1].map((item, index) => {
-        let lang = _lang.find(
-          ({ iso_639_1 }) => iso_639_1 === item.split("-")[0]
-        );
-
-        return {
-          english_name: lang.english_name,
-          iso_639_1: lang.iso_639_1,
-          name: lang.name,
-          primary_translations: item,
-          country_code: item.split("-")[1],
-          index: index,
-        };
-      })
-    );
-    dispatcher.dispatch({
-      actionType:
-        ConfigurationActionTypes.LOAD_LANGUAGES_WITH_PRIMARY_TRANSLATIONS,
-      languagesWithPrimaryTranslations: _languagesWithPrimaryTranslations[0],
     });
   });
 };
